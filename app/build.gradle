@@ -4,76 +4,108 @@ plugins {
 
 android {
     compileSdk 32
-
+    buildToolsVersion '28.0.3'
+    signingConfigs {
+        config {
+            keyAlias 'android'
+            keyPassword 'android'
+            storeFile file('platform.keystore')
+            storePassword 'android'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        release {
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
     defaultConfig {
         applicationId "com.android.myapplication"
-        minSdk 21
-        targetSdk 32
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName "V1.0.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.config
+        multiDexEnabled true
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //signingConfig signingConfigs.config
+            signingConfig signingConfigs.config
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    lintOptions {
+        abortOnError false
+    }
+    productFlavors {
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor(1, 'seconds')
+}
 
 dependencies {
-
-    implementation 'androidx.appcompat:appcompat:1.5.0'
-    implementation 'com.google.android.material:material:1.6.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
-    //    implementation 'com.android.support:design:28.0.0'
-    //    implementation 'com.android.support:appcompat-v7:25.3.1'
-    //    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    //    implementation 'com.autel:autel-sdk:2.0.11.81@aar'
-
-
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-
+//    implementation 'com.android.support:design:28.0.0'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-
-    /**
-     Working fine
-     */
+    //    implementation 'com.android.support:appcompat-v7:25.3.1'
+    implementation 'com.google.android.gms:play-services-maps:10.2.0'
+//    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.android.support:recyclerview-v7:25.3.1'
     implementation 'io.reactivex.rxjava2:rxjava:2.1.2'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     testImplementation 'junit:junit:4.12'
     implementation('com.squareup.okhttp3:okhttp:3.8.1')
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'com.amap.api:location:latest.integration'
-
-    /**
-     * uncommenting below dependencies will make build unsuccessful.so what you want todo doit carefully.
-     * */
+//    implementation 'com.autel:autel-sdk:2.0.11.81@aar'
 //    api(name: "autel-sdk", ext: "aar") {
 //        exclude module: 'okio'
 //        exclude module: 'okhttp'
 //    }
-//    implementation 'com.android.support:recyclerview-v7:25.3.1'
-//    implementation 'com.google.android.gms:play-services-maps:10.2.0'
-//    3D地图so及jar
-//    implementation 'com.amap.api:3dmap:latest.integration'
-//    定位功能
-//    implementation(name: 'libqxwz_release_v1.1.0', ext: 'aar')
+
+    implementation files('libs/autel-sdk-release.aar')
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //3D地图so及jar
+    implementation 'com.amap.api:3dmap:latest.integration'
+    //定位功能
+    //implementation 'com.amap.api:location:latest.integration'
+    implementation(name: 'libqxwz_release_v1.1.0', ext: 'aar')
+    //implementation 'com.google.code.gson:gson:2.8.6'
+
+    testImplementation "com.google.truth:truth:1.0.1"
+
+    androidTestImplementation "com.google.truth:truth:1.0.1"
+
+    androidTestImplementation 'androidx.test:core-ktx:1.5.0-alpha01'
+    implementation 'androidx.test.ext:junit-ktx:1.1.3'
+
+
 }

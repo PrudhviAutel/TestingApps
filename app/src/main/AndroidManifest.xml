@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.android.myapplication">
+    package="com.android.autelsdk">
 
     <application
         android:allowBackup="false"
@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.android.autelsdk.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".UsbBroadCastReceiver" android:exported="true">
+        <receiver android:name="com.android.autelsdk.UsbBroadCastReceiver" android:exported="true">
             <intent-filter>
                 <action android:name="com.autel.sdk.action.USB_ACCESSORY_ATTACHED" />
             </intent-filter>

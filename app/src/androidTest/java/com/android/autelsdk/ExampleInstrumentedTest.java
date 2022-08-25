@@ -1,4 +1,4 @@
-package com.android.myapplication;
+package com.android.autelsdk;
 
 import android.content.Context;
 

@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/autel robotics/master_Zero/app/src/main/res/drawable/button_border.xml" value="0.19" />
+        <entry key="..\:/autel robotics/master_Zero/app/src/main/res/drawable/ic_round_power_settings_new_24.xml" value="0.19" />
+        <entry key="..\:/autel robotics/master_Zero/app/src/main/res/layout/activity_fly_controller.xml" value="0.2734375" />
+        <entry key="..\:/autel robotics/master_Zero/app/src/main/res/layout/activity_main.xml" value="0.136" />
+        <entry key="..\:/autel robotics/master_Zero/app/src/main/res/layout/activity_remote_controller.xml" value="0.2604166666666667" />
+        <entry key="..\:/autel robotics/master_Zero/app/src/main/res/layout/newmain.xml" value="0.2734375" />
         <entry key="..\:/ea-omega/MyApplication2/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />
       </map>
     </option>

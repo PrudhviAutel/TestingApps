@@ -29,7 +29,11 @@
             android:label="Remote Controller"
             android:exported="false" />
         <activity
-            android:name="com.android.autelsdk.MainActivity"
+            android:name=".HomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.android.autelsdk.MainActivity2"
             android:label="SDK Tester"
             android:exported="true">
             <intent-filter>

@@ -8,7 +8,11 @@ import androidx.databinding.DataBindingUtil
 import com.android.autelsdk.BaseActivity
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.ActivityRemoteControllerBinding
-import com.android.autelsdk.databinding.DragonfishActivityRemoteControllerBinding
+//import com.android.autelsdk.R
+//import com.android.autelsdk.databinding.ActivityRemoteControllerBinding
+//import com.android.autelsdk.databinding.DragonfishActivityRemoteControllerBinding
+//import com.android.myapplication.R
+//import com.android.myapplication.databinding.ActivityRemoteControllerBinding
 import com.autel.sdk.product.BaseProduct
 import com.autel.sdk.remotecontroller.AutelRemoteController
 
@@ -23,7 +27,6 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
     }
 
     private fun handleListeners() {
-
     }
 
     override fun initController(product: BaseProduct?): AutelRemoteController? {

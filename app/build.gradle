@@ -103,7 +103,7 @@ dependencies {
     //定位功能
     //implementation 'com.amap.api:location:latest.integration'
     implementation(name: 'libqxwz_release_v1.1.0', ext: 'aar')
-    //implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     testImplementation "com.google.truth:truth:1.0.1"
 

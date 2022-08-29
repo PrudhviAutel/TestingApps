@@ -17,4 +17,7 @@ class RemoteControllerViewModel<AutelRemoteController>(
         return remoteControllerRepository.setLanguageTest(language)
     }
 
+    fun getLanguageTest () : MutableLiveData<Resource<RemoteControllerLanguage>> {
+        return remoteControllerRepository.getLanguageTest()
+    }
 }

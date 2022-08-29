@@ -8,4 +8,8 @@ interface RemoteControllerRepository {
 
     fun setLanguageTest(language: RemoteControllerLanguage) : MutableLiveData<Resource<String>>
 
+    fun getLanguageTest() : MutableLiveData<Resource<RemoteControllerLanguage>>
+
+
+
 }

@@ -60,7 +60,19 @@ class RemoteControllerRepositoryImpl<AutelRemoteController>(
     }
 
     override fun setRFPowerTest(rfPower: RFPower): MutableLiveData<Resource<String>> {
-        TODO("Not yet implemented")
+        var setLanguageTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.setRFPower(rfPower, object : CallbackWithNoParam {
+            override fun onFailure(rcError: AutelError) {
+                val errorMessage = "";
+                setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
+            }
+
+            override fun onSuccess() {
+                val successMessage = "";
+                setLanguageTestResult.postValue(Resource.Companion.success(successMessage))
+            }
+        })
+        return setLanguageTestResult
     }
 
     override fun getRFPowerTest(): MutableLiveData<Resource<RFPower>> {
@@ -79,7 +91,19 @@ class RemoteControllerRepositoryImpl<AutelRemoteController>(
     }
 
     override fun setTeacherStudentModeTest(teachingMode: TeachingMode): MutableLiveData<Resource<String>> {
-        TODO("Not yet implemented")
+        var setLanguageTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.setTeachingMode(teachingMode, object : CallbackWithNoParam {
+            override fun onFailure(rcError: AutelError) {
+                val errorMessage = "";
+                setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
+            }
+
+            override fun onSuccess() {
+                val successMessage = "";
+                setLanguageTestResult.postValue(Resource.Companion.success(successMessage))
+            }
+        })
+        return setLanguageTestResult
     }
 
     override fun getTeacherStudentModeTest(): MutableLiveData<Resource<TeachingMode>> {
@@ -98,7 +122,19 @@ class RemoteControllerRepositoryImpl<AutelRemoteController>(
     }
 
     override fun setParameterUnitTest(parameterUnit: RemoteControllerParameterUnit): MutableLiveData<Resource<String>> {
-        TODO("Not yet implemented")
+        var setLanguageTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.setParameterUnit(parameterUnit, object : CallbackWithNoParam {
+            override fun onFailure(rcError: AutelError) {
+                val errorMessage = "";
+                setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
+            }
+
+            override fun onSuccess() {
+                val successMessage = "";
+                setLanguageTestResult.postValue(Resource.Companion.success(successMessage))
+            }
+        })
+        return setLanguageTestResult
     }
 
     override fun getParameterUnitTest(): MutableLiveData<Resource<RemoteControllerParameterUnit>> {
@@ -117,7 +153,19 @@ class RemoteControllerRepositoryImpl<AutelRemoteController>(
     }
 
     override fun setRCCommandStickModeTest(commandStickMode: RemoteControllerCommandStickMode): MutableLiveData<Resource<String>> {
-        TODO("Not yet implemented")
+        var setLanguageTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.setCommandStickMode(commandStickMode, object : CallbackWithNoParam {
+            override fun onFailure(rcError: AutelError) {
+                val errorMessage = "";
+                setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
+            }
+
+            override fun onSuccess() {
+                val successMessage = "";
+                setLanguageTestResult.postValue(Resource.Companion.success(successMessage))
+            }
+        })
+        return setLanguageTestResult
     }
 
     override fun getRCCommandStickModeTest(): MutableLiveData<Resource<RemoteControllerCommandStickMode>> {
@@ -136,7 +184,19 @@ class RemoteControllerRepositoryImpl<AutelRemoteController>(
     }
 
     override fun setYawCoefficientTest(yawCoeff: Float): MutableLiveData<Resource<String>> {
-        TODO("Not yet implemented")
+        var setLanguageTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.setYawCoefficient(yawCoeff, object : CallbackWithNoParam {
+            override fun onFailure(rcError: AutelError) {
+                val errorMessage = "";
+                setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
+            }
+
+            override fun onSuccess() {
+                val successMessage = "";
+                setLanguageTestResult.postValue(Resource.Companion.success(successMessage))
+            }
+        })
+        return setLanguageTestResult
     }
 
     override fun getYawCoefficientTest(): MutableLiveData<Resource<Float>> {

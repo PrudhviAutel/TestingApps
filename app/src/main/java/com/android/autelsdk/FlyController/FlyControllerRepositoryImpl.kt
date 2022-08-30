@@ -29,17 +29,16 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
         return setBeginnerModeStateTestResult
     }
 
-    override fun getBeginnerModeStateTest(view : View): MutableLiveData<Resource<String>> {
-        var getBeginnerModeStateTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
+    override fun getBeginnerModeStateTest(view : View): MutableLiveData<Resource<Boolean>> {
+        var getBeginnerModeStateTestResult : MutableLiveData<Resource<Boolean>> = MutableLiveData()
         mController.isBeginnerModeEnable( object : CallbackWithOneParam<Boolean> {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage = "";
                 getBeginnerModeStateTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
-            override fun onSuccess(p0: Boolean?) {
-                val successMessage = "";
-                getBeginnerModeStateTestResult.postValue(Resource.Companion.success(successMessage))
+            override fun onSuccess(mode: Boolean?) {
+                getBeginnerModeStateTestResult.postValue(Resource.Companion.success(mode))
             }
         })
         return getBeginnerModeStateTestResult

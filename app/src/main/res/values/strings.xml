@@ -119,5 +119,12 @@
 <string name="camera_display_mode_pip">Picture in Picture</string>
 <string name="title_activity_serial_aidl">SerialAidlActivity</string>
 <string name="mission_current_state_cannot_execute">Current state cannot be executed</string>
+    <string name="testSdk">Test SDK</string>
+    <string name="previousReports">Previous reports</string>
+
+
+
+
+
 
 </resources>

@@ -13,7 +13,7 @@ class RemoteControllerViewModel<AutelRemoteController>(
     val remoteControllerRepository : RemoteControllerRepository
 ) : ViewModel(){
 
-    fun setLanguageTest (language: RemoteControllerLanguage) : MutableLiveData<Resource<String>> {
+    public fun setLanguageTest (language: RemoteControllerLanguage) : MutableLiveData<Resource<String>> {
         return remoteControllerRepository.setLanguageTest(language)
     }
 

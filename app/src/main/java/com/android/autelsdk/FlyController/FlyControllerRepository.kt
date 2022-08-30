@@ -7,7 +7,7 @@ import com.android.autelsdk.util.Resource
 interface FlyControllerRepository {
 
     fun setBeginnerModeStateTest(enable: Boolean): MutableLiveData<Resource<String>>
-    fun getBeginnerModeStateTest(view: View): MutableLiveData<Resource<String>>
+    fun getBeginnerModeStateTest(): MutableLiveData<Resource<Boolean>>
     fun getMaxHeightTest(view: View): MutableLiveData<Resource<String>>
     fun getMaxRangeTest(view: View): MutableLiveData<Resource<String>>
     fun setMaxHeightTest(view: View): MutableLiveData<Resource<String>>

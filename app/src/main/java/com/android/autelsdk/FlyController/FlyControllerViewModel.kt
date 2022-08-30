@@ -16,8 +16,8 @@ class FlyControllerViewModel<AutelFlyController>(
         return flyControllerRepository.setBeginnerModeStateTest(enable)
     }
 
-    public fun getBeginnerModeStateTest (view: View) : MutableLiveData<Resource<String>> {
-        return flyControllerRepository.getBeginnerModeStateTest(view)
+    public fun getBeginnerModeStateTest () : MutableLiveData<Resource<Boolean>> {
+        return flyControllerRepository.getBeginnerModeStateTest()
     }
 
     public fun getMaxHeightTest (view: View) : MutableLiveData<Resource<String>> {

@@ -1,10 +1,5 @@
-package com.android.autelsdk.RemoteController
+package com.android.autelsdk.remoteController
 
-//import com.android.autelsdk.R
-//import com.android.autelsdk.databinding.ActivityRemoteControllerBinding
-//import com.android.autelsdk.databinding.DragonfishActivityRemoteControllerBinding
-//import com.android.myapplication.R
-//import com.android.myapplication.databinding.ActivityRemoteControllerBinding
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.android.autelsdk.BaseActivity

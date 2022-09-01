@@ -1,13 +1,11 @@
-package com.android.autelsdk.FlyController
+package com.android.autelsdk.flyController
 
 import android.view.View
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.android.autelsdk.util.Resource
 import com.autel.common.CallbackWithNoParam
 import com.autel.common.CallbackWithOneParam
 import com.autel.common.error.AutelError
-import com.autel.common.remotecontroller.RemoteControllerLanguage
 
 class FlyControllerRepositoryImpl<AutelFlyController>(
     private val mController: com.autel.sdk.flycontroller.AutelFlyController,

@@ -3,9 +3,8 @@ package com.android.autelsdk
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import android.content.Intent
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.android.autelsdk.RemoteController.RemoteControllerActivity
+import com.android.autelsdk.remoteController.RemoteControllerActivity
 import com.android.autelsdk.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

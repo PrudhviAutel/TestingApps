@@ -1,4 +1,4 @@
-package com.android.autelsdk.FlyController
+package com.android.autelsdk.flyController
 
 import android.view.View
 import androidx.lifecycle.MutableLiveData

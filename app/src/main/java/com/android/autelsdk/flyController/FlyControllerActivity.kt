@@ -1,16 +1,13 @@
-package com.android.autelsdk.FlyController
+package com.android.autelsdk.flyController
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.android.autelsdk.BaseActivity
 import com.android.autelsdk.R
-import com.android.autelsdk.RemoteController.RemoteControllerActivity
+import com.android.autelsdk.remoteController.RemoteControllerActivity
 import com.android.autelsdk.databinding.ActivityFlyControllerBinding
-import com.android.autelsdk.databinding.ActivityRemoteControllerBinding
 import com.autel.sdk.flycontroller.AutelFlyController
 import com.autel.sdk.product.BaseProduct
-import com.autel.sdk.remotecontroller.AutelRemoteController
 
 //import com.android.autelsdk.R
 //import com.android.autelsdk.databinding.ActivityRemoteControllerBinding

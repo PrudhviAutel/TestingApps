@@ -1,58 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#DADADA"
-    android:orientation="vertical"
-    android:padding="16dp"
-    tools:context=".MainActivity2">
-
-    <Spinner
-        android:id="@+id/spinner_sdk_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
-        android:id="@+id/button_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spinner_sdk_list"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="@string/testSdk" />
+    xmlns:tools="http://schemas.android.com/tools">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/button_test"
-        android:layout_marginTop="16dp"
-        android:background="#ffffff"
-        android:orientation="vertical">
+        android:background="#DADADA"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <TextView
+        <Spinner
+            android:id="@+id/spinner_sdk_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Previous reports"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_list_of_previous_reports"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/button_test"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner_sdk_list"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="16dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:itemCount="5" />
-
-    </LinearLayout>
+            android:text="@string/testSdk" />
 
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/button_test"
+            android:layout_marginTop="16dp"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Previous reports"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_list_of_previous_reports"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="5" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</layout>

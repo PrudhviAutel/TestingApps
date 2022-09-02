@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="20dp"
                 android:paddingVertical="20dp"
-                android:text="✅  Testing is Successful\n\n❌  Testing Failed for"
+                android:text=""
                 android:textAlignment="textStart"/>
 
         </LinearLayout>

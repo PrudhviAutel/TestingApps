@@ -6,21 +6,30 @@ import com.autel.common.CallbackWithNoParam
 import com.autel.common.CallbackWithOneParam
 import com.autel.common.error.AutelError
 import com.autel.common.remotecontroller.*
+import com.autel.internal.remotecontroller.RemoteController10
 import com.autel.sdk.remotecontroller.AutelRemoteController
-import javax.inject.Inject
 
-class RemoteControllerRepositoryImpl @Inject constructor(val mController: AutelRemoteController) : RemoteControllerRepository {
+class RemoteControllerRepositoryImpl : RemoteControllerRepository {
+
+    val mController: AutelRemoteController = RemoteController10()
 
     override fun setLanguageTest(language: RemoteControllerLanguage): MutableLiveData<Resource<String>> {
         var setLanguageTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.setLanguage(language, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "Error occured!";
-                setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, errorMessage))
+                val errorMessage =
+                    "❌  Set Language test failed. Reason - " + rcError.description + "\n\n";
+                setLanguageTestResult.postValue(
+                    Resource.Companion.error(
+                        errorMessage,
+                        errorMessage
+                    )
+                )
             }
 
             override fun onSuccess() {
-                val successMessage = "Success achieved!";
+                val successMessage =
+                    "✅  Set Language test successful for " + language.value + "\n\n";
                 setLanguageTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })

@@ -1,9 +1,9 @@
 package com.android.autelsdk.remoteController
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.android.autelsdk.BaseActivity
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.ActivityRemoteControllerBinding
@@ -16,16 +16,13 @@ import com.autel.sdk.remotecontroller.AutelRemoteController
 class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
     val TAG = RemoteControllerActivity::class.java.simpleName
 
-    lateinit var viewModel:RemoteControllerViewModel
+    private val viewModel: RemoteControllerViewModel by viewModels()
     lateinit var binding: ActivityRemoteControllerBinding
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, customViewResId)
-
-        viewModel = ViewModelProvider(this@RemoteControllerActivity).get(RemoteControllerViewModel::class.java)
 
         initUi()
         runTests()

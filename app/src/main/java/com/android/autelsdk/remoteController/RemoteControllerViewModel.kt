@@ -4,15 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.autelsdk.util.Resource
 import com.autel.common.remotecontroller.*
-import com.autel.sdk.remotecontroller.AutelRemoteController
-import javax.inject.Inject
+
 class RemoteControllerViewModel : ViewModel() {
 
-    @Inject
-    lateinit var mController: AutelRemoteController
-
-    @Inject
-    lateinit var remoteControllerRepository: RemoteControllerRepository
+    val remoteControllerRepository: RemoteControllerRepository = RemoteControllerRepositoryImpl()
 
     fun setLanguageTest(language: RemoteControllerLanguage): MutableLiveData<Resource<String>> {
         return remoteControllerRepository.setLanguageTest(language)

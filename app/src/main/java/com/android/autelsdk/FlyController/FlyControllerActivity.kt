@@ -3,6 +3,7 @@ package com.android.autelsdk.FlyController
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.android.autelsdk.BaseActivity
 import com.android.autelsdk.R
 import com.android.autelsdk.RemoteController.RemoteControllerActivity
@@ -11,6 +12,9 @@ import com.android.autelsdk.databinding.ActivityRemoteControllerBinding
 import com.autel.sdk.flycontroller.AutelFlyController
 import com.autel.sdk.product.BaseProduct
 import com.autel.sdk.remotecontroller.AutelRemoteController
+import java.util.EnumSet.of
+import java.util.List.of
+import java.util.Set.of
 
 //import com.android.autelsdk.R
 //import com.android.autelsdk.databinding.ActivityRemoteControllerBinding
@@ -24,6 +28,7 @@ class FlyControllerActivity :  BaseActivity<AutelFlyController>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this , customViewResId)
+        val viewModel : FlyControllerViewModel<AutelFlyController> = ViewModelProvider.
 
     }
 

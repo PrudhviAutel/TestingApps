@@ -206,8 +206,6 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
 
     override fun setAttiModeEnableTest(enable: Boolean): MutableLiveData<Resource<Boolean>> {
         var setAttiModeEnableTestResult : MutableLiveData<Resource<Boolean>> = MutableLiveData()
-        var value : Double
-        value = 200.0
         mController.setAttitudeModeEnable( enable,object : CallbackWithNoParam{
             override fun onFailure(rcError: AutelError) {
                 val errorMessage = "";
@@ -241,8 +239,6 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
 
     override fun setLedPilotLampTest(): MutableLiveData<Resource<String>> {
         var setLedPilotLampTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        var value : Double
-        value = 200.0
         mController.setLedPilotLamp( ledPilotLamp,object : CallbackWithNoParam{
             override fun onFailure(rcError: AutelError) {
                 val errorMessage = "";
@@ -279,8 +275,6 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
     }
 
     override fun setAircraftLocationAsHomePointTest(): MutableLiveData<Resource<String>> {
-        val lat = 22.0
-        val lon = 22.0
 
         var setAircraftLocationAsHomePointTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
         var value : Double
@@ -342,12 +336,8 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
     }*/
 
     override fun landTest(): MutableLiveData<Resource<String>> {
-        val lat = 22.0
-        val lon = 22.0
 
         var landTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        var value : Double
-        value = 200.0
         mController.land( object : CallbackWithNoParam{
             override fun onFailure(rcError: AutelError) {
                 val errorMessage = "";
@@ -363,12 +353,8 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
     }
 
     override fun goHome(): MutableLiveData<Resource<String>> {
-        val lat = 22.0
-        val lon = 22.0
 
         var goHomeTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        var value : Double
-        value = 200.0
         mController.goHome( object : CallbackWithNoParam{
             override fun onFailure(rcError: AutelError) {
                 val errorMessage = "";
@@ -384,12 +370,8 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
     }
 
     override fun cancelReturnTest(): MutableLiveData<Resource<String>> {
-        val lat = 22.0
-        val lon = 22.0
 
         var cancelReturnTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        var value : Double
-        value = 200.0
         mController.cancelReturn( object : CallbackWithNoParam{
             override fun onFailure(rcError: AutelError) {
                 val errorMessage = "";
@@ -405,12 +387,8 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
     }
 
     override fun cancelLandTest(): MutableLiveData<Resource<String>> {
-        val lat = 22.0
-        val lon = 22.0
 
         var cancelLandTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        var value : Double
-        value = 200.0
         mController.cancelLand( object : CallbackWithNoParam{
             override fun onFailure(rcError: AutelError) {
                 val errorMessage = "";
@@ -426,12 +404,8 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
     }
 
     override fun getVersionInfoTest(): MutableLiveData<Resource<FlyControllerVersionInfo>> {
-        val lat = 22.0
-        val lon = 22.0
 
         var getVersionInfoTestResult : MutableLiveData<Resource<FlyControllerVersionInfo>> = MutableLiveData()
-        var value : Double
-        value = 200.0
         mController.getVersionInfo( object : CallbackWithOneParam<FlyControllerVersionInfo>{
             override fun onFailure(rcError: AutelError) {
                 val errorMessage = "";
@@ -447,12 +421,8 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
     }
 
     override fun getSerialNumberTest(): MutableLiveData<Resource<String>> {
-        val lat = 22.0
-        val lon = 22.0
 
         var getSerialNumberTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        var value : Double
-        value = 200.0
         mController.getSerialNumber( object : CallbackWithOneParam<String>{
             override fun onFailure(rcError: AutelError) {
                 val errorMessage = "";
@@ -468,12 +438,9 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
     }
 
     override fun setCalibrateCompassListenerTest(): MutableLiveData<Resource<CalibrateCompassStatus>> {
-        val lat = 22.0
-        val lon = 22.0
+
 
         var setCalibrateCompassListenerTestResult : MutableLiveData<Resource<CalibrateCompassStatus>> = MutableLiveData()
-        var value : Double
-        value = 200.0
         mController.setCalibrateCompassListener( object : CallbackWithOneParam<CalibrateCompassStatus>{
             override fun onFailure(rcError: AutelError) {
                 val errorMessage = "";

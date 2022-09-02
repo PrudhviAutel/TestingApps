@@ -24,6 +24,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
     }
 
     private fun handleListeners() {
+
     }
 
     override fun initController(product: BaseProduct?): AutelRemoteController? {

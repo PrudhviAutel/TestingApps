@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import com.android.autelsdk.databinding.ActivityMain2Binding
 import com.android.autelsdk.databinding.ActivityMainBinding
+import com.android.autelsdk.remoteController.RemoteControllerActivity
 //import com.example.myapplicationdragonfish.databinding.ActivityMainBinding
 import com.example.myapplicationdragonfish.viewmodel.MainViewModel
 
@@ -29,8 +30,8 @@ class MainActivity2 : AppCompatActivity() {
         binding.spinnerSdkList.setSelection(0)
 
         binding.buttonTest.setOnClickListener(View.OnClickListener {
-            intent = Intent(this, HomeActivity::class.java)
-            intent.putExtra("SdkName", binding.spinnerSdkList.selectedItem.toString())
+            intent = Intent(this, RemoteControllerActivity::class.java)
+            //intent.putExtra("SdkName", binding.spinnerSdkList.selectedItem.toString())
             startActivity(intent)
         })
     }

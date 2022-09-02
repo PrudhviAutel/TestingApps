@@ -315,24 +315,24 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
     }
 
     /**override fun takeOffTest(): MutableLiveData<Resource<CalibrateCompassStatus>> {
-        val lat = 22.0
-        val lon = 22.0
+    val lat = 22.0
+    val lon = 22.0
 
-        var takeOffTestResult : MutableLiveData<Resource<CalibrateCompassStatus>> = MutableLiveData()
-        var value : Double
-        value = 200.0
-        mController.takeOff( object : CallbackWithOneParam<Pair<Boolean>>{
-            override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
-                takeOffTestResult.postValue(Resource.Companion.error(errorMessage, null))
-            }
+    var takeOffTestResult : MutableLiveData<Resource<CalibrateCompassStatus>> = MutableLiveData()
+    var value : Double
+    value = 200.0
+    mController.takeOff( object : CallbackWithOneParam<Pair<Boolean>>{
+    override fun onFailure(rcError: AutelError) {
+    val errorMessage = "";
+    takeOffTestResult.postValue(Resource.Companion.error(errorMessage, null))
+    }
 
-            override fun onSuccess(calibrateCompassStatus : CalibrateCompassStatus) {
-                val successMessage = "";
-                takeOffTestResult.postValue(Resource.Companion.success(calibrateCompassStatus))
-            }
-        })
-        return takeOffTestResult
+    override fun onSuccess(calibrateCompassStatus : CalibrateCompassStatus) {
+    val successMessage = "";
+    takeOffTestResult.postValue(Resource.Companion.success(calibrateCompassStatus))
+    }
+    })
+    return takeOffTestResult
     }*/
 
     override fun landTest(): MutableLiveData<Resource<String>> {
@@ -456,25 +456,25 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
     }
 
     /**override fun setWarningListenerTest(): MutableLiveData<Resource<CalibrateCompassStatus>> {
-        val lat = 22.0
-        val lon = 22.0
+    val lat = 22.0
+    val lon = 22.0
 
-        var setWarningListenerTestResult : MutableLiveData<Resource<CalibrateCompassStatus>> = MutableLiveData()
-        var value : Double
-        value = 200.0
-        mController.setWarningListener( object : CallbackWithOneParam<ARMWarning, MagnetometerState>,
-            CallbackWithTwoParams<ARMWarning, MagnetometerState> {
-            override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
-                setWarningListenerTestResult.postValue(Resource.Companion.error(errorMessage, null))
-            }
+    var setWarningListenerTestResult : MutableLiveData<Resource<CalibrateCompassStatus>> = MutableLiveData()
+    var value : Double
+    value = 200.0
+    mController.setWarningListener( object : CallbackWithOneParam<ARMWarning, MagnetometerState>,
+    CallbackWithTwoParams<ARMWarning, MagnetometerState> {
+    override fun onFailure(rcError: AutelError) {
+    val errorMessage = "";
+    setWarningListenerTestResult.postValue(Resource.Companion.error(errorMessage, null))
+    }
 
-            override fun onSuccess(ARMWarning data1, MagnetometerState data2) {
-                val successMessage = "";
-                setWarningListenerTestResult.postValue(Resource.Companion.success(data2+data1))
-            }
-        })
-        return setWarningListenerTestResult
+    override fun onSuccess(ARMWarning data1, MagnetometerState data2) {
+    val successMessage = "";
+    setWarningListenerTestResult.postValue(Resource.Companion.success(data2+data1))
+    }
+    })
+    return setWarningListenerTestResult
     }*/
 
 

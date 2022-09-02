@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.autelsdk.databinding.ModuleItemBinding
+
 //import com.example.myapplicationdragonfish.databinding.ModuleItemBinding
 
 class ModuleRecyclerViewAdapter : RecyclerView.Adapter<ModuleViewHolder>() {

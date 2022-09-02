@@ -1,6 +1,5 @@
 package com.android.autelsdk.flyController
 
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.android.autelsdk.util.Resource
 import com.autel.common.flycontroller.CalibrateCompassStatus

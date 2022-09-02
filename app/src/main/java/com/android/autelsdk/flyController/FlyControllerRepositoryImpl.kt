@@ -1,12 +1,9 @@
-package com.android.autelsdk.FlyController
+package com.android.autelsdk.flyController
 
-import android.text.TextUtils.isEmpty
-import android.util.Pair
 import androidx.lifecycle.MutableLiveData
 import com.android.autelsdk.util.Resource
 import com.autel.common.CallbackWithNoParam
 import com.autel.common.CallbackWithOneParam
-import com.autel.common.CallbackWithTwoParams
 import com.autel.common.error.AutelError
 import com.autel.common.flycontroller.*
 

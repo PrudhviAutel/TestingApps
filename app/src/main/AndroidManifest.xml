@@ -25,7 +25,7 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".RemoteController.RemoteControllerActivity"
+            android:name=".remoteController.RemoteControllerActivity"
             android:label="Remote Controller"
             android:exported="false" />
         <activity

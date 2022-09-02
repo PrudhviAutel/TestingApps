@@ -1,4 +1,4 @@
-package com.android.autelsdk.RemoteController
+package com.android.autelsdk.remoteController
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

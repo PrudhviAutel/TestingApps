@@ -1,6 +1,7 @@
 package com.android.autelsdk.flyController
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.android.autelsdk.BaseActivity
@@ -23,11 +24,13 @@ import java.util.Set.of
 class FlyControllerActivity :  BaseActivity<AutelFlyController>() {
     val TAG = FlyControllerActivity::class.java.simpleName
     lateinit var binding : ActivityFlyControllerBinding
+    private val viewModel : FlyControllerViewModel<AutelFlyController> by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this , customViewResId)
         //val viewModel : FlyControllerViewModel<AutelFlyController> = ViewModelProvider.
+        initUi()
 
     }
 
@@ -46,7 +49,7 @@ class FlyControllerActivity :  BaseActivity<AutelFlyController>() {
     }
 
     override fun initUi() {
-        handleListeners()
+
     }
 }
 

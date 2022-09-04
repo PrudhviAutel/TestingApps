@@ -33,4 +33,5 @@ interface FlyControllerRepository {
     fun getLedPilotLampTest(): MutableLiveData<Resource<LedPilotLamp>>
     fun setAttiModeEnableTest(enable: Boolean): MutableLiveData<Resource<Boolean>>
     fun isAttiModeEnableTest(): MutableLiveData<Resource<Boolean>>
+    fun createExcelWorkbook()
 }

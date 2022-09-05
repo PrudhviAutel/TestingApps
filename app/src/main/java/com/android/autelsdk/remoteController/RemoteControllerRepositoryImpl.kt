@@ -2,6 +2,7 @@ package com.android.autelsdk.remoteController
 
 import androidx.lifecycle.MutableLiveData
 import com.android.autelsdk.util.Resource
+import com.android.autelsdk.util.Utils
 import com.autel.common.CallbackWithNoParam
 import com.autel.common.CallbackWithOneParam
 import com.autel.common.error.AutelError
@@ -13,12 +14,13 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
 
     val mController: AutelRemoteController = RemoteController10()
 
-    override fun setLanguageTest(language: RemoteControllerLanguage): MutableLiveData<Resource<String>> {
+    override suspend fun setLanguageTest(language: RemoteControllerLanguage): MutableLiveData<Resource<String>> {
+        val methodName = object{}.javaClass.enclosingMethod.name
+
         var setLanguageTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.setLanguage(language, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage =
-                    "❌  Set Language test failed. Reason - " + rcError.description + "\n\n";
+                val errorMessage = Utils.getFailureShowText("❌ \nReason - ${rcError.description} \\u2713");
                 setLanguageTestResult.postValue(
                     Resource.Companion.error(
                         errorMessage,
@@ -28,25 +30,30 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
             }
 
             override fun onSuccess() {
-                val successMessage =
-                    "✅  Set Language test successful for " + language.value + "\n\n";
+                val successMessage = Utils.getSuccessShowText(
+                    "for language = ${language.value} ");
                 setLanguageTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
         return setLanguageTestResult
     }
 
-    override fun getLanguageTest(): MutableLiveData<Resource<RemoteControllerLanguage>> {
+    override suspend fun getLanguageTest(): MutableLiveData<Resource<RemoteControllerLanguage>> {
         var getLanguageTestResult: MutableLiveData<Resource<RemoteControllerLanguage>> =
             MutableLiveData()
         mController.getLanguage(object : CallbackWithOneParam<RemoteControllerLanguage> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage =
+                    "❌  Get Language test failed. Reason - " + rcError.description + "\n\n";
                 getLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess(language: RemoteControllerLanguage?) {
-                getLanguageTestResult.postValue(Resource.Companion.success(language))
+                language?.let {
+                    val successMessage =
+                        "✅  Get Language test successful for " + language.value + "\n\n";
+                    getLanguageTestResult.postValue(Resource.Companion.success(language))
+                }
             }
         })
         return getLanguageTestResult
@@ -271,6 +278,5 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
         })
         return getSerialNumberTestResult
     }
-
 
 }

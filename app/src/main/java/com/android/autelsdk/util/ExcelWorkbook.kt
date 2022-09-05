@@ -170,18 +170,23 @@ class ExcelWorkbook {
      * Setup Header Row
      */
     private fun setHeaderRow() {
+        val cellStyle: CellStyle = workbook.createCellStyle()
+        cellStyle.setFillForegroundColor(HSSFColor.AQUA.index)
+        cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND)
+        cellStyle.setAlignment(CellStyle.ALIGN_CENTER)
         val headerRow = sheet.createRow(0)
         cell = headerRow.createCell(0)
         cell.setCellValue("First Name")
-        cell.cellStyle
+        cell.cellStyle = cellStyle
         cell = headerRow.createCell(1)
         cell.setCellValue("Last Name")
-        cell.cellStyle
+        cell.cellStyle = cellStyle
         cell = headerRow.createCell(2)
         cell.setCellValue("Phone Number")
-        cell.cellStyle
+        cell.cellStyle = cellStyle
         cell = headerRow.createCell(3)
         cell.setCellValue("Mail ID")
+        cell.cellStyle = cellStyle
     }
 
     /**
@@ -222,7 +227,7 @@ class ExcelWorkbook {
        // val file = File(Environment.DIRECTORY_DOWNLOADS, fileName)
         val file = File(
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
-            fileName
+            fileName + ".xls"
         )
         var fileOutputStream: FileOutputStream? = null
         try {

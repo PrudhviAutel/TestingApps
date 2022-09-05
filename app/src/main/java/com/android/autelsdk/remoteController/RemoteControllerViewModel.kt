@@ -9,11 +9,11 @@ class RemoteControllerViewModel : ViewModel() {
 
     val remoteControllerRepository: RemoteControllerRepository = RemoteControllerRepositoryImpl()
 
-    fun setLanguageTest(language: RemoteControllerLanguage): MutableLiveData<Resource<String>> {
+    suspend fun setLanguageTest(language: RemoteControllerLanguage): MutableLiveData<Resource<String>> {
         return remoteControllerRepository.setLanguageTest(language)
     }
 
-    fun getLanguageTest(): MutableLiveData<Resource<RemoteControllerLanguage>> {
+    suspend fun getLanguageTest(): MutableLiveData<Resource<RemoteControllerLanguage>> {
         return remoteControllerRepository.getLanguageTest()
     }
 

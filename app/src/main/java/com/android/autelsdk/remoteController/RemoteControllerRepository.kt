@@ -6,9 +6,9 @@ import com.autel.common.remotecontroller.*
 
 interface RemoteControllerRepository {
 
-    fun setLanguageTest(language: RemoteControllerLanguage): MutableLiveData<Resource<String>>
+    suspend fun setLanguageTest(language: RemoteControllerLanguage): MutableLiveData<Resource<String>>
 
-    fun getLanguageTest(): MutableLiveData<Resource<RemoteControllerLanguage>>
+    suspend fun getLanguageTest(): MutableLiveData<Resource<RemoteControllerLanguage>>
 
     fun enterPairingTest(): MutableLiveData<Resource<String>>
 

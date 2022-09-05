@@ -7,9 +7,11 @@ import androidx.lifecycle.Observer
 import com.android.autelsdk.BaseActivity
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.ActivityRemoteControllerBinding
+import com.android.autelsdk.util.Status
 import com.autel.common.remotecontroller.RemoteControllerLanguage
 import com.autel.sdk.product.BaseProduct
 import com.autel.sdk.remotecontroller.AutelRemoteController
+import kotlinx.coroutines.runBlocking
 
 
 // On Activity Start First getCustomViewResId() is called and then onCreate() --- nothing else on Activity Creation
@@ -50,9 +52,26 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
 
     fun runTests() {
 
-        viewModel.setLanguageTest(RemoteControllerLanguage.ENGLISH).observe(this, Observer { msg ->
-            binding.testResults.append(msg.data)
-        })
+        runBlocking {
+            viewModel.setLanguageTest(RemoteControllerLanguage.ENGLISH).observe(this@RemoteControllerActivity, Observer { msg ->
+                binding.testResults.append(msg.data)
+            })
+
+            viewModel.getLanguageTest().observe(this@RemoteControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+
+
+                    }
+                    Status.ERROR -> {
+
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+        }
     }
 
 }

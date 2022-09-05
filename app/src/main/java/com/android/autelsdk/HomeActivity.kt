@@ -27,6 +27,7 @@ class HomeActivity : AppCompatActivity() {
         binding.textSdkName.text = sdkName
         binding.recyclerviewListOfComponent.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerviewListOfComponent.adapter = adapter
+
         initialAlertDialog()
 
 

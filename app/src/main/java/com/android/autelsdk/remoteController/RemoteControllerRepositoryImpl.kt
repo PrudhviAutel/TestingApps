@@ -20,7 +20,7 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
         var setLanguageTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.setLanguage(language, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("❌ \nReason - ${rcError.description} \\u2713");
+                val errorMessage = Utils.getFailureShowText("❌ \nReason - ${rcError.description}✔ ✔✅");
                 setLanguageTestResult.postValue(
                     Resource.Companion.error(
                         errorMessage,

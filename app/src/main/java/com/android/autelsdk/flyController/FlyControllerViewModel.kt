@@ -12,99 +12,102 @@ class FlyControllerViewModel : ViewModel() {
 
     val flyControllerRepository: FlyControllerRepository = FlyControllerRepositoryImpl()
 
-    public fun setBeginnerModeStateTest(enable: Boolean): MutableLiveData<Resource<String>> {
+    suspend fun setBeginnerModeStateTest(enable: Boolean): MutableLiveData<Resource<String>> {
         return flyControllerRepository.setBeginnerModeStateTest(enable)
     }
 
-    public fun getBeginnerModeStateTest(): MutableLiveData<Resource<Boolean>> {
+    suspend fun getBeginnerModeStateTest(): MutableLiveData<Resource<Boolean>> {
         return flyControllerRepository.getBeginnerModeStateTest()
     }
 
-    public fun getMaxHeightTest(): MutableLiveData<Resource<Float>> {
+    suspend fun getMaxHeightTest(): MutableLiveData<Resource<Float>> {
         return flyControllerRepository.getMaxHeightTest()
     }
 
-    public fun setMaxHeightTest(): MutableLiveData<Resource<String>> {
-        return flyControllerRepository.setMaxHeightTest()
+    suspend fun setMaxHeightTest(value: Double): MutableLiveData<Resource<String>> {
+        return flyControllerRepository.setMaxHeightTest(value)
     }
 
-    public fun getMaxRangeTest(): MutableLiveData<Resource<Float>> {
+    suspend fun getMaxRangeTest(): MutableLiveData<Resource<Float>> {
         return flyControllerRepository.getMaxRangeTest()
     }
 
-    public fun setMaxRangeTest(): MutableLiveData<Resource<String>> {
-        return flyControllerRepository.setMaxRangeTest()
+    suspend fun setMaxRangeTest(value: Double): MutableLiveData<Resource<String>> {
+        return flyControllerRepository.setMaxRangeTest(value)
     }
 
-    public fun getReturnHeightTest(): MutableLiveData<Resource<Float>> {
+    suspend fun getReturnHeightTest(): MutableLiveData<Resource<Float>> {
         return flyControllerRepository.getReturnHeightTest()
     }
 
-    public fun setReturnHeightTest(): MutableLiveData<Resource<String>> {
-        return flyControllerRepository.setReturnHeightTest()
+    suspend fun setReturnHeightTest(value: Double): MutableLiveData<Resource<String>> {
+        return flyControllerRepository.setReturnHeightTest(value)
     }
 
-    public fun setHorizontalSpeedTest(): MutableLiveData<Resource<String>> {
-        return flyControllerRepository.setHorizontalSpeedTest()
+    suspend fun setHorizontalSpeedTest(value: Double): MutableLiveData<Resource<String>> {
+        return flyControllerRepository.setHorizontalSpeedTest(value)
     }
 
-    public fun getHorizontalSpeedTest(): MutableLiveData<Resource<Float>> {
+    suspend fun getHorizontalSpeedTest(): MutableLiveData<Resource<Float>> {
         return flyControllerRepository.getHorizontalSpeedTest()
     }
 
-    public fun setCalibrateCompassListenerTest(): MutableLiveData<Resource<CalibrateCompassStatus>> {
+    suspend fun setCalibrateCompassListenerTest(): MutableLiveData<Resource<CalibrateCompassStatus>> {
         return flyControllerRepository.setCalibrateCompassListenerTest()
     }
 
-    public fun getSerialNumberTest(): MutableLiveData<Resource<String>> {
+    suspend fun getSerialNumberTest(): MutableLiveData<Resource<String>> {
         return flyControllerRepository.getSerialNumberTest()
     }
 
-    public fun getVersionInfoTest(): MutableLiveData<Resource<FlyControllerVersionInfo>> {
+    suspend fun getVersionInfoTest(): MutableLiveData<Resource<FlyControllerVersionInfo>> {
         return flyControllerRepository.getVersionInfoTest()
     }
 
-    public fun cancelLandTest(): MutableLiveData<Resource<String>> {
+    suspend fun cancelLandTest(): MutableLiveData<Resource<String>> {
         return flyControllerRepository.cancelLandTest()
     }
 
-    public fun cancelReturnTest(): MutableLiveData<Resource<String>> {
+    suspend fun cancelReturnTest(): MutableLiveData<Resource<String>> {
         return flyControllerRepository.cancelReturnTest()
     }
 
-    public fun goHomeTest(): MutableLiveData<Resource<String>> {
+    suspend fun goHomeTest(): MutableLiveData<Resource<String>> {
         return flyControllerRepository.goHomeTest()
     }
 
-    public fun landTest(): MutableLiveData<Resource<String>> {
+    suspend fun landTest(): MutableLiveData<Resource<String>> {
         return flyControllerRepository.landTest()
     }
 
-    public fun startCalibrateCompassTest(): MutableLiveData<Resource<CalibrateCompassStatus>> {
+    suspend fun startCalibrateCompassTest(): MutableLiveData<Resource<CalibrateCompassStatus>> {
         return flyControllerRepository.startCalibrateCompassTest()
     }
 
-    public fun setAircraftLocationAsHomePointTest(): MutableLiveData<Resource<String>> {
+    suspend fun setAircraftLocationAsHomePointTest(): MutableLiveData<Resource<String>> {
         return flyControllerRepository.setAircraftLocationAsHomePointTest()
     }
 
-    public fun setLocationAsHomePointTest(): MutableLiveData<Resource<String>> {
-        return flyControllerRepository.setLocationAsHomePointTest()
+    suspend fun setLocationAsHomePointTest(
+        lat: Double,
+        lon: Double
+    ): MutableLiveData<Resource<String>> {
+        return flyControllerRepository.setLocationAsHomePointTest(lat, lon)
     }
 
-    public fun setLedPilotLampTest(): MutableLiveData<Resource<String>> {
-        return flyControllerRepository.setLedPilotLampTest()
+    suspend fun setLedPilotLampTest(ledPilotLamp: LedPilotLamp): MutableLiveData<Resource<String>> {
+        return flyControllerRepository.setLedPilotLampTest(ledPilotLamp)
     }
 
-    public fun getLedPilotLampTest(): MutableLiveData<Resource<LedPilotLamp>> {
+    suspend fun getLedPilotLampTest(): MutableLiveData<Resource<LedPilotLamp>> {
         return flyControllerRepository.getLedPilotLampTest()
     }
 
-    public fun setAttiModeEnableTest(enable: Boolean): MutableLiveData<Resource<Boolean>> {
+    suspend fun setAttitudeModeEnableTest(enable: Boolean): MutableLiveData<Resource<Boolean>> {
         return flyControllerRepository.setAttitudeModeEnableTest(enable)
     }
 
-    public fun isAttiModeEnableTest(): MutableLiveData<Resource<Boolean>> {
+    suspend fun isAttitudeModeEnableTest(): MutableLiveData<Resource<Boolean>> {
         return flyControllerRepository.isAttitudeModeEnableTest()
     }
 

@@ -203,14 +203,26 @@ class ExcelWorkbook {
             val rowData = sheet.createRow(i + 1)
 
             // Create Cells for each row
-//            cell = rowData.createCell(0)
-//            cell.setCellValue(dataList[i].getFirstName())
-//            cell = rowData.createCell(1)
-//            cell.setCellValue(dataList[i].getLastName())
-//            cell = rowData.createCell(2)
-//            cell.setCellValue(dataList[i].getPhoneNumber())
-//            cell = rowData.createCell(4)
-//            cell.setCellValue(dataList[i].getMailId())
+            cell = rowData.createCell(0)
+            cell.setCellValue(dataList[i].getFirstName())
+            cell = rowData.createCell(1)
+            cell.setCellValue(dataList[i].getLastName())
+            cell = rowData.createCell(2)
+            cell.setCellValue(dataList[i].getPhoneNumber())
+            cell = rowData.createCell(4)
+            cell.setCellValue(dataList[i].getMailId())
+        }
+    }
+
+    private fun fillDataIntoExcel(dataList: List<String>, col : Int) {
+        for (i in dataList.indices) {
+            // Create a New Row for every new entry in list
+            val rowData = sheet.createRow(i + 1)
+
+            // Create Cells for each row
+            cell = rowData.createCell(col)
+            cell.setCellValue(dataList[i])
+
         }
     }
 

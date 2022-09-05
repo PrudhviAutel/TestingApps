@@ -24,14 +24,13 @@ interface FlyControllerRepository {
     fun getVersionInfoTest(): MutableLiveData<Resource<FlyControllerVersionInfo>>
     fun cancelLandTest(): MutableLiveData<Resource<String>>
     fun cancelReturnTest(): MutableLiveData<Resource<String>>
-    fun goHome(): MutableLiveData<Resource<String>>
+    fun goHomeTest(): MutableLiveData<Resource<String>>
     fun landTest(): MutableLiveData<Resource<String>>
     fun startCalibrateCompassTest(): MutableLiveData<Resource<CalibrateCompassStatus>>
     fun setAircraftLocationAsHomePointTest(): MutableLiveData<Resource<String>>
     fun setLocationAsHomePointTest(): MutableLiveData<Resource<String>>
     fun setLedPilotLampTest(): MutableLiveData<Resource<String>>
     fun getLedPilotLampTest(): MutableLiveData<Resource<LedPilotLamp>>
-    fun setAttiModeEnableTest(enable: Boolean): MutableLiveData<Resource<Boolean>>
-    fun isAttiModeEnableTest(): MutableLiveData<Resource<Boolean>>
-    fun createExcelWorkbook()
+    fun setAttitudeModeEnableTest(enable: Boolean): MutableLiveData<Resource<Boolean>>
+    fun isAttitudeModeEnableTest(): MutableLiveData<Resource<Boolean>>
 }

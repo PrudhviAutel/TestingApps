@@ -31,8 +31,7 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
             }
 
             override fun onSuccess() {
-                val successMessage =
-                    Utils.getSuccessShowText("\nFor language = ${language.value} ");
+                val successMessage = Utils.getSuccessShowText("\nFor language = ${language.value} ");
                 setLanguageTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
@@ -50,8 +49,7 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
 
             override fun onSuccess(language: RemoteControllerLanguage?) {
                 language?.let {
-                    val successMessage =
-                        Utils.getSuccessShowText(".\nRemote Controller Language = ${language.value} ");
+                    val successMessage = Utils.getSuccessShowText(".\nRemote Controller Language = ${language.value} ");
                     getLanguageTestResult.postValue(Resource.Companion.success(language))
                 }
             }

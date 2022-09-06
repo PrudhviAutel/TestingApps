@@ -1,7 +1,10 @@
 package com.android.autelsdk.remoteController
 
+import android.Manifest
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.android.autelsdk.BaseActivity

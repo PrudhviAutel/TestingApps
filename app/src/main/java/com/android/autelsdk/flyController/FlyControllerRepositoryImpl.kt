@@ -1,5 +1,6 @@
 package com.android.autelsdk.flyController
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.android.autelsdk.util.Resource
 import com.android.autelsdk.util.Utils
@@ -22,8 +23,13 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         var setBeginnerModeStateTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.setBeginnerModeEnable(enable, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
+                val m = Utils.getAllStackTraceFunctions()
+                for (i in m ) {
+                    Log.i("KLKLKL", i.methodName);
+                }
                 val errorMessage =
-                    Utils.getFailureShowText("on Set Enable State = ${if (enable) "true" else "false"}.\nReason - ${rcError.description}");
+                    Utils.getFailureShowText("on Set Enable State = ${if (enable) "true" else "false"}.\nReason - ${rcError.description}",
+                    methodName = "setBeginnerModeEnable");
                 setBeginnerModeStateTestResult.postValue(
                     Resource.Companion.error(
                         errorMessage,
@@ -34,7 +40,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
 
             override fun onSuccess() {
                 val successMessage =
-                    Utils.getSuccessShowText("\nFor Beginner Mode State = ${if (enable) "true" else "false"}");
+                    Utils.getSuccessShowText("\nFor Beginner Mode State = ${if (enable) "true" else "false"}",
+                        methodName = "setBeginnerModeEnable");
                 setBeginnerModeStateTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
@@ -45,7 +52,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         var getBeginnerModeStateTestResult: MutableLiveData<Resource<Boolean>> = MutableLiveData()
         mController.isBeginnerModeEnable(object : CallbackWithOneParam<Boolean> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "getBeginnerModeEnable");
                 getBeginnerModeStateTestResult.postValue(
                     Resource.Companion.error(
                         errorMessage,
@@ -66,7 +74,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         var getMaxHeightTestResult: MutableLiveData<Resource<Float>> = MutableLiveData()
         mController.getMaxHeight(object : CallbackWithOneParam<Float> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "getMaxHeight");
                 getMaxHeightTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
@@ -83,12 +92,14 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         mController.setMaxHeight(value, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
-                    Utils.getFailureShowText("for max height = ${value}.\nReason - ${rcError.description}");
+                    Utils.getFailureShowText("for max height = ${value}.\nReason - ${rcError.description}",
+                        methodName = "setMaxHeight");
                 setMaxHeightTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = Utils.getSuccessShowText("\nFor Max Height = ${value}");
+                val successMessage = Utils.getSuccessShowText("\nFor Max Height = ${value}",
+                    methodName = "setMaxHeight");
                 setMaxHeightTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
@@ -99,7 +110,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         var getMaxRangeTestResult: MutableLiveData<Resource<Float>> = MutableLiveData()
         mController.getMaxRange(object : CallbackWithOneParam<Float> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "getMaxRange");
                 getMaxRangeTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
@@ -116,12 +128,14 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         mController.setMaxRange(value, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
-                    Utils.getFailureShowText("for Max Range = ${value}.\nReason - ${rcError.description}");
+                    Utils.getFailureShowText("for Max Range = ${value}.\nReason - ${rcError.description}",
+                        methodName = "setMaxRange");
                 setMaxRangeTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = Utils.getSuccessShowText("\nFor Max Range = ${value}");
+                val successMessage = Utils.getSuccessShowText("\nFor Max Range = ${value}",
+                    methodName = "setMaxRange");
                 setMaxRangeTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
@@ -133,7 +147,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
 
         mController.getReturnHeight(object : CallbackWithOneParam<Float> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "getReturnHeight");
                 getReturnHeightTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
@@ -150,12 +165,14 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         mController.setReturnHeight(value, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
-                    Utils.getFailureShowText("for Return Height = ${value}.\nReason - ${rcError.description}");
+                    Utils.getFailureShowText("for Return Height = ${value}.\nReason - ${rcError.description}",
+                        methodName = "setReturnHeight");
                 setReturnHeightTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = Utils.getSuccessShowText("\nFor Return Height = ${value}");
+                val successMessage = Utils.getSuccessShowText("\nFor Return Height = ${value}",
+                    methodName = "setReturnHeight");
                 setReturnHeightTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
@@ -167,7 +184,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
 
         mController.getMaxHorizontalSpeed(object : CallbackWithOneParam<Float> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "getMaxHorizontalSpeed");
                 getHorizontalSpeedTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
@@ -184,12 +202,14 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         mController.setMaxHorizontalSpeed(value, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
-                    Utils.getFailureShowText("for Horizontal Speed = ${value}.\nReason - ${rcError.description}");
+                    Utils.getFailureShowText("for Horizontal Speed = ${value}.\nReason - ${rcError.description}",
+                        methodName = "setMaxHorizontalSpeed");
                 setHorizontalSpeedTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = Utils.getSuccessShowText("\nFor Horizontal Speed = ${value}");
+                val successMessage = Utils.getSuccessShowText("\nFor Horizontal Speed = ${value}",
+                    methodName = "setMaxHorizontalSpeed");
                 setHorizontalSpeedTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
@@ -200,7 +220,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         var isAttitudeModeEnableTestResult: MutableLiveData<Resource<Boolean>> = MutableLiveData()
         mController.isAttitudeModeEnable(object : CallbackWithOneParam<Boolean> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "getAttitudeModeEnable");
                 isAttitudeModeEnableTestResult.postValue(
                     Resource.Companion.error(
                         errorMessage,
@@ -222,7 +243,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         mController.setAttitudeModeEnable(enable, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
-                    Utils.getFailureShowText("on Set Enable State = ${if (enable) "true" else "false"}.\nReason - ${rcError.description}");
+                    Utils.getFailureShowText("on Set Enable State = ${if (enable) "true" else "false"}.\nReason - ${rcError.description}",
+                        methodName = "setAttitudeModeEnable");
                 setAttitudeModeEnableTestResult.postValue(
                     Resource.Companion.error(
                         errorMessage,
@@ -233,7 +255,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
 
             override fun onSuccess() {
                 val successMessage =
-                    Utils.getSuccessShowText("\nFor Attitude Mode State = ${if (enable) "true" else "false"}");
+                    Utils.getSuccessShowText("\nFor Attitude Mode State = ${if (enable) "true" else "false"}",
+                        methodName = "setAttitudeModeEnable");
                 setAttitudeModeEnableTestResult.postValue(Resource.Companion.success(enable))
             }
         })
@@ -245,7 +268,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
 
         mController.getLedPilotLamp(object : CallbackWithOneParam<LedPilotLamp> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "getLedPilotLamp");
                 getLedPilotLampTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
@@ -262,13 +286,15 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         mController.setLedPilotLamp(ledPilotLamp, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
-                    Utils.getFailureShowText("for Led Pilot Lamp = ${ledPilotLamp.value}.\nReason - ${rcError.description}");
+                    Utils.getFailureShowText("for Led Pilot Lamp = ${ledPilotLamp.value}.\nReason - ${rcError.description}",
+                        methodName = "setLedPilotLamp");
                 setLedPilotLampTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage =
-                    Utils.getSuccessShowText("\nFor Set Pilot Lamp = ${ledPilotLamp.value}");
+                    Utils.getSuccessShowText("\nFor Set Pilot Lamp = ${ledPilotLamp.value}",
+                        methodName = "setLedPilotLamp");
                 setLedPilotLampTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
@@ -283,7 +309,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         mController.setLocationAsHomePoint(lat, lon, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
-                    Utils.getFailureShowText("for Latitude = ${lat}, Longitude = ${lon}.\nReason - ${rcError.description}");
+                    Utils.getFailureShowText("for Latitude = ${lat}, Longitude = ${lon}.\nReason - ${rcError.description}",
+                        methodName = "setLocationAsHomePoint");
                 setLocationAsHomePointTestResult.postValue(
                     Resource.Companion.error(
                         errorMessage,
@@ -294,7 +321,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
 
             override fun onSuccess() {
                 val successMessage =
-                    Utils.getSuccessShowText("\nFor Latitude = ${lat}, Longitude = ${lon}");
+                    Utils.getSuccessShowText("\nFor Latitude = ${lat}, Longitude = ${lon}",
+                        methodName = "setLocationAsHomePoint");
                 setLocationAsHomePointTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
@@ -307,7 +335,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             MutableLiveData()
         mController.setAircraftLocationAsHomePoint(object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "setAircraftLocationAsHomePoint");
                 setAircraftLocationAsHomePointTestResult.postValue(
                     Resource.Companion.error(
                         errorMessage,
@@ -317,12 +346,9 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             }
 
             override fun onSuccess() {
-                val successMessage = Utils.getSuccessShowText("");
-                setAircraftLocationAsHomePointTestResult.postValue(
-                    Resource.Companion.success(
-                        successMessage
-                    )
-                )
+                val successMessage = Utils.getSuccessShowText("",
+                    methodName = "setAircraftLocationAsHomePoint");
+                setAircraftLocationAsHomePointTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
         return setAircraftLocationAsHomePointTestResult
@@ -333,7 +359,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             MutableLiveData()
         mController.startCalibrateCompass(object : CallbackWithOneParam<CalibrateCompassStatus> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "startCalibrateCompass");
                 startCalibrateCompassTestResult.postValue(
                     Resource.Companion.error(
                         errorMessage,
@@ -344,7 +371,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
 
             override fun onSuccess(calibrateCompassStatus: CalibrateCompassStatus) {
                 val successMessage =
-                    Utils.getSuccessShowText("\nFor Calibrate Compass Status = ${calibrateCompassStatus.value}");
+                    Utils.getSuccessShowText("\nFor Calibrate Compass Status = ${calibrateCompassStatus.value}",
+                        methodName = "startCalibrateCompass");
                 startCalibrateCompassTestResult.postValue(
                     Resource.Companion.success(
                         calibrateCompassStatus
@@ -380,12 +408,14 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         var landTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.land(object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "land");
                 landTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = Utils.getSuccessShowText("");
+                val successMessage = Utils.getSuccessShowText("",
+                    methodName = "land");
                 landTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
@@ -396,12 +426,14 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         var goHomeTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.goHome(object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "goHome");
                 goHomeTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = Utils.getSuccessShowText("");
+                val successMessage = Utils.getSuccessShowText("",
+                    methodName = "goHome");
                 goHomeTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
@@ -412,12 +444,14 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         var cancelReturnTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.cancelReturn(object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "cancelReturn");
                 cancelReturnTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = Utils.getSuccessShowText("");
+                val successMessage = Utils.getSuccessShowText("",
+                    methodName = "cancelReturn");
                 cancelReturnTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
@@ -428,12 +462,14 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         var cancelLandTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.cancelLand(object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "cancelLand");
                 cancelLandTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = Utils.getSuccessShowText("");
+                val successMessage = Utils.getSuccessShowText("",
+                    methodName = "cancelLand");
                 cancelLandTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
@@ -486,7 +522,8 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         mController.setCalibrateCompassListener(object :
             CallbackWithOneParam<CalibrateCompassStatus> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "setCalibrateCompassListener");
                 setCalibrateCompassListenerTestResult.postValue(
                     Resource.Companion.error(
                         errorMessage,

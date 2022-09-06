@@ -24,9 +24,6 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         mController.setBeginnerModeEnable(enable, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val m = Utils.getAllStackTraceFunctions()
-                for (i in m ) {
-                    Log.i("KLKLKL", i.methodName);
-                }
                 val errorMessage =
                     Utils.getFailureShowText("on Set Enable State = ${if (enable) "true" else "false"}.\nReason - ${rcError.description}",
                     methodName = "setBeginnerModeEnable");

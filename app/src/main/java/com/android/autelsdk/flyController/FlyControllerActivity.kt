@@ -1,7 +1,5 @@
 package com.android.autelsdk.flyController
 
-//import com.android.autelsdk.remoteController.RemoteControllerActivity
-
 import android.Manifest
 import android.os.Bundle
 import android.widget.Toast
@@ -16,25 +14,17 @@ import com.autel.sdk.flycontroller.AutelFlyController
 import com.autel.sdk.product.BaseProduct
 
 
-//import com.android.autelsdk.R
-//import com.android.autelsdk.databinding.ActivityRemoteControllerBinding
-//import com.android.myapplication.R
-//import com.android.myapplication.databinding.ActivityFlyControllerBinding
-
-class FlyControllerActivity :  BaseActivity<AutelFlyController>() {
+class FlyControllerActivity : BaseActivity<AutelFlyController>() {
     val TAG = FlyControllerActivity::class.java.simpleName
-    lateinit var binding : ActivityFlyControllerBinding
-    private val viewModel : FlyControllerViewModel<AutelFlyController> by viewModels()
-    var TestArray = arrayOf("one","two")
-    private  var  ExcelTest = TestArray
-
-
-
+    lateinit var binding: ActivityFlyControllerBinding
+    private val viewModel: FlyControllerViewModel by viewModels()
+    var TestArray = arrayOf("one", "two")
+    private var ExcelTest = TestArray
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this , customViewResId)
+        binding = DataBindingUtil.setContentView(this, customViewResId)
         //val viewModel : FlyControllerViewModel<AutelFlyController> = ViewModelProvider.
         requestPermission()
         initUi()
@@ -60,8 +50,8 @@ class FlyControllerActivity :  BaseActivity<AutelFlyController>() {
 
     }
 
-    private fun createReport(){
-        val excelWorkbook : ExcelWorkbook = ExcelWorkbook()
+    private fun createReport() {
+        val excelWorkbook: ExcelWorkbook = ExcelWorkbook()
         excelWorkbook.createExcelWorkbook()
         excelWorkbook.exportDataIntoWorkbook(applicationContext)
         ///excelWorkbook.storeExcelInStorage(applicationContext,"TestDemo")

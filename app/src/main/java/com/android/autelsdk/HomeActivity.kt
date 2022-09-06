@@ -6,6 +6,7 @@ import android.view.Menu
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
 import com.android.autelsdk.databinding.ActivityHomeBinding
+import com.android.autelsdk.util.Constants
 import com.example.myapplicationdragonfish.adapter.ModuleRecyclerViewAdapter
 //import com.example.myapplicationdragonfish.databinding.ActivityHomeBinding
 import com.example.myapplicationdragonfish.viewmodel.HomeViewModel
@@ -39,17 +40,17 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun initiateModuleList() {
-        moduleList.add("RemoteController")
-        moduleList.add("FlyController")
-        moduleList.add("Gimbal")
-        moduleList.add("Codec")
-        moduleList.add("Album")
-        moduleList.add("Dsp")
-        moduleList.add("Mission")
-        moduleList.add("Evo2 Mission")
-        moduleList.add("Battery")
-        moduleList.add("Camera")
-        moduleList.add("RTK")
+        moduleList.add(Constants.RemoteController)
+        moduleList.add(Constants.FlyController)
+        moduleList.add(Constants.Gimbal)
+        moduleList.add(Constants.Codec)
+        moduleList.add(Constants.Album)
+        moduleList.add(Constants.Dsp)
+        moduleList.add(Constants.Mission)
+        moduleList.add(Constants.Evo2_Mission)
+        moduleList.add(Constants.Battery)
+        moduleList.add(Constants.Camera)
+        moduleList.add(Constants.RTK)
     }
 
     fun initialAlertDialog() {

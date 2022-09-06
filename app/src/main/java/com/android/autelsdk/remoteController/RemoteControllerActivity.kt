@@ -65,7 +65,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
 
                         when (msg.status) {
                             Status.SUCCESS -> {
-                                binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                             }
                             Status.ERROR -> {
                                 binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -80,7 +80,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
                 viewModel.getLanguageTest().observe(this@RemoteControllerActivity, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
-                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                         }
                         Status.ERROR -> {
                             binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -97,7 +97,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
 
                     when (msg.status) {
                         Status.SUCCESS -> {
-                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                         }
                         Status.ERROR -> {
                             binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -115,7 +115,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
 
                         when (msg.status) {
                             Status.SUCCESS -> {
-                                binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                             }
                             Status.ERROR -> {
                                 binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -130,7 +130,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
                 viewModel.getRFPowerTest().observe(this@RemoteControllerActivity, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
-                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                         }
                         Status.ERROR -> {
                             binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -148,7 +148,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
 
                         when (msg.status) {
                             Status.SUCCESS -> {
-                                binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                             }
                             Status.ERROR -> {
                                 binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -163,7 +163,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
                 viewModel.getTeacherStudentModeTest().observe(this@RemoteControllerActivity, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
-                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                         }
                         Status.ERROR -> {
                             binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -181,7 +181,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
 
                         when (msg.status) {
                             Status.SUCCESS -> {
-                                binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                             }
                             Status.ERROR -> {
                                 binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -196,7 +196,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
                 viewModel.getParameterUnitTest().observe(this@RemoteControllerActivity, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
-                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                         }
                         Status.ERROR -> {
                             binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -214,7 +214,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
 
                         when (msg.status) {
                             Status.SUCCESS -> {
-                                binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                             }
                             Status.ERROR -> {
                                 binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -229,7 +229,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
                 viewModel.getRCCommandStickModeTest().observe(this@RemoteControllerActivity, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
-                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                         }
                         Status.ERROR -> {
                             binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -246,7 +246,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
 
                     when (msg.status) {
                         Status.SUCCESS -> {
-                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                         }
                         Status.ERROR -> {
                             binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -261,7 +261,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
             viewModel.getYawCoefficientTest().observe(this@RemoteControllerActivity, Observer { msg ->
                 when (msg.status) {
                     Status.SUCCESS -> {
-                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                     }
                     Status.ERROR -> {
                         binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -275,7 +275,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
             viewModel.getVersionInfoTest().observe(this@RemoteControllerActivity, Observer { msg ->
                 when (msg.status) {
                     Status.SUCCESS -> {
-                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                     }
                     Status.ERROR -> {
                         binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -289,7 +289,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
             viewModel.getSerialNumberTest().observe(this@RemoteControllerActivity, Observer { msg ->
                 when (msg.status) {
                     Status.SUCCESS -> {
-                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                     }
                     Status.ERROR -> {
                         binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))

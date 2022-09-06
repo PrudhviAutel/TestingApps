@@ -38,7 +38,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
                 val successMessage =
                     Utils.getSuccessShowText("\nFor Beginner Mode State = ${if (enable) "true" else "false"}",
                         methodName = "setBeginnerModeEnable");
-                setBeginnerModeStateTestResult.postValue(Resource.Companion.success(successMessage))
+                setBeginnerModeStateTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return setBeginnerModeStateTestResult
@@ -100,7 +100,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText("\nFor Max Height = ${value}",
                     methodName = "setMaxHeight");
-                setMaxHeightTestResult.postValue(Resource.Companion.success(successMessage))
+                setMaxHeightTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return setMaxHeightTestResult
@@ -137,7 +137,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText("\nFor Max Range = ${value}",
                     methodName = "setMaxRange");
-                setMaxRangeTestResult.postValue(Resource.Companion.success(successMessage))
+                setMaxRangeTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return setMaxRangeTestResult
@@ -175,7 +175,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText("\nFor Return Height = ${value}",
                     methodName = "setReturnHeight");
-                setReturnHeightTestResult.postValue(Resource.Companion.success(successMessage))
+                setReturnHeightTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return setReturnHeightTestResult
@@ -213,7 +213,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText("\nFor Max Horizontal Speed = ${value}",
                     methodName = "setMaxHorizontalSpeed");
-                setHorizontalSpeedTestResult.postValue(Resource.Companion.success(successMessage))
+                setHorizontalSpeedTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return setHorizontalSpeedTestResult
@@ -302,7 +302,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
                 val successMessage =
                     Utils.getSuccessShowText("\nFor Set Pilot Lamp = ${ledPilotLamp.name}",
                         methodName = "setLedPilotLamp");
-                setLedPilotLampTestResult.postValue(Resource.Companion.success(successMessage))
+                setLedPilotLampTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return setLedPilotLampTestResult
@@ -330,7 +330,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
                 val successMessage =
                     Utils.getSuccessShowText("\nFor Latitude = ${lat}, Longitude = ${lon}",
                         methodName = "setLocationAsHomePoint");
-                setLocationAsHomePointTestResult.postValue(Resource.Companion.success(successMessage))
+                setLocationAsHomePointTestResult.postValue(Resource.Companion.success(successMessage,successMessage))
             }
         })
         return setLocationAsHomePointTestResult
@@ -355,7 +355,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText("",
                     methodName = "setAircraftLocationAsHomePoint");
-                setAircraftLocationAsHomePointTestResult.postValue(Resource.Companion.success(successMessage))
+                setAircraftLocationAsHomePointTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return setAircraftLocationAsHomePointTestResult
@@ -423,7 +423,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText("",
                     methodName = "land");
-                landTestResult.postValue(Resource.Companion.success(successMessage))
+                landTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return landTestResult
@@ -441,7 +441,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText("",
                     methodName = "goHome");
-                goHomeTestResult.postValue(Resource.Companion.success(successMessage))
+                goHomeTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return goHomeTestResult
@@ -459,7 +459,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText("",
                     methodName = "cancelReturn");
-                cancelReturnTestResult.postValue(Resource.Companion.success(successMessage))
+                cancelReturnTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return cancelReturnTestResult
@@ -477,7 +477,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText("",
                     methodName = "cancelLand");
-                cancelLandTestResult.postValue(Resource.Companion.success(successMessage))
+                cancelLandTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return cancelLandTestResult

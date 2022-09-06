@@ -21,7 +21,7 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
         mController.setLanguage(language, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
-                    Utils.getFailureShowText("on Language = ${language.value}.\nReason - ${rcError.description}");
+                    Utils.getFailureShowText("on Language = ${language.name}.\nReason - ${rcError.description}");
                 setLanguageTestResult.postValue(
                     Resource.Companion.error(
                         errorMessage,
@@ -31,8 +31,8 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
             }
 
             override fun onSuccess() {
-                val successMessage = Utils.getSuccessShowText("\nFor language = ${language.value} ");
-                setLanguageTestResult.postValue(Resource.Companion.success(successMessage))
+                val successMessage = Utils.getSuccessShowText("\nFor language = ${language.name} ");
+                setLanguageTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return setLanguageTestResult
@@ -49,8 +49,8 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
 
             override fun onSuccess(language: RemoteControllerLanguage?) {
                 language?.let {
-                    val successMessage = Utils.getSuccessShowText(".\nRemote Controller Language = ${language.value} ");
-                    getLanguageTestResult.postValue(Resource.Companion.success(language))
+                    val successMessage = Utils.getSuccessShowText(".\nRemote Controller Language = ${language.name} ");
+                    getLanguageTestResult.postValue(Resource.Companion.success(language, successMessage))
                 }
             }
         })
@@ -67,7 +67,7 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
 
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText();
-                enterPairingTestResult.postValue(Resource.Companion.success(successMessage))
+                enterPairingTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return enterPairingTestResult
@@ -78,15 +78,15 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
         mController.setRFPower(rfPower, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
-                    Utils.getFailureShowText("on RFPower = ${rfPower.value}.\nReason - ${rcError.description}");
+                    Utils.getFailureShowText("on RFPower = ${rfPower.name}.\nReason - ${rcError.description}");
                 setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nFor RFPower = ${rfPower.value} "
+                    "\nFor RFPower = ${rfPower.name} "
                 );
-                setLanguageTestResult.postValue(Resource.Companion.success(successMessage))
+                setLanguageTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return setLanguageTestResult
@@ -101,7 +101,10 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
             }
 
             override fun onSuccess(rfPower: RFPower?) {
-                getRFPowerTestResult.postValue(Resource.Companion.success(rfPower))
+                val successMessage = Utils.getSuccessShowText(
+                    "\nRFPower = ${rfPower?.name} "
+                );
+                getRFPowerTestResult.postValue(Resource.Companion.success(rfPower, successMessage))
             }
         })
         return getRFPowerTestResult
@@ -112,14 +115,14 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
         mController.setTeachingMode(teachingMode, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
-                    Utils.getFailureShowText("on Teaching Mode = ${teachingMode.value}.\nReason - ${rcError.description}");
+                    Utils.getFailureShowText("on Teaching Mode = ${teachingMode.name}.\nReason - ${rcError.description}");
                 setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage =
-                    Utils.getSuccessShowText("\nFor Teaching Mode = ${teachingMode.value} ");
-                setLanguageTestResult.postValue(Resource.Companion.success(successMessage))
+                    Utils.getSuccessShowText("\nFor Teaching Mode = ${teachingMode.name} ");
+                setLanguageTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return setLanguageTestResult
@@ -140,7 +143,10 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
             }
 
             override fun onSuccess(teachingMode: TeachingMode?) {
-                getTeacherStudentModeTestResult.postValue(Resource.Companion.success(teachingMode))
+                val successMessage = Utils.getSuccessShowText(
+                    "\nTeaching Mode = ${teachingMode?.name} "
+                );
+                getTeacherStudentModeTestResult.postValue(Resource.Companion.success(teachingMode, successMessage))
             }
         })
         return getTeacherStudentModeTestResult
@@ -151,14 +157,14 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
         mController.setParameterUnit(parameterUnit, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
-                    Utils.getFailureShowText("on Parameter unit = ${parameterUnit.value}.\nReason - ${rcError.description}");
+                    Utils.getFailureShowText("on Parameter unit = ${parameterUnit.name}.\nReason - ${rcError.description}");
                 setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage =
-                    Utils.getSuccessShowText("\nFor Remote Controller Parameter Unit = ${parameterUnit.value} ");
-                setLanguageTestResult.postValue(Resource.Companion.success(successMessage))
+                    Utils.getSuccessShowText("\nFor Remote Controller Parameter Unit = ${parameterUnit.name} ");
+                setLanguageTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return setLanguageTestResult
@@ -174,7 +180,10 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
             }
 
             override fun onSuccess(parameterUnit: RemoteControllerParameterUnit?) {
-                getParameterUnitTestResult.postValue(Resource.Companion.success(parameterUnit))
+                val successMessage = Utils.getSuccessShowText(
+                    "\nParameter Unit = ${parameterUnit?.name} "
+                );
+                getParameterUnitTestResult.postValue(Resource.Companion.success(parameterUnit, successMessage))
             }
         })
         return getParameterUnitTestResult
@@ -185,14 +194,14 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
         mController.setCommandStickMode(commandStickMode, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
-                    Utils.getFailureShowText("on Command Stick Mode = ${commandStickMode.value}.\nReason - ${rcError.description}");
+                    Utils.getFailureShowText("on Command Stick Mode = ${commandStickMode.name}.\nReason - ${rcError.description}");
                 setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage =
-                    Utils.getSuccessShowText("\nFor Remote Controller Command Stick Mode = ${commandStickMode.value} ");
-                setLanguageTestResult.postValue(Resource.Companion.success(successMessage))
+                    Utils.getSuccessShowText("\nFor Remote Controller Command Stick Mode = ${commandStickMode.name} ");
+                setLanguageTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return setLanguageTestResult
@@ -214,9 +223,11 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
             }
 
             override fun onSuccess(commandStickMode: RemoteControllerCommandStickMode?) {
+                val successMessage = Utils.getSuccessShowText("\n Remote Controller CommandStick Mode = ${commandStickMode?.name}",
+                    methodName = "getMaxHorizontalSpeed");
                 getRCCommandStickModeTestResult.postValue(
                     Resource.Companion.success(
-                        commandStickMode
+                        commandStickMode, successMessage
                     )
                 )
             }
@@ -241,7 +252,7 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
                         "\nFor Yaw Coefficient = ${yawCoeff} ",
                         methodName = "setYawCoefficient"
                     );
-                setYawCoefficientTestResult.postValue(Resource.Companion.success(successMessage))
+                setYawCoefficientTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
         return setYawCoefficientTestResult
@@ -259,7 +270,9 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
             }
 
             override fun onSuccess(yawCoeff: Float?) {
-                getYawCoefficientTestResult.postValue(Resource.Companion.success(yawCoeff))
+                val successMessage = Utils.getSuccessShowText("\nYaw Coefficient = ${yawCoeff}",
+                    methodName = "getYawCoefficient");
+                getYawCoefficientTestResult.postValue(Resource.Companion.success(yawCoeff, successMessage))
             }
         })
         return getYawCoefficientTestResult
@@ -277,8 +290,12 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
                 getVersionInfoTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
-            override fun onSuccess(versionInfo: RemoteControllerVersionInfo?) {
-                getVersionInfoTestResult.postValue(Resource.Companion.success(versionInfo))
+            override fun onSuccess(versionInfo: RemoteControllerVersionInfo) {
+                val successMessage =
+                    Utils.getSuccessShowText("\nRFRX Version = ${versionInfo.rfrxVersion} , " +
+                            "RFTX Version = ${versionInfo.rftxVersion}",
+                        methodName = "getVersionInfo");
+                getVersionInfoTestResult.postValue(Resource.Companion.success(versionInfo,successMessage))
             }
         })
         return getVersionInfoTestResult
@@ -296,7 +313,9 @@ class RemoteControllerRepositoryImpl : RemoteControllerRepository {
             }
 
             override fun onSuccess(serialNumber: String?) {
-                getSerialNumberTestResult.postValue(Resource.Companion.success(serialNumber))
+                val successMessage = Utils.getSuccessShowText("\nSerial Number = ${serialNumber}",
+                    methodName = "getSerialNumber");
+                getSerialNumberTestResult.postValue(Resource.Companion.success(serialNumber,successMessage))
             }
         })
         return getSerialNumberTestResult

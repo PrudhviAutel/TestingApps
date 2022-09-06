@@ -32,9 +32,8 @@ class MainActivity2 : AppCompatActivity() {
         binding.spinnerSdkList.setSelection(0)
 
         binding.buttonTest.setOnClickListener(View.OnClickListener {
-            //intent = Intent(this, RemoteControllerActivity::class.java)
-            intent = Intent(this, FlyControllerActivity::class.java)
-            //intent.putExtra("SdkName", binding.spinnerSdkList.selectedItem.toString())
+            intent = Intent(this, HomeActivity::class.java)
+            intent.putExtra("SdkName", binding.spinnerSdkList.selectedItem.toString())
             startActivity(intent)
         })
 

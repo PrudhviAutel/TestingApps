@@ -17,8 +17,8 @@ interface FlyControllerRepository {
     suspend fun getReturnHeightTest(): MutableLiveData<Resource<Float>>
     suspend fun setReturnHeightTest(value: Double): MutableLiveData<Resource<String>>
 
-    suspend fun setHorizontalSpeedTest(value: Double): MutableLiveData<Resource<String>>
-    suspend fun getHorizontalSpeedTest(): MutableLiveData<Resource<Float>>
+    suspend fun setMaxHorizontalSpeedTest(value: Double): MutableLiveData<Resource<String>>
+    suspend fun getMaxHorizontalSpeedTest(): MutableLiveData<Resource<Float>>
     suspend fun setCalibrateCompassListenerTest(): MutableLiveData<Resource<CalibrateCompassStatus>>
     suspend fun getSerialNumberTest(): MutableLiveData<Resource<String>>
     suspend fun getVersionInfoTest(): MutableLiveData<Resource<FlyControllerVersionInfo>>

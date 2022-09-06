@@ -242,7 +242,7 @@ class FlyControllerActivity : BaseActivity<AutelFlyController>() {
                 }
             })
 
-            viewModel.setHorizontalSpeedTest(5.0)
+            viewModel.setMaxHorizontalSpeedTest(5.0)
                 .observe(this@FlyControllerActivity, Observer { msg ->
 
                     when (msg.status) {
@@ -259,7 +259,7 @@ class FlyControllerActivity : BaseActivity<AutelFlyController>() {
 
                 })
 
-            viewModel.getHorizontalSpeedTest().observe(this@FlyControllerActivity, Observer { msg ->
+            viewModel.getMaxHorizontalSpeedTest().observe(this@FlyControllerActivity, Observer { msg ->
                 when (msg.status) {
                     Status.SUCCESS -> {
                         binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))

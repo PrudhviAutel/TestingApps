@@ -44,12 +44,12 @@ class FlyControllerViewModel : ViewModel() {
         return flyControllerRepository.setReturnHeightTest(value)
     }
 
-    suspend fun setHorizontalSpeedTest(value: Double): MutableLiveData<Resource<String>> {
-        return flyControllerRepository.setHorizontalSpeedTest(value)
+    suspend fun setMaxHorizontalSpeedTest(value: Double): MutableLiveData<Resource<String>> {
+        return flyControllerRepository.setMaxHorizontalSpeedTest(value)
     }
 
-    suspend fun getHorizontalSpeedTest(): MutableLiveData<Resource<Float>> {
-        return flyControllerRepository.getHorizontalSpeedTest()
+    suspend fun getMaxHorizontalSpeedTest(): MutableLiveData<Resource<Float>> {
+        return flyControllerRepository.getMaxHorizontalSpeedTest()
     }
 
     suspend fun setCalibrateCompassListenerTest(): MutableLiveData<Resource<CalibrateCompassStatus>> {

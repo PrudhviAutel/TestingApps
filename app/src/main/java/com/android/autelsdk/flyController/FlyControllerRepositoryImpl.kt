@@ -62,8 +62,11 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
                 )
             }
 
-            override fun onSuccess(mode: Boolean?) {
-                getBeginnerModeStateTestResult.postValue(Resource.Companion.success(mode))
+            override fun onSuccess(mode: Boolean) {
+                val successMessage =
+                    Utils.getSuccessShowText("\nBeginner Mode State = ${if (mode) "true" else "false"}",
+                        methodName = "getBeginnerModeEnable");
+                getBeginnerModeStateTestResult.postValue(Resource.Companion.success(mode, successMessage))
             }
         })
         return getBeginnerModeStateTestResult
@@ -80,8 +83,9 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             }
 
             override fun onSuccess(value: Float?) {
-                val successMessage = "";
-                getMaxHeightTestResult.postValue(Resource.Companion.success(value))
+                val successMessage = Utils.getSuccessShowText("\nMax Height = ${value}",
+                    methodName = "getMaxHeight");
+                getMaxHeightTestResult.postValue(Resource.Companion.success(value, successMessage))
             }
         })
         return getMaxHeightTestResult
@@ -115,9 +119,10 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
                 getMaxRangeTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
-            override fun onSuccess(maxRange: Float?) {
-                val successMessage = "";
-                getMaxRangeTestResult.postValue(Resource.Companion.success(maxRange))
+            override fun onSuccess(maxRange: Float) {
+                val successMessage = Utils.getSuccessShowText("\nMax Range = ${maxRange}",
+                    methodName = "getMaxRange");
+                getMaxRangeTestResult.postValue(Resource.Companion.success(maxRange, successMessage))
             }
         })
         return getMaxRangeTestResult
@@ -152,9 +157,10 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
                 getReturnHeightTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
-            override fun onSuccess(returnHeight: Float?) {
-                val successMessage = "";
-                getReturnHeightTestResult.postValue(Resource.Companion.success(returnHeight))
+            override fun onSuccess(returnHeight: Float) {
+                val successMessage = Utils.getSuccessShowText("\nReturn Height = ${returnHeight}",
+                    methodName = "setReturnHeight");
+                getReturnHeightTestResult.postValue(Resource.Companion.success(returnHeight, successMessage))
             }
         })
         return getReturnHeightTestResult
@@ -179,7 +185,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         return setReturnHeightTestResult
     }
 
-    override suspend fun getHorizontalSpeedTest(): MutableLiveData<Resource<Float>> {
+    override suspend fun getMaxHorizontalSpeedTest(): MutableLiveData<Resource<Float>> {
         var getHorizontalSpeedTestResult: MutableLiveData<Resource<Float>> = MutableLiveData()
 
         mController.getMaxHorizontalSpeed(object : CallbackWithOneParam<Float> {
@@ -189,26 +195,27 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
                 getHorizontalSpeedTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
-            override fun onSuccess(horizontalSpeed: Float?) {
-                val successMessage = "";
-                getHorizontalSpeedTestResult.postValue(Resource.Companion.success(horizontalSpeed))
+            override fun onSuccess(horizontalSpeed: Float) {
+                val successMessage = Utils.getSuccessShowText("\nFor Max Horizontal Speed = ${horizontalSpeed}",
+                    methodName = "getMaxHorizontalSpeed");
+                getHorizontalSpeedTestResult.postValue(Resource.Companion.success(horizontalSpeed, successMessage))
             }
         })
         return getHorizontalSpeedTestResult
     }
 
-    override suspend fun setHorizontalSpeedTest(value: Double): MutableLiveData<Resource<String>> {
+    override suspend fun setMaxHorizontalSpeedTest(value: Double): MutableLiveData<Resource<String>> {
         var setHorizontalSpeedTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.setMaxHorizontalSpeed(value, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
-                    Utils.getFailureShowText("for Horizontal Speed = ${value}.\nReason - ${rcError.description}",
+                    Utils.getFailureShowText("for Max Horizontal Speed = ${value}.\nReason - ${rcError.description}",
                         methodName = "setMaxHorizontalSpeed");
                 setHorizontalSpeedTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = Utils.getSuccessShowText("\nFor Horizontal Speed = ${value}",
+                val successMessage = Utils.getSuccessShowText("\nFor Max Horizontal Speed = ${value}",
                     methodName = "setMaxHorizontalSpeed");
                 setHorizontalSpeedTestResult.postValue(Resource.Companion.success(successMessage))
             }
@@ -221,7 +228,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         mController.isAttitudeModeEnable(object : CallbackWithOneParam<Boolean> {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
-                    methodName = "getAttitudeModeEnable");
+                    methodName = "isAttitudeModeEnable");
                 isAttitudeModeEnableTestResult.postValue(
                     Resource.Companion.error(
                         errorMessage,
@@ -230,9 +237,11 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
                 )
             }
 
-            override fun onSuccess(result: Boolean?) {
-                val successMessage = "";
-                isAttitudeModeEnableTestResult.postValue(Resource.Companion.success(result))
+            override fun onSuccess(result: Boolean) {
+                val successMessage =
+                    Utils.getSuccessShowText("\nFor Attitude Mode State = ${if (result) "true" else "false"}",
+                        methodName = "isAttitudeModeEnable");
+                isAttitudeModeEnableTestResult.postValue(Resource.Companion.success(result, successMessage))
             }
         })
         return isAttitudeModeEnableTestResult
@@ -257,7 +266,7 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
                 val successMessage =
                     Utils.getSuccessShowText("\nFor Attitude Mode State = ${if (enable) "true" else "false"}",
                         methodName = "setAttitudeModeEnable");
-                setAttitudeModeEnableTestResult.postValue(Resource.Companion.success(enable))
+                setAttitudeModeEnableTestResult.postValue(Resource.Companion.success(enable, successMessage))
             }
         })
         return setAttitudeModeEnableTestResult
@@ -273,9 +282,11 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
                 getLedPilotLampTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
-            override fun onSuccess(ledpilotlamp: LedPilotLamp?) {
-                val successMessage = "";
-                getLedPilotLampTestResult.postValue(Resource.Companion.success(ledpilotlamp))
+            override fun onSuccess(ledpilotlamp: LedPilotLamp) {
+                val successMessage =
+                    Utils.getSuccessShowText("\nLed Pilot Lamp = ${ledpilotlamp.name}",
+                        methodName = "getLedPilotLamp");
+                getLedPilotLampTestResult.postValue(Resource.Companion.success(ledpilotlamp, successMessage))
             }
         })
         return getLedPilotLampTestResult
@@ -286,14 +297,14 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         mController.setLedPilotLamp(ledPilotLamp, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
-                    Utils.getFailureShowText("for Led Pilot Lamp = ${ledPilotLamp.value}.\nReason - ${rcError.description}",
+                    Utils.getFailureShowText("for Led Pilot Lamp = ${ledPilotLamp.name}.\nReason - ${rcError.description}",
                         methodName = "setLedPilotLamp");
                 setLedPilotLampTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage =
-                    Utils.getSuccessShowText("\nFor Set Pilot Lamp = ${ledPilotLamp.value}",
+                    Utils.getSuccessShowText("\nFor Set Pilot Lamp = ${ledPilotLamp.name}",
                         methodName = "setLedPilotLamp");
                 setLedPilotLampTestResult.postValue(Resource.Companion.success(successMessage))
             }
@@ -371,11 +382,11 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
 
             override fun onSuccess(calibrateCompassStatus: CalibrateCompassStatus) {
                 val successMessage =
-                    Utils.getSuccessShowText("\nFor Calibrate Compass Status = ${calibrateCompassStatus.value}",
+                    Utils.getSuccessShowText("\nFor Calibrate Compass Status = ${calibrateCompassStatus.name}",
                         methodName = "startCalibrateCompass");
                 startCalibrateCompassTestResult.postValue(
                     Resource.Companion.success(
-                        calibrateCompassStatus
+                        calibrateCompassStatus, successMessage
                     )
                 )
             }
@@ -489,8 +500,11 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             }
 
             override fun onSuccess(flyresult: FlyControllerVersionInfo) {
-                val successMessage = "";
-                getVersionInfoTestResult.postValue(Resource.Companion.success(flyresult))
+                val successMessage =
+                    Utils.getSuccessShowText("\nFly Controller Version = ${flyresult.flyControllerVersion} , " +
+                            "Sonar Version = ${flyresult.sonarVersion}, Optical Flow Version = ${flyresult.opticalFlowVersion}",
+                        methodName = "getVersionInfo");
+                getVersionInfoTestResult.postValue(Resource.Companion.success(flyresult, successMessage))
             }
         })
         return getVersionInfoTestResult
@@ -509,8 +523,9 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             }
 
             override fun onSuccess(result: String) {
-                val successMessage = "";
-                getSerialNumberTestResult.postValue(Resource.Companion.success(result))
+                val successMessage = Utils.getSuccessShowText("\nSerial Number = ${result}",
+                    methodName = "getSerialNumber");
+                getSerialNumberTestResult.postValue(Resource.Companion.success(result, successMessage))
             }
         })
         return getSerialNumberTestResult
@@ -533,8 +548,9 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
             }
 
             override fun onSuccess(result: CalibrateCompassStatus) {
-                val successMessage = "";
-                setCalibrateCompassListenerTestResult.postValue(Resource.Companion.success(result))
+                val successMessage = Utils.getSuccessShowText("\nCalibrate Compass Status = ${result.name}",
+                    methodName = "setCalibrateCompassListener");
+                setCalibrateCompassListenerTestResult.postValue(Resource.Companion.success(result, successMessage))
             }
         })
         return setCalibrateCompassListenerTestResult

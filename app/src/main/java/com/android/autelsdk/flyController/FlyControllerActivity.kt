@@ -87,6 +87,10 @@ class FlyControllerActivity :  BaseActivity<AutelFlyController>() {
         }
     }
 
+    fun makeToast(message : String){
+        Toast.makeText(applicationContext,message,Toast.LENGTH_SHORT).show()
+    }
+
 
 }
 

@@ -6,6 +6,7 @@ import android.nfc.Tag
 import android.os.Environment
 import android.util.Log
 import android.widget.Toast
+import com.android.autelsdk.flyController.FlyControllerActivity
 import org.apache.poi.hssf.record.formula.functions.T
 import org.apache.poi.hssf.usermodel.HSSFCellStyle
 import org.apache.poi.hssf.usermodel.HSSFWorkbook
@@ -21,6 +22,8 @@ class ExcelWorkbook {
 
     private lateinit var cell: Cell
     private lateinit var sheet: Sheet
+    lateinit var list : MutableList<String>
+    val flycontrollerObject : FlyControllerActivity = FlyControllerActivity()
 
     private val EXCEL_SHEET_NAME = "Sheet1"
     var workbook: Workbook = HSSFWorkbook()
@@ -32,6 +35,7 @@ class ExcelWorkbook {
         // New Workbook
 
         // Cell style for header row
+        flycontrollerObject.makeToast("in createExcelWorkbook")
         val cellStyle: CellStyle = workbook.createCellStyle()
         cellStyle.setFillForegroundColor(HSSFColor.AQUA.index)
         cellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND)
@@ -130,8 +134,15 @@ class ExcelWorkbook {
         sheet.setColumnWidth(1, 15 * 400)
         sheet.setColumnWidth(2, 15 * 400)
         sheet.setColumnWidth(3, 15 * 400)
+
+
         setHeaderRow()
-        //fillDataIntoExcel(dataList)
+
+        list.add("january")
+        list.add("febrarry")
+        list.add("april")
+        list.add("great")
+        //fillDataIntoExcel(list)
         isWorkbookWrittenIntoStorage = storeExcelInStorage(context,"TestFolder")
         return isWorkbookWrittenIntoStorage
     }
@@ -199,18 +210,19 @@ class ExcelWorkbook {
      */
     private fun fillDataIntoExcel(dataList: List<String>) {
         for (i in dataList.indices) {
+            Log.e("KLKLKL","IAM INSIDE FILLDATAINTOEXCEL")
             // Create a New Row for every new entry in list
             val rowData = sheet.createRow(i + 1)
 
             // Create Cells for each row
-//            cell = rowData.createCell(0)
-//            cell.setCellValue(dataList[i].getFirstName())
-//            cell = rowData.createCell(1)
-//            cell.setCellValue(dataList[i].getLastName())
-//            cell = rowData.createCell(2)
-//            cell.setCellValue(dataList[i].getPhoneNumber())
-//            cell = rowData.createCell(4)
-//            cell.setCellValue(dataList[i].getMailId())
+            cell = rowData.createCell(0)
+            cell.setCellValue(dataList[i])
+            cell = rowData.createCell(1)
+            cell.setCellValue(dataList[i])
+            cell = rowData.createCell(2)
+            cell.setCellValue(dataList[i])
+            cell = rowData.createCell(3)
+            cell.setCellValue(dataList[i])
         }
     }
 

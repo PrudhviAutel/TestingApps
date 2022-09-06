@@ -23,7 +23,6 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         var setBeginnerModeStateTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.setBeginnerModeEnable(enable, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val m = Utils.getAllStackTraceFunctions()
                 val errorMessage =
                     Utils.getFailureShowText("on Set Enable State = ${if (enable) "true" else "false"}.\nReason - ${rcError.description}",
                     methodName = "setBeginnerModeEnable");

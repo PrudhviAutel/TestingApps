@@ -22,7 +22,11 @@ class ExcelWorkbook {
 
     private lateinit var cell: Cell
     private lateinit var sheet: Sheet
-    lateinit var list : MutableList<String>
+    var name1 = "bugatti best car we can get ghjhkhj"
+    var name2 = "toyato juhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
+    var name3 = "ford"
+    var name4 = "Zero"
+     var list : MutableList<String> = arrayListOf(name1,name2,name3,name4)
     val flycontrollerObject : FlyControllerActivity = FlyControllerActivity()
 
     private val EXCEL_SHEET_NAME = "Sheet1"
@@ -61,7 +65,7 @@ class ExcelWorkbook {
     }
 
 
-    fun readExcelFromStorage(context : Context, fileName:String) {
+    /*fun readExcelFromStorage(context : Context, fileName:String) {
         var file  =  File(context.getExternalFilesDir(null), fileName);
         var fileInputStream : FileInputStream? = null ;
 
@@ -111,7 +115,7 @@ class ExcelWorkbook {
                 ex.printStackTrace();
             }
         }
-    }
+    }*/
 
     fun exportDataIntoWorkbook(
         context: Context
@@ -134,14 +138,16 @@ class ExcelWorkbook {
         sheet.setColumnWidth(1, 15 * 400)
         sheet.setColumnWidth(2, 15 * 400)
         sheet.setColumnWidth(3, 15 * 400)
+        sheet.setColumnWidth(4, 15 * 400)
 
 
         setHeaderRow()
+        fillDataIntoExcel(list)
 
-        list.add("january")
-        list.add("febrarry")
-        list.add("april")
-        list.add("great")
+//        list.add("january")
+//        list.add("febrarry")
+//        list.add("april")
+//        list.add("great")
         //fillDataIntoExcel(list)
         isWorkbookWrittenIntoStorage = storeExcelInStorage(context,"TestFolder")
         return isWorkbookWrittenIntoStorage
@@ -187,16 +193,19 @@ class ExcelWorkbook {
         cellStyle.setAlignment(CellStyle.ALIGN_CENTER)
         val headerRow = sheet.createRow(0)
         cell = headerRow.createCell(0)
-        cell.setCellValue("First Name")
+        cell.setCellValue("Sl No")
         cell.cellStyle = cellStyle
         cell = headerRow.createCell(1)
-        cell.setCellValue("Last Name")
+        cell.setCellValue("Controller")
         cell.cellStyle = cellStyle
         cell = headerRow.createCell(2)
-        cell.setCellValue("Phone Number")
+        cell.setCellValue("Test Case")
         cell.cellStyle = cellStyle
         cell = headerRow.createCell(3)
-        cell.setCellValue("Mail ID")
+        cell.setCellValue("status")
+        cell.cellStyle = cellStyle
+        cell = headerRow.createCell(4)
+        cell.setCellValue("remark")
         cell.cellStyle = cellStyle
     }
 
@@ -213,7 +222,6 @@ class ExcelWorkbook {
             Log.e("KLKLKL","IAM INSIDE FILLDATAINTOEXCEL")
             // Create a New Row for every new entry in list
             val rowData = sheet.createRow(i + 1)
-
             // Create Cells for each row
             cell = rowData.createCell(0)
             cell.setCellValue(dataList[i])
@@ -226,7 +234,7 @@ class ExcelWorkbook {
         }
     }
 
-    private fun fillDataIntoExcel(dataList: List<String>, col : Int) {
+    private fun fillDataIntoExcel2(dataList: List<String>, col : Int) {
         for (i in dataList.indices) {
             // Create a New Row for every new entry in list
             val rowData = sheet.createRow(i + 1)

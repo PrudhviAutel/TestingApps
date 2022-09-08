@@ -34,7 +34,7 @@ class FlyControllerActivity : BaseActivity<AutelFlyController>() {
         //val viewModel : FlyControllerViewModel<AutelFlyController> = ViewModelProvider.
         requestPermission()
         initUi()
-        //createReport()
+        createReport()
         runTests()
 
     }
@@ -58,7 +58,7 @@ class FlyControllerActivity : BaseActivity<AutelFlyController>() {
     }
 
     private fun createReport() {
-        val excelWorkbook: ExcelWorkbook = ExcelWorkbook()
+         var excelWorkbook: ExcelWorkbook = ExcelWorkbook()
         excelWorkbook.createExcelWorkbook()
         excelWorkbook.exportDataIntoWorkbook(applicationContext)
         ///excelWorkbook.storeExcelInStorage(applicationContext,"TestDemo")

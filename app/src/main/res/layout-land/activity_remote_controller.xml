@@ -6,7 +6,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -47,29 +48,48 @@
 
             <View
                 android:id="@+id/divider0"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:paddingVertical="6dp"
                 android:background="#F2F1F6"
-                android:elevation="1dp" />
+                android:elevation="2dp"
+                />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/optionsRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:clipToPadding="false"
-                tools:itemCount="4"
-                tools:listitem="@layout/item_options" />
+            <include
+                android:id="@+id/interfaceDebug"
+                layout="@layout/item_options"
+                app:option="@{`Interface Debugging Terminal`}"
+                app:src="@{@drawable/ic_launcher_background}"/>
+
+            <include
+                android:id="@+id/flightControl"
+                layout="@layout/item_options"
+                app:option="@{`Flight Control Paramter Reading`}"
+                app:src="@{@drawable/ic_launcher_background}"/>
+
+            <include
+                android:id="@+id/aircraftStatus"
+                layout="@layout/item_options"
+                app:option="@{`Aircraft Status, Direct Command`}"
+                app:src="@{@drawable/ic_launcher_background}"/>
+
+            <!--
+            <include
+                android:id="@+id/debugLog"
+                layout="@layout/item_options"
+                app:option="@{`Debug Log Terminal`}"
+                app:src="@{@drawable/ic_launcher_background}"/>
+
+                -->
 
         </LinearLayout>
 
         <View
             android:id="@+id/divider_fragment"
-            android:layout_width="10dp"
+            android:layout_width="5dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="0.5dp"
-            android:background="@color/grey_light1"
-            android:elevation="3dp"
+            android:background="#F2F1F6"
+            android:elevation="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
             app:layout_constraintStart_toEndOf="@+id/linearLayout"
             app:layout_constraintTop_toTopOf="@+id/linearLayout" />

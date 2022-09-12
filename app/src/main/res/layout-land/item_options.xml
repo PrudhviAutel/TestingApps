@@ -4,18 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable name="option" type="java.lang.String"/>
+        <variable name="src" type="android.graphics.drawable.Drawable"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="30dp"
+            android:id="@+id/icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="15dp"
+            android:src="@{src}"
             android:background="@color/black_70_alpha"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,12 +30,13 @@
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
             android:paddingVertical="20dp"
-            android:layout_marginLeft="20dp"
-            android:text="Flight Control Parameter Reading"
+            android:layout_marginLeft="10dp"
+            android:text="@{option}"
+            tools:text="Flight Control Parameter Reading"
             android:textAlignment="center"
             android:textColor="@color/black_70_alpha"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/icon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View

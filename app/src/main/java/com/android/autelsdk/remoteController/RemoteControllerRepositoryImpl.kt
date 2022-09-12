@@ -16,7 +16,6 @@ class RemoteControllerRepositoryImpl() : RemoteControllerRepository {
 
     //❌
     override suspend fun setLanguageTest(language: RemoteControllerLanguage): MutableLiveData<Resource<String>> {
-
         var setLanguageTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.setLanguage(language, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
@@ -73,23 +72,28 @@ class RemoteControllerRepositoryImpl() : RemoteControllerRepository {
         return enterPairingTestResult
     }
 
+    override fun exitPairing() {
+        mController.exitPairing()
+    }
+
+
     override suspend fun setRFPowerTest(rfPower: RFPower): MutableLiveData<Resource<String>> {
-        var setLanguageTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        var setRFPowerTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.setRFPower(rfPower, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
                     Utils.getFailureShowText("on RFPower = ${rfPower.name}.\nReason - ${rcError.description}");
-                setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
+                setRFPowerTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText(
                     "\nFor RFPower = ${rfPower.name} "
                 );
-                setLanguageTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
+                setRFPowerTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
-        return setLanguageTestResult
+        return setRFPowerTestResult
     }
 
     override suspend fun getRFPowerTest(): MutableLiveData<Resource<RFPower>> {
@@ -111,21 +115,21 @@ class RemoteControllerRepositoryImpl() : RemoteControllerRepository {
     }
 
     override suspend fun setTeacherStudentModeTest(teachingMode: TeachingMode): MutableLiveData<Resource<String>> {
-        var setLanguageTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        var setTeacherStudentModeTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.setTeachingMode(teachingMode, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
                     Utils.getFailureShowText("on Teaching Mode = ${teachingMode.name}.\nReason - ${rcError.description}");
-                setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
+                setTeacherStudentModeTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage =
                     Utils.getSuccessShowText("\nFor Teaching Mode = ${teachingMode.name} ");
-                setLanguageTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
+                setTeacherStudentModeTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
-        return setLanguageTestResult
+        return setTeacherStudentModeTestResult
     }
 
     override suspend fun getTeacherStudentModeTest(): MutableLiveData<Resource<TeachingMode>> {
@@ -153,21 +157,21 @@ class RemoteControllerRepositoryImpl() : RemoteControllerRepository {
     }
 
     override suspend fun setParameterUnitTest(parameterUnit: RemoteControllerParameterUnit): MutableLiveData<Resource<String>> {
-        var setLanguageTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        var setParameterUnitTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.setParameterUnit(parameterUnit, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
                     Utils.getFailureShowText("on Parameter unit = ${parameterUnit.name}.\nReason - ${rcError.description}");
-                setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
+                setParameterUnitTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage =
                     Utils.getSuccessShowText("\nFor Remote Controller Parameter Unit = ${parameterUnit.name} ");
-                setLanguageTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
+                setParameterUnitTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
-        return setLanguageTestResult
+        return setParameterUnitTestResult
     }
 
     override suspend fun getParameterUnitTest(): MutableLiveData<Resource<RemoteControllerParameterUnit>> {
@@ -190,21 +194,21 @@ class RemoteControllerRepositoryImpl() : RemoteControllerRepository {
     }
 
     override suspend fun setRCCommandStickModeTest(commandStickMode: RemoteControllerCommandStickMode): MutableLiveData<Resource<String>> {
-        var setLanguageTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        var setRCCommandStickModeTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.setCommandStickMode(commandStickMode, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage =
                     Utils.getFailureShowText("on Command Stick Mode = ${commandStickMode.name}.\nReason - ${rcError.description}");
-                setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
+                setRCCommandStickModeTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage =
                     Utils.getSuccessShowText("\nFor Remote Controller Command Stick Mode = ${commandStickMode.name} ");
-                setLanguageTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
+                setRCCommandStickModeTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
         })
-        return setLanguageTestResult
+        return setRCCommandStickModeTestResult
     }
 
     override suspend fun getRCCommandStickModeTest(): MutableLiveData<Resource<RemoteControllerCommandStickMode>> {
@@ -319,6 +323,27 @@ class RemoteControllerRepositoryImpl() : RemoteControllerRepository {
             }
         })
         return getSerialNumberTestResult
+    }
+
+    override fun getParameterRangeManager(): RemoteControllerParameterRangeManager {
+        return mController.parameterRangeManager
+    }
+
+    override suspend fun setStickCalibrationTest(calibration: RemoteControllerStickCalibration) : MutableLiveData<Resource<RemoteControllerStickCalibration>> {
+        var setStickCalibrationTestResult: MutableLiveData<Resource<RemoteControllerStickCalibration>> = MutableLiveData()
+        mController.setStickCalibration(calibration, object : CallbackWithNoParam {
+            override fun onFailure(rcError: AutelError) {
+                val errorMessage =
+                    Utils.getFailureShowText("on Calibration = ${calibration.name}.\nReason - ${rcError.description}");
+                setStickCalibrationTestResult.postValue(Resource.Companion.error(errorMessage, null))
+            }
+
+            override fun onSuccess() {
+                val successMessage = Utils.getSuccessShowText("\nFor Calibration = ${calibration.name} ");
+                setStickCalibrationTestResult.postValue(Resource.Companion.success(calibration, successMessage))
+            }
+        })
+        return setStickCalibrationTestResult
     }
 
 }

@@ -21,6 +21,10 @@ class RemoteControllerViewModel() : ViewModel() {
         return remoteControllerRepository.enterPairingTest()
     }
 
+    fun exitPairing() {
+        return remoteControllerRepository.exitPairing()
+    }
+
     suspend fun setRFPowerTest(rfPower: RFPower): MutableLiveData<Resource<String>> {
         return remoteControllerRepository.setRFPowerTest(rfPower)
     }
@@ -67,6 +71,14 @@ class RemoteControllerViewModel() : ViewModel() {
 
     suspend fun getSerialNumberTest(): MutableLiveData<Resource<String>> {
         return remoteControllerRepository.getSerialNumberTest()
+    }
+
+    fun getParameterRangeManager(): RemoteControllerParameterRangeManager {
+        return remoteControllerRepository.getParameterRangeManager()
+    }
+
+    suspend fun setStickCalibrationTest(calibration: RemoteControllerStickCalibration) : MutableLiveData<Resource<RemoteControllerStickCalibration>> {
+        return remoteControllerRepository.setStickCalibrationTest(calibration)
     }
 
 //    // When we will have to Pass the Values to ViewModel, we can use this code

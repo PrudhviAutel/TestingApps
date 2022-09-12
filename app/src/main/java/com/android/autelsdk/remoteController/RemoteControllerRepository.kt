@@ -12,6 +12,8 @@ interface RemoteControllerRepository {
 
     suspend fun enterPairingTest(): MutableLiveData<Resource<String>>
 
+    fun exitPairing()
+
     //TODO : How to test exit Pairing method as it has no Call back element
 
     suspend fun setRFPowerTest(rfPower: RFPower): MutableLiveData<Resource<String>>
@@ -39,4 +41,8 @@ interface RemoteControllerRepository {
     suspend fun getVersionInfoTest(): MutableLiveData<Resource<RemoteControllerVersionInfo>>
 
     suspend fun getSerialNumberTest(): MutableLiveData<Resource<String>>
+
+    fun getParameterRangeManager(): RemoteControllerParameterRangeManager
+
+    suspend fun setStickCalibrationTest(calibration: RemoteControllerStickCalibration): MutableLiveData<Resource<RemoteControllerStickCalibration>>
 }

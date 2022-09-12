@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingDefaultResource">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/grey_light1"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.395">
+
+            <TextView
+                android:id="@+id/heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="20dp"
+                android:text="Remote Controller Assistant"
+                android:textAlignment="center"
+                android:textColor="@color/black_70_alpha"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/testResults"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="20dp"
+                android:visibility="gone"
+                android:text="Remote Controller Assistant"
+                android:textAlignment="center"
+                android:textColor="@color/black_70_alpha"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <View
+                android:id="@+id/divider0"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#F2F1F6"
+                android:elevation="1dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/optionsRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:clipToPadding="false"
+                tools:itemCount="4"
+                tools:listitem="@layout/item_options" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider_fragment"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0.5dp"
+            android:background="@color/grey_light1"
+            android:elevation="3dp"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toEndOf="@+id/divider_fragment"
+            app:layout_constraintWidth_percent="0.6" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:animateLayoutChanges="true">
+
+
+                <TextView
+                    android:id="@+id/planeConnectStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="The plane is not connected"
+                    android:paddingVertical="10dp"
+                    android:paddingHorizontal="14dp"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/testBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel Power Return Flight"
+                    android:textAllCaps="false"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/planeConnectStatus" />
+
+                <Button
+                    android:id="@+id/enterBinding"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Enter Binding"
+                    android:textAllCaps="false"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/testBtn" />
+
+                <Button
+                    android:id="@+id/exitBinding"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    android:text="Exit Binding"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/enterBinding"
+                    app:layout_constraintStart_toEndOf="@+id/enterBinding"
+                    app:layout_constraintTop_toTopOf="@+id/enterBinding" />
+
+                <Button
+                    android:id="@+id/startStickCalibration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    android:text="Start Stick Calibration"
+                    android:textAllCaps="false"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/enterBinding" />
+
+                <Button
+                    android:id="@+id/completeStickCalibration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    android:text="Save Calibration"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/startStickCalibration"
+                    app:layout_constraintStart_toEndOf="@+id/startStickCalibration"
+                    app:layout_constraintTop_toTopOf="@+id/startStickCalibration" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

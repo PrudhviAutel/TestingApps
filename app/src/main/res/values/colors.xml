@@ -253,4 +253,5 @@
     <color name="dsp_unstable_color">#ff0a3e</color>
     <!-- Tracking -->
     <color name="tracking_press_color">#f1f1f1</color>
+    <color name="grey_light1">#F2F1F6</color>
 </resources>

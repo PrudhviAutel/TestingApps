@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.android.autelsdk.util.Resource
 import com.autel.common.remotecontroller.*
 
-class RemoteControllerViewModel : ViewModel() {
+class RemoteControllerViewModel() : ViewModel() {
 
     val remoteControllerRepository: RemoteControllerRepository = RemoteControllerRepositoryImpl()
 
@@ -68,4 +68,11 @@ class RemoteControllerViewModel : ViewModel() {
     suspend fun getSerialNumberTest(): MutableLiveData<Resource<String>> {
         return remoteControllerRepository.getSerialNumberTest()
     }
+
+//    // When we will have to Pass the Values to ViewModel, we can use this code
+//    class Factory(private val mController: AutelRemoteController?) : ViewModelProvider.Factory {
+//        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+//            return RemoteControllerViewModel(mController) as T
+//        }
+//    }
 }

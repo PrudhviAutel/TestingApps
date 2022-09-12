@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.android.autelsdk.BaseActivity
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.ActivityRemoteControllerBinding
+import com.android.autelsdk.remoteController.fragments.InterfaceDebuggingRCFragment
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Status
 import com.android.autelsdk.util.Utils
@@ -24,7 +25,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
     val TAG = RemoteControllerActivity::class.java.simpleName
 
     private val viewModel: RemoteControllerViewModel by viewModels()
-    lateinit var binding: ActivityRemoteControllerBinding
+    private lateinit var binding: ActivityRemoteControllerBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +34,10 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
 
         initUi()
         runTests()
+
+        supportFragmentManager.beginTransaction()
+            .replace(binding.container.id, InterfaceDebuggingRCFragment())
+            .commitNow()
 
     }
 

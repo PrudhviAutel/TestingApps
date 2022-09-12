@@ -10,7 +10,7 @@ import com.autel.common.remotecontroller.*
 import com.autel.internal.remotecontroller.RemoteController10
 import com.autel.sdk.remotecontroller.AutelRemoteController
 
-class RemoteControllerRepositoryImpl : RemoteControllerRepository {
+class RemoteControllerRepositoryImpl() : RemoteControllerRepository {
 
     val mController: AutelRemoteController = RemoteController10()
 

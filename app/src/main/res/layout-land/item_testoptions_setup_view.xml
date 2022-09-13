@@ -30,7 +30,7 @@
             android:paddingVertical="10dp"
             tools:text="SM_Max_Height"
             android:textSize="16sp"
-            android:maxWidth="300dp"
+            android:maxWidth="200dp"
             android:text="@{testName}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

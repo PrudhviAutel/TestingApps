@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.FragmentFlightControlParameterReadingRcBinding
@@ -28,12 +28,12 @@ import kotlinx.coroutines.launch
 class FlightControlParameterReadingRCFragment : Fragment() {
 
     private lateinit var binding: FragmentFlightControlParameterReadingRcBinding
+    private val viewModel : RemoteControllerViewModel by activityViewModels()
 
     companion object {
         fun newInstance() = FlightControlParameterReadingRCFragment()
     }
 
-    private lateinit var viewModel: RemoteControllerViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,12 +46,6 @@ class FlightControlParameterReadingRCFragment : Fragment() {
             false
         )
         return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(RemoteControllerViewModel::class.java)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -81,6 +75,95 @@ class FlightControlParameterReadingRCFragment : Fragment() {
         binding.yawCoefficient.setBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
             binding.yawCoefficient.extraOptionParent.visibility = View.VISIBLE
+        }
+
+        binding.gimbalDialAdjustSpeed.setBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.gimbalDialAdjustSpeed.extraOptionParent.visibility = View.VISIBLE
+        }
+
+        binding.remoteButtonControllerListener.setBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.remoteButtonControllerListener.showResponseText.visibility = View.VISIBLE
+            binding.remoteButtonControllerListener.showResponseText.setText("Please Wait...")
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.setRemoteButtonControllerListenerTest().observeOnce(viewLifecycleOwner) { msg ->
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.remoteButtonControllerListener.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.remoteButtonControllerListener.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+                }
+            }
+        }
+
+        binding.infoDataListener.setBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.infoDataListener.showResponseText.visibility = View.VISIBLE
+            binding.infoDataListener.showResponseText.setText("Please Wait...")
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.setRemoteButtonControllerListenerTest().observeOnce(viewLifecycleOwner) { msg ->
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.infoDataListener.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.infoDataListener.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+                }
+            }
+        }
+
+        binding.connectStateListener.setBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.connectStateListener.showResponseText.visibility = View.VISIBLE
+            binding.connectStateListener.showResponseText.setText("Please Wait...")
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.setRemoteButtonControllerListenerTest().observeOnce(viewLifecycleOwner) { msg ->
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.connectStateListener.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.connectStateListener.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+                }
+            }
+        }
+
+        binding.controlMenuListener.setBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.controlMenuListener.showResponseText.visibility = View.VISIBLE
+            binding.controlMenuListener.showResponseText.setText("Please Wait...")
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.setRemoteButtonControllerListenerTest().observeOnce(viewLifecycleOwner) { msg ->
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.controlMenuListener.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.controlMenuListener.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+                }
+            }
         }
 
         binding.language.extraOption.setOnClickListener {
@@ -139,7 +222,7 @@ class FlightControlParameterReadingRCFragment : Fragment() {
             binding.parameterUnit.showResponseText.visibility = View.VISIBLE
             binding.parameterUnit.showResponseText.setText("Please Wait...")
             lateinit var parameterUnit : RemoteControllerParameterUnit
-            when (binding.rfPower.extraSpinner.selectedItemPosition) {
+            when (binding.parameterUnit.extraSpinner.selectedItemPosition) {
                 0 -> parameterUnit = RemoteControllerParameterUnit.METRIC
                 1 -> parameterUnit = RemoteControllerParameterUnit.IMPERIAL
                 2 -> parameterUnit = RemoteControllerParameterUnit.METRIC_KM_H
@@ -188,6 +271,38 @@ class FlightControlParameterReadingRCFragment : Fragment() {
                             }
                             else -> {
                                 binding.yawCoefficient.showResponseText.setText("No Response From Server")
+                            }
+                        }
+                    })
+            }
+        }
+
+        binding.gimbalDialAdjustSpeed.extraOption.setOnClickListener {
+            binding.gimbalDialAdjustSpeed.showResponseText.visibility = View.VISIBLE
+            binding.gimbalDialAdjustSpeed.showResponseText.setText("Please Wait...")
+            val support = viewModel.getParameterRangeManager().dialAdjustSpeed
+            var gimbalDialAdjustSpeed = 0
+            if (!TextUtils.isEmpty(binding.gimbalDialAdjustSpeed.extraEdittext.text)) {
+                gimbalDialAdjustSpeed = binding.gimbalDialAdjustSpeed.extraEdittext.text.toString().toInt()
+                if (gimbalDialAdjustSpeed > support.valueTo || gimbalDialAdjustSpeed < support.valueFrom)
+                    binding.gimbalDialAdjustSpeed.showResponseText.setText(Utils.getColoredText("Please enter Dial Adjust Speed from ${support.valueFrom} to ${support.valueTo}", Constants.SUCCESS))
+                return@setOnClickListener
+            } else {
+                binding.gimbalDialAdjustSpeed.showResponseText.setText(Utils.getColoredText("Please enter Dial Adjust Speed from ${support.valueFrom} to ${support.valueTo}", Constants.FAILED))
+                return@setOnClickListener
+            }
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.setGimbalDialAdjustSpeedTest(gimbalDialAdjustSpeed)
+                    .observeOnce(viewLifecycleOwner, Observer { msg ->
+                        when (msg.status) {
+                            Status.SUCCESS -> {
+                                binding.gimbalDialAdjustSpeed.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                            }
+                            Status.ERROR -> {
+                                binding.gimbalDialAdjustSpeed.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                            }
+                            else -> {
+                                binding.gimbalDialAdjustSpeed.showResponseText.setText("No Response From Server")
                             }
                         }
                     })
@@ -274,6 +389,54 @@ class FlightControlParameterReadingRCFragment : Fragment() {
             }
         }
 
+        binding.gimbalDialAdjustSpeed.viewBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.getGimbalDialAdjustSpeedTest().observeOnce(viewLifecycleOwner) { msg ->
+                    binding.gimbalDialAdjustSpeed.showResponseText.visibility = View.VISIBLE
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.gimbalDialAdjustSpeed.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.gimbalDialAdjustSpeed.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+                }
+            }
+        }
+
+        binding.remoteButtonControllerListener.viewBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.remoteButtonControllerListener.showResponseText.visibility = View.VISIBLE
+            viewModel.resetRemoteButtonControllerListenerTest()
+            binding.remoteButtonControllerListener.showResponseText.setText(Utils.getColoredText("Remote Button Controller Listener set to null", Constants.SUCCESS))
+        }
+
+        binding.infoDataListener.viewBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.infoDataListener.showResponseText.visibility = View.VISIBLE
+            viewModel.resetInfoDataListenerTest()
+            binding.infoDataListener.showResponseText.setText(Utils.getColoredText("Info Data Listener set to null", Constants.SUCCESS))
+        }
+
+        binding.connectStateListener.viewBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.connectStateListener.showResponseText.visibility = View.VISIBLE
+            viewModel.resetConnectStateListenerTest()
+            binding.connectStateListener.showResponseText.setText(Utils.getColoredText("Connect State Listener set to null", Constants.SUCCESS))
+        }
+
+        binding.controlMenuListener.viewBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.controlMenuListener.showResponseText.visibility = View.VISIBLE
+            viewModel.resetControlMenuListenerTest()
+            binding.controlMenuListener.showResponseText.setText(Utils.getColoredText("Control Menu Listener set to null", Constants.SUCCESS))
+        }
+
     }
 
     private fun closeAllExtraOptionLayouts() {
@@ -282,31 +445,37 @@ class FlightControlParameterReadingRCFragment : Fragment() {
         binding.rfPower.extraOptionParent.visibility = View.GONE
         binding.parameterUnit.extraOptionParent.visibility = View.GONE
         binding.yawCoefficient.extraOptionParent.visibility = View.GONE
+        binding.gimbalDialAdjustSpeed.extraOptionParent.visibility = View.GONE
 
         // We should hide both extraOptionLayout and Response text
         binding.language.showResponseText.visibility = View.GONE
         binding.rfPower.showResponseText.visibility = View.GONE
         binding.parameterUnit.showResponseText.visibility = View.GONE
         binding.yawCoefficient.showResponseText.visibility = View.GONE
+        binding.gimbalDialAdjustSpeed.showResponseText.visibility = View.GONE
+        binding.remoteButtonControllerListener.showResponseText.visibility = View.GONE
+        binding.infoDataListener.showResponseText.visibility = View.GONE
+        binding.connectStateListener.showResponseText.visibility = View.GONE
+        binding.controlMenuListener.showResponseText.visibility = View.GONE
 
     }
 
     private fun setSpinnerItems() {
 
         var spinnerAdapter = ArrayAdapter.createFromResource(
-            activity!!.baseContext,
+            requireActivity().baseContext,
             R.array.rc_languages,
             android.R.layout.simple_spinner_item
         )
         binding.language.extraSpinner.adapter = spinnerAdapter
         spinnerAdapter = ArrayAdapter.createFromResource(
-            activity!!.baseContext,
+            requireActivity().baseContext,
             R.array.rc_rfs,
             android.R.layout.simple_spinner_item
         )
         binding.rfPower.extraSpinner.adapter = spinnerAdapter
         spinnerAdapter = ArrayAdapter.createFromResource(
-            activity!!.baseContext,
+            requireActivity().baseContext,
             R.array.rc_length_unit,
             android.R.layout.simple_spinner_item
         )

@@ -62,6 +62,53 @@
                 layout="@layout/item_testoptions_setup_view"
                 />
 
+            <include
+                android:id="@+id/gimbalDialAdjustSpeed"
+                app:testName="@{`SW_Gimbal_Dial_Adjust_Speed`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Gimbal Dial Adjust Speed`}"
+                app:showExtraEdittext="@{true}"
+                app:extraEdittextHint="@{`dial adjust speed`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/remoteButtonControllerListener"
+                app:testName="@{`SW_Remote_Button_Controller_Listener`}"
+                app:setButtonText="@{`Set`}"
+                app:viewButtonText="@{`Reset`}"
+                app:extraOptionText="@{`Set Remote Button Controller Listener`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/infoDataListener"
+                app:testName="@{`SW_Info_Data_Listener`}"
+                app:setButtonText="@{`Set`}"
+                app:viewButtonText="@{`Reset`}"
+                app:extraOptionText="@{`Set Info Data Listener`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/connectStateListener"
+                app:testName="@{`SW_Connect_State_Listener`}"
+                app:setButtonText="@{`Set`}"
+                app:viewButtonText="@{`Reset`}"
+                app:extraOptionText="@{`Set Connect State Listener`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/controlMenuListener"
+                app:testName="@{`SW_Connect_Menu_Listener`}"
+                app:setButtonText="@{`Set`}"
+                app:viewButtonText="@{`Reset`}"
+                app:extraOptionText="@{`Set Connect Menu Listener`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
 
         </LinearLayout>
 

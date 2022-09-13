@@ -3,11 +3,18 @@ package com.android.autelsdk.remoteController
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.android.autelsdk.util.Resource
+import com.autel.common.product.AutelProductType
 import com.autel.common.remotecontroller.*
+import com.autel.internal.remotecontroller.RemoteController10
+import com.autel.sdk.product.BaseProduct
+import com.autel.sdk.remotecontroller.AutelRemoteController
 
 class RemoteControllerViewModel() : ViewModel() {
 
-    val remoteControllerRepository: RemoteControllerRepository = RemoteControllerRepositoryImpl()
+    private var mController: AutelRemoteController = RemoteController10()
+    private var currentProduct: MutableLiveData<BaseProduct?> = MutableLiveData()
+    private var currentProductType: MutableLiveData<AutelProductType> = MutableLiveData(AutelProductType.UNKNOWN)
+    private val remoteControllerRepository: RemoteControllerRepository = RemoteControllerRepositoryImpl()
 
     suspend fun setLanguageTest(language: RemoteControllerLanguage): MutableLiveData<Resource<String>> {
         return remoteControllerRepository.setLanguageTest(language)
@@ -79,6 +86,72 @@ class RemoteControllerViewModel() : ViewModel() {
 
     suspend fun setStickCalibrationTest(calibration: RemoteControllerStickCalibration) : MutableLiveData<Resource<RemoteControllerStickCalibration>> {
         return remoteControllerRepository.setStickCalibrationTest(calibration)
+    }
+
+    fun setCurrentProduct(product : BaseProduct?) {
+        setCurrentProductType(product?.type)
+        currentProduct.postValue(product)
+    }
+
+    fun getCurrentProduct(): MutableLiveData<BaseProduct?> {
+        return currentProduct
+    }
+
+    fun setCurrentProductType(productType : AutelProductType?) {
+        currentProductType.postValue(productType ?: AutelProductType.UNKNOWN)
+    }
+
+    fun getCurrentProductType(): MutableLiveData<AutelProductType> {
+        return currentProductType
+    }
+
+    fun setRemoteController(controller : AutelRemoteController) {
+        mController = controller
+        remoteControllerRepository.setRemoteController(mController)
+    }
+
+    fun getRemoteController() : AutelRemoteController {
+        return mController
+    }
+
+    suspend fun setRemoteButtonControllerListenerTest(): MutableLiveData<Resource<RemoteControllerNavigateButtonEvent>> {
+        return remoteControllerRepository.setRemoteButtonControllerListenerTest()
+    }
+
+    suspend fun setInfoDataListenerTest(): MutableLiveData<Resource<RemoteControllerInfo>> {
+        return remoteControllerRepository.setInfoDataListenerTest()
+    }
+
+    suspend fun setConnectStateListenerTest(): MutableLiveData<Resource<RemoteControllerConnectState>> {
+        return remoteControllerRepository.setConnectStateListenerTest()
+    }
+
+    suspend fun setControlMenuListenerTest(): MutableLiveData<Resource<IntArray>> {
+        return remoteControllerRepository.setControlMenuListenerTest()
+    }
+
+    suspend fun setGimbalDialAdjustSpeedTest(speed: Int): MutableLiveData<Resource<Int>> {
+        return remoteControllerRepository.setGimbalDialAdjustSpeedTest(speed)
+    }
+
+    suspend fun getGimbalDialAdjustSpeedTest(): MutableLiveData<Resource<Int>> {
+        return remoteControllerRepository.getGimbalDialAdjustSpeedTest()
+    }
+
+    fun resetRemoteButtonControllerListenerTest() {
+        return remoteControllerRepository.resetRemoteButtonControllerListenerTest()
+    }
+
+    fun resetInfoDataListenerTest() {
+        return remoteControllerRepository.resetInfoDataListenerTest()
+    }
+
+    fun resetConnectStateListenerTest() {
+        return remoteControllerRepository.resetConnectStateListenerTest()
+    }
+
+    fun resetControlMenuListenerTest() {
+        return remoteControllerRepository.resetControlMenuListenerTest()
     }
 
 //    // When we will have to Pass the Values to ViewModel, we can use this code

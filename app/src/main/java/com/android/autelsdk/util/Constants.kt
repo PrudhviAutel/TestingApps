@@ -1,5 +1,8 @@
 package com.android.autelsdk.util
 
+import com.autel.internal.remotecontroller.RemoteController10
+import com.autel.internal.remotecontroller.RemoteController20
+
 object Constants {
     // Success Failure Show Text
     const val SUCCESS = "Success"
@@ -17,5 +20,9 @@ object Constants {
     const val Battery = "Battery"
     const val Camera = "Camera"
     const val RTK = "RTK"
+
+    //Remote Controller Names
+    const val RemoteController10 = "Remote Controller 10"
+    const val RemoteController20 = "Remote Controller 20"
 
 }

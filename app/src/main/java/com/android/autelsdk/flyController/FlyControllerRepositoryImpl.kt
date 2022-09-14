@@ -17,7 +17,7 @@ import com.autel.sdk.flycontroller.CruiserFlyController
 
 class FlyControllerRepositoryImpl : FlyControllerRepository {
 
-    val mController: AutelFlyController = CruiserFlyControllerImpl() 
+    val mController: AutelFlyController = CruiserFlyControllerImpl()
 
     override suspend fun setBeginnerModeStateTest(enable: Boolean): MutableLiveData<Resource<String>> {
         var setBeginnerModeStateTestResult: MutableLiveData<Resource<String>> = MutableLiveData()

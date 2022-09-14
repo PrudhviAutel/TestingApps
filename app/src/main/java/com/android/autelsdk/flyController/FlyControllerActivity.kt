@@ -50,7 +50,6 @@ class FlyControllerActivity :  BaseActivity<AutelFlyController>() {
 
     override fun initUi() {
 
-        //
     }
 }
 

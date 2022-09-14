@@ -19,6 +19,7 @@ import com.autel.sdk.Autel
 import com.autel.sdk.ProductConnectListener
 import com.autel.sdk.product.BaseProduct
 import com.autel.sdk.remotecontroller.AutelRemoteController
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.concurrent.atomic.AtomicBoolean
@@ -36,6 +37,7 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        EventBus.getDefault().register(this)
         binding = DataBindingUtil.setContentView(this, customViewResId)
 
         initUi()
@@ -134,5 +136,9 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
         }
     }
 
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
+    }
 
 }

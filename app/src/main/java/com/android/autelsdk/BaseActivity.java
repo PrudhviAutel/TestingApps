@@ -35,7 +35,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
         BaseProduct product = getCurrentProduct();
         if (null != product) {
             mController = initController(product);
@@ -79,9 +78,4 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         return null == value || "".equals(value);
     }
 
-    @Override
-    protected void onDestroy() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
-    }
 }

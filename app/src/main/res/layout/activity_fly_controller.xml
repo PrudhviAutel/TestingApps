@@ -1,14 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/tv_headingname_afc"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="20dp"
+        android:text="Fly Controller Module"
+        android:textAlignment="textStart"
+        android:background="#87ceeb"
+        android:textColor="#000000"
+        android:textStyle ="bold"
+        />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:layout_below = "@+id/tv_headingname_afc"
+        >
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+
+
+
+
+            <TextView
+                android:id="@+id/testResults"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="20dp"
+                android:text=""
+                android:textAlignment="textStart"/>
+
+        </LinearLayout>
+
+
+
+
+    </ScrollView>
     </RelativeLayout>
-
 </layout>

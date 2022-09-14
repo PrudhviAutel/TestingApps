@@ -6,37 +6,37 @@ import com.autel.common.remotecontroller.*
 
 interface RemoteControllerRepository {
 
-    fun setLanguageTest(language: RemoteControllerLanguage): MutableLiveData<Resource<String>>
+    suspend fun setLanguageTest(language: RemoteControllerLanguage): MutableLiveData<Resource<String>>
 
-    fun getLanguageTest(): MutableLiveData<Resource<RemoteControllerLanguage>>
+    suspend fun getLanguageTest(): MutableLiveData<Resource<RemoteControllerLanguage>>
 
-    fun enterPairingTest(): MutableLiveData<Resource<String>>
+    suspend fun enterPairingTest(): MutableLiveData<Resource<String>>
 
     //TODO : How to test exit Pairing method as it has no Call back element
 
-    fun setRFPowerTest(rfPower: RFPower): MutableLiveData<Resource<String>>
+    suspend fun setRFPowerTest(rfPower: RFPower): MutableLiveData<Resource<String>>
 
-    fun getRFPowerTest(): MutableLiveData<Resource<RFPower>>
+    suspend fun getRFPowerTest(): MutableLiveData<Resource<RFPower>>
 
-    fun setTeacherStudentModeTest(teachingMode: TeachingMode): MutableLiveData<Resource<String>>
+    suspend fun setTeacherStudentModeTest(teachingMode: TeachingMode): MutableLiveData<Resource<String>>
 
-    fun getTeacherStudentModeTest(): MutableLiveData<Resource<TeachingMode>>
+    suspend fun getTeacherStudentModeTest(): MutableLiveData<Resource<TeachingMode>>
 
     //TODO : How to test startCalibration and saveCalibration
 
-    fun setParameterUnitTest(parameterUnit: RemoteControllerParameterUnit): MutableLiveData<Resource<String>>
+    suspend fun setParameterUnitTest(parameterUnit: RemoteControllerParameterUnit): MutableLiveData<Resource<String>>
 
-    fun getParameterUnitTest(): MutableLiveData<Resource<RemoteControllerParameterUnit>>
+    suspend fun getParameterUnitTest(): MutableLiveData<Resource<RemoteControllerParameterUnit>>
 
-    fun setRCCommandStickModeTest(commandStickMode: RemoteControllerCommandStickMode): MutableLiveData<Resource<String>>
+    suspend fun setRCCommandStickModeTest(commandStickMode: RemoteControllerCommandStickMode): MutableLiveData<Resource<String>>
 
-    fun getRCCommandStickModeTest(): MutableLiveData<Resource<RemoteControllerCommandStickMode>>
+    suspend fun getRCCommandStickModeTest(): MutableLiveData<Resource<RemoteControllerCommandStickMode>>
 
-    fun setYawCoefficientTest(yawCoeff: Float): MutableLiveData<Resource<String>>
+    suspend fun setYawCoefficientTest(yawCoeff: Float): MutableLiveData<Resource<String>>
 
-    fun getYawCoefficientTest(): MutableLiveData<Resource<Float>>
+    suspend fun getYawCoefficientTest(): MutableLiveData<Resource<Float>>
 
-    fun getVersionInfoTest(): MutableLiveData<Resource<RemoteControllerVersionInfo>>
+    suspend fun getVersionInfoTest(): MutableLiveData<Resource<RemoteControllerVersionInfo>>
 
-    fun getSerialNumberTest(): MutableLiveData<Resource<String>>
+    suspend fun getSerialNumberTest(): MutableLiveData<Resource<String>>
 }

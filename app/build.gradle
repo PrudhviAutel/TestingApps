@@ -82,7 +82,7 @@ dependencies {
     })
     implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'org.apache.poi:poi3.17'
+    //implementation 'org.apache.poi:poi3.17'
 
     //    implementation 'com.android.support:appcompat-v7:25.3.1'
     implementation 'com.google.android.gms:play-services-maps:10.2.0'
@@ -120,7 +120,7 @@ dependencies {
 
     implementation 'androidx.activity:activity-ktx:1.5.1'
 
-    implementation 'org.apache.poi:poi3.7'
+    //implementation 'org.apache.poi:poi3.7'
 
 
 

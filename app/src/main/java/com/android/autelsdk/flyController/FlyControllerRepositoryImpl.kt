@@ -2,39 +2,56 @@ package com.android.autelsdk.flyController
 
 import androidx.lifecycle.MutableLiveData
 import com.android.autelsdk.util.Resource
+import com.android.autelsdk.util.Utils
 import com.autel.common.CallbackWithNoParam
 import com.autel.common.CallbackWithOneParam
 import com.autel.common.error.AutelError
-import com.autel.common.flycontroller.*
+import com.autel.common.flycontroller.CalibrateCompassStatus
+import com.autel.common.flycontroller.FlyControllerVersionInfo
+import com.autel.common.flycontroller.LedPilotLamp
+import com.autel.internal.flycontroller.xstar.XStarFlyController
+import com.autel.sdk.flycontroller.AutelFlyController
 
-class FlyControllerRepositoryImpl<AutelFlyController>(
-    private val mController: com.autel.sdk.flycontroller.AutelFlyController,
-) : FlyControllerRepository{
 
-    protected var ledPilotLamp = LedPilotLamp.ALL_OFF
+class FlyControllerRepositoryImpl : FlyControllerRepository {
 
-    override fun setBeginnerModeStateTest(enable : Boolean): MutableLiveData<Resource<String>> {
-        var setBeginnerModeStateTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
+    val mController: AutelFlyController =
+        XStarFlyController()      //TODO(Sreyans) : Need to look why CruiserFlyController() is not there
+
+    override suspend fun setBeginnerModeStateTest(enable: Boolean): MutableLiveData<Resource<String>> {
+        var setBeginnerModeStateTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         mController.setBeginnerModeEnable(enable, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
-                setBeginnerModeStateTestResult.postValue(Resource.Companion.error(errorMessage, null))
+                val errorMessage =
+                    Utils.getFailureShowText("on Set Enable State = ${if (enable) "true" else "false"}.\nReason - ${rcError.description}");
+                setBeginnerModeStateTestResult.postValue(
+                    Resource.Companion.error(
+                        errorMessage,
+                        null
+                    )
+                )
             }
 
             override fun onSuccess() {
-                val successMessage = "";
+                val successMessage =
+                    Utils.getSuccessShowText("\nFor Beginner Mode State = ${if (enable) "true" else "false"}");
                 setBeginnerModeStateTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
         return setBeginnerModeStateTestResult
     }
 
-    override fun getBeginnerModeStateTest(): MutableLiveData<Resource<Boolean>> {
-        var getBeginnerModeStateTestResult : MutableLiveData<Resource<Boolean>> = MutableLiveData()
-        mController.isBeginnerModeEnable( object : CallbackWithOneParam<Boolean> {
+    override suspend fun getBeginnerModeStateTest(): MutableLiveData<Resource<Boolean>> {
+        var getBeginnerModeStateTestResult: MutableLiveData<Resource<Boolean>> = MutableLiveData()
+        mController.isBeginnerModeEnable(object : CallbackWithOneParam<Boolean> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
-                getBeginnerModeStateTestResult.postValue(Resource.Companion.error(errorMessage, null))
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                getBeginnerModeStateTestResult.postValue(
+                    Resource.Companion.error(
+                        errorMessage,
+                        null
+                    )
+                )
             }
 
             override fun onSuccess(mode: Boolean?) {
@@ -45,12 +62,11 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
     }
 
 
-
-    override fun getMaxHeightTest(): MutableLiveData<Resource<Float>> {
-        var getMaxHeightTestResult : MutableLiveData<Resource<Float>> = MutableLiveData()
-        mController.getMaxHeight( object : CallbackWithOneParam<Float> {
+    override suspend fun getMaxHeightTest(): MutableLiveData<Resource<Float>> {
+        var getMaxHeightTestResult: MutableLiveData<Resource<Float>> = MutableLiveData()
+        mController.getMaxHeight(object : CallbackWithOneParam<Float> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
                 getMaxHeightTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
@@ -62,33 +78,32 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
         return getMaxHeightTestResult
     }
 
-    override fun setMaxHeightTest(): MutableLiveData<Resource<String>> {
-        var setMaxHeightTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        var value : Double
-        value = 200.0
-        mController.setMaxHeight( value,object : CallbackWithNoParam {
+    override suspend fun setMaxHeightTest(value: Double): MutableLiveData<Resource<String>> {
+        var setMaxHeightTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.setMaxHeight(value, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage =
+                    Utils.getFailureShowText("for max height = ${value}.\nReason - ${rcError.description}");
                 setMaxHeightTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = "";
+                val successMessage = Utils.getSuccessShowText("\nFor Max Height = ${value}");
                 setMaxHeightTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
         return setMaxHeightTestResult
     }
 
-    override fun getMaxRangeTest(): MutableLiveData<Resource<Float>> {
-        var getMaxRangeTestResult : MutableLiveData<Resource<Float>> = MutableLiveData()
-        mController.getMaxRange( object : CallbackWithOneParam<Float> {
+    override suspend fun getMaxRangeTest(): MutableLiveData<Resource<Float>> {
+        var getMaxRangeTestResult: MutableLiveData<Resource<Float>> = MutableLiveData()
+        mController.getMaxRange(object : CallbackWithOneParam<Float> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
                 getMaxRangeTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
-            override fun onSuccess(maxRange : Float?) {
+            override fun onSuccess(maxRange: Float?) {
                 val successMessage = "";
                 getMaxRangeTestResult.postValue(Resource.Companion.success(maxRange))
             }
@@ -96,34 +111,33 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
         return getMaxRangeTestResult
     }
 
-    override fun setMaxRangeTest(): MutableLiveData<Resource<String>> {
-        var setMaxRangeTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        var value : Double
-        value = 200.0
-        mController.setMaxRange( value,object : CallbackWithNoParam{
+    override suspend fun setMaxRangeTest(value: Double): MutableLiveData<Resource<String>> {
+        var setMaxRangeTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.setMaxRange(value, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage =
+                    Utils.getFailureShowText("for Max Range = ${value}.\nReason - ${rcError.description}");
                 setMaxRangeTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = "";
+                val successMessage = Utils.getSuccessShowText("\nFor Max Range = ${value}");
                 setMaxRangeTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
         return setMaxRangeTestResult
     }
 
-    override fun getReturnHeightTest(): MutableLiveData<Resource<Float>> {
-        var getReturnHeightTestResult : MutableLiveData<Resource<Float>> = MutableLiveData()
+    override suspend fun getReturnHeightTest(): MutableLiveData<Resource<Float>> {
+        var getReturnHeightTestResult: MutableLiveData<Resource<Float>> = MutableLiveData()
 
-        mController.getReturnHeight(object : CallbackWithOneParam<Float>{
+        mController.getReturnHeight(object : CallbackWithOneParam<Float> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
                 getReturnHeightTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
-            override fun onSuccess(returnHeight : Float?) {
+            override fun onSuccess(returnHeight: Float?) {
                 val successMessage = "";
                 getReturnHeightTestResult.postValue(Resource.Companion.success(returnHeight))
             }
@@ -131,34 +145,33 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
         return getReturnHeightTestResult
     }
 
-    override fun setReturnHeightTest(): MutableLiveData<Resource<String>> {
-        var setReturnHeightTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        var value : Double
-        value = 200.0
-        mController.setReturnHeight( value,object : CallbackWithNoParam{
+    override suspend fun setReturnHeightTest(value: Double): MutableLiveData<Resource<String>> {
+        var setReturnHeightTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.setReturnHeight(value, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage =
+                    Utils.getFailureShowText("for Return Height = ${value}.\nReason - ${rcError.description}");
                 setReturnHeightTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = "";
+                val successMessage = Utils.getSuccessShowText("\nFor Return Height = ${value}");
                 setReturnHeightTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
         return setReturnHeightTestResult
     }
 
-    override fun getHorizontalSpeedTest(): MutableLiveData<Resource<Float>> {
-        var getHorizontalSpeedTestResult : MutableLiveData<Resource<Float>> = MutableLiveData()
+    override suspend fun getHorizontalSpeedTest(): MutableLiveData<Resource<Float>> {
+        var getHorizontalSpeedTestResult: MutableLiveData<Resource<Float>> = MutableLiveData()
 
-        mController.getMaxHorizontalSpeed(object : CallbackWithOneParam<Float>{
+        mController.getMaxHorizontalSpeed(object : CallbackWithOneParam<Float> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
                 getHorizontalSpeedTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
-            override fun onSuccess(horizontalSpeed : Float?) {
+            override fun onSuccess(horizontalSpeed: Float?) {
                 val successMessage = "";
                 getHorizontalSpeedTestResult.postValue(Resource.Companion.success(horizontalSpeed))
             }
@@ -166,67 +179,77 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
         return getHorizontalSpeedTestResult
     }
 
-    override fun setHorizontalSpeedTest(): MutableLiveData<Resource<String>> {
-        var setHorizontalSpeedTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        var value : Double
-        value = 200.0
-        mController.setMaxHorizontalSpeed( value,object : CallbackWithNoParam{
+    override suspend fun setHorizontalSpeedTest(value: Double): MutableLiveData<Resource<String>> {
+        var setHorizontalSpeedTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.setMaxHorizontalSpeed(value, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage =
+                    Utils.getFailureShowText("for Horizontal Speed = ${value}.\nReason - ${rcError.description}");
                 setHorizontalSpeedTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = "";
+                val successMessage = Utils.getSuccessShowText("\nFor Horizontal Speed = ${value}");
                 setHorizontalSpeedTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
         return setHorizontalSpeedTestResult
     }
 
-    override fun isAttiModeEnableTest(): MutableLiveData<Resource<Boolean>> {
-        var isAttiModeEnableTestResult : MutableLiveData<Resource<Boolean>> = MutableLiveData()
-
-        mController.isAttitudeModeEnable(object : CallbackWithOneParam<Boolean>{
+    override suspend fun isAttitudeModeEnableTest(): MutableLiveData<Resource<Boolean>> {
+        var isAttitudeModeEnableTestResult: MutableLiveData<Resource<Boolean>> = MutableLiveData()
+        mController.isAttitudeModeEnable(object : CallbackWithOneParam<Boolean> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
-                isAttiModeEnableTestResult.postValue(Resource.Companion.error(errorMessage, null))
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                isAttitudeModeEnableTestResult.postValue(
+                    Resource.Companion.error(
+                        errorMessage,
+                        null
+                    )
+                )
             }
 
-            override fun onSuccess(result : Boolean?) {
+            override fun onSuccess(result: Boolean?) {
                 val successMessage = "";
-                isAttiModeEnableTestResult.postValue(Resource.Companion.success(result))
+                isAttitudeModeEnableTestResult.postValue(Resource.Companion.success(result))
             }
         })
-        return isAttiModeEnableTestResult
+        return isAttitudeModeEnableTestResult
     }
 
-    override fun setAttiModeEnableTest(enable: Boolean): MutableLiveData<Resource<Boolean>> {
-        var setAttiModeEnableTestResult : MutableLiveData<Resource<Boolean>> = MutableLiveData()
-        mController.setAttitudeModeEnable( enable,object : CallbackWithNoParam{
+    override suspend fun setAttitudeModeEnableTest(enable: Boolean): MutableLiveData<Resource<Boolean>> {
+        var setAttitudeModeEnableTestResult: MutableLiveData<Resource<Boolean>> = MutableLiveData()
+        mController.setAttitudeModeEnable(enable, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
-                setAttiModeEnableTestResult.postValue(Resource.Companion.error(errorMessage, null))
+                val errorMessage =
+                    Utils.getFailureShowText("on Set Enable State = ${if (enable) "true" else "false"}.\nReason - ${rcError.description}");
+                setAttitudeModeEnableTestResult.postValue(
+                    Resource.Companion.error(
+                        errorMessage,
+                        null
+                    )
+                )
             }
 
             override fun onSuccess() {
-                val successMessage = "";
-                setAttiModeEnableTestResult.postValue(Resource.Companion.success(enable))
+                val successMessage =
+                    Utils.getSuccessShowText("\nFor Attitude Mode State = ${if (enable) "true" else "false"}");
+                setAttitudeModeEnableTestResult.postValue(Resource.Companion.success(enable))
             }
         })
-        return setAttiModeEnableTestResult
+        return setAttitudeModeEnableTestResult
     }
 
-    override fun getLedPilotLampTest(): MutableLiveData<Resource<LedPilotLamp>> {
-        var getLedPilotLampTestResult : MutableLiveData<Resource<LedPilotLamp>> = MutableLiveData()
+    override suspend fun getLedPilotLampTest(): MutableLiveData<Resource<LedPilotLamp>> {
+        var getLedPilotLampTestResult: MutableLiveData<Resource<LedPilotLamp>> = MutableLiveData()
 
-        mController.getLedPilotLamp(object : CallbackWithOneParam<LedPilotLamp>{
+        mController.getLedPilotLamp(object : CallbackWithOneParam<LedPilotLamp> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
                 getLedPilotLampTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
-            override fun onSuccess(ledpilotlamp : LedPilotLamp?) {
+            override fun onSuccess(ledpilotlamp: LedPilotLamp?) {
                 val successMessage = "";
                 getLedPilotLampTestResult.postValue(Resource.Companion.success(ledpilotlamp))
             }
@@ -234,78 +257,99 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
         return getLedPilotLampTestResult
     }
 
-    override fun setLedPilotLampTest(): MutableLiveData<Resource<String>> {
-        var setLedPilotLampTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        mController.setLedPilotLamp( ledPilotLamp,object : CallbackWithNoParam{
+    override suspend fun setLedPilotLampTest(ledPilotLamp: LedPilotLamp): MutableLiveData<Resource<String>> {
+        var setLedPilotLampTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.setLedPilotLamp(ledPilotLamp, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage =
+                    Utils.getFailureShowText("for Led Pilot Lamp = ${ledPilotLamp.value}.\nReason - ${rcError.description}");
                 setLedPilotLampTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = "";
+                val successMessage =
+                    Utils.getSuccessShowText("\nFor Set Pilot Lamp = ${ledPilotLamp.value}");
                 setLedPilotLampTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
         return setLedPilotLampTestResult
     }
 
-    override fun setLocationAsHomePointTest(): MutableLiveData<Resource<String>> {
-        val lat = 22.0
-        val lon = 22.0
-
-        var setLocationAsHomePointTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        var value : Double
-        value = 200.0
-        mController.setLocationAsHomePoint(lat,lon, object : CallbackWithNoParam{
+    override suspend fun setLocationAsHomePointTest(
+        lat: Double,
+        lon: Double
+    ): MutableLiveData<Resource<String>> {
+        var setLocationAsHomePointTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.setLocationAsHomePoint(lat, lon, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
-                setLocationAsHomePointTestResult.postValue(Resource.Companion.error(errorMessage, null))
+                val errorMessage =
+                    Utils.getFailureShowText("for Latitude = ${lat}, Longitude = ${lon}.\nReason - ${rcError.description}");
+                setLocationAsHomePointTestResult.postValue(
+                    Resource.Companion.error(
+                        errorMessage,
+                        null
+                    )
+                )
             }
 
             override fun onSuccess() {
-                val successMessage = "";
+                val successMessage =
+                    Utils.getSuccessShowText("\nFor Latitude = ${lat}, Longitude = ${lon}");
                 setLocationAsHomePointTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
         return setLocationAsHomePointTestResult
     }
 
-    override fun setAircraftLocationAsHomePointTest(): MutableLiveData<Resource<String>> {
+    override suspend fun setAircraftLocationAsHomePointTest(): MutableLiveData<Resource<String>> {
 
-        var setAircraftLocationAsHomePointTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        var value : Double
-        value = 200.0
-        mController.setAircraftLocationAsHomePoint( object : CallbackWithNoParam{
+        var setAircraftLocationAsHomePointTestResult: MutableLiveData<Resource<String>> =
+            MutableLiveData()
+        mController.setAircraftLocationAsHomePoint(object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
-                setAircraftLocationAsHomePointTestResult.postValue(Resource.Companion.error(errorMessage, null))
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                setAircraftLocationAsHomePointTestResult.postValue(
+                    Resource.Companion.error(
+                        errorMessage,
+                        null
+                    )
+                )
             }
 
             override fun onSuccess() {
-                val successMessage = "";
-                setAircraftLocationAsHomePointTestResult.postValue(Resource.Companion.success(successMessage))
+                val successMessage = Utils.getSuccessShowText("");
+                setAircraftLocationAsHomePointTestResult.postValue(
+                    Resource.Companion.success(
+                        successMessage
+                    )
+                )
             }
         })
         return setAircraftLocationAsHomePointTestResult
     }
 
-    override fun startCalibrateCompassTest(): MutableLiveData<Resource<CalibrateCompassStatus>> {
-        val lat = 22.0
-        val lon = 22.0
-
-        var startCalibrateCompassTestResult : MutableLiveData<Resource<CalibrateCompassStatus>> = MutableLiveData()
-        var value : Double
-        value = 200.0
-        mController.startCalibrateCompass( object : CallbackWithOneParam<CalibrateCompassStatus>{
+    override suspend fun startCalibrateCompassTest(): MutableLiveData<Resource<CalibrateCompassStatus>> {
+        var startCalibrateCompassTestResult: MutableLiveData<Resource<CalibrateCompassStatus>> =
+            MutableLiveData()
+        mController.startCalibrateCompass(object : CallbackWithOneParam<CalibrateCompassStatus> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
-                startCalibrateCompassTestResult.postValue(Resource.Companion.error(errorMessage, null))
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                startCalibrateCompassTestResult.postValue(
+                    Resource.Companion.error(
+                        errorMessage,
+                        null
+                    )
+                )
             }
 
-            override fun onSuccess(calibrateCompassStatus : CalibrateCompassStatus) {
-                val successMessage = "";
-                startCalibrateCompassTestResult.postValue(Resource.Companion.success(calibrateCompassStatus))
+            override fun onSuccess(calibrateCompassStatus: CalibrateCompassStatus) {
+                val successMessage =
+                    Utils.getSuccessShowText("\nFor Calibrate Compass Status = ${calibrateCompassStatus.value}");
+                startCalibrateCompassTestResult.postValue(
+                    Resource.Companion.success(
+                        calibrateCompassStatus
+                    )
+                )
             }
         })
         return startCalibrateCompassTestResult
@@ -332,84 +376,83 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
     return takeOffTestResult
     }*/
 
-    override fun landTest(): MutableLiveData<Resource<String>> {
-
-        var landTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        mController.land( object : CallbackWithNoParam{
+    override suspend fun landTest(): MutableLiveData<Resource<String>> {
+        var landTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.land(object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
                 landTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = "";
+                val successMessage = Utils.getSuccessShowText("");
                 landTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
         return landTestResult
     }
 
-    override fun goHome(): MutableLiveData<Resource<String>> {
-
-        var goHomeTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        mController.goHome( object : CallbackWithNoParam{
+    override suspend fun goHomeTest(): MutableLiveData<Resource<String>> {
+        var goHomeTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.goHome(object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
                 goHomeTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = "";
+                val successMessage = Utils.getSuccessShowText("");
                 goHomeTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
         return goHomeTestResult
     }
 
-    override fun cancelReturnTest(): MutableLiveData<Resource<String>> {
-
-        var cancelReturnTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        mController.cancelReturn( object : CallbackWithNoParam{
+    override suspend fun cancelReturnTest(): MutableLiveData<Resource<String>> {
+        var cancelReturnTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.cancelReturn(object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
                 cancelReturnTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = "";
+                val successMessage = Utils.getSuccessShowText("");
                 cancelReturnTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
         return cancelReturnTestResult
     }
 
-    override fun cancelLandTest(): MutableLiveData<Resource<String>> {
-
-        var cancelLandTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        mController.cancelLand( object : CallbackWithNoParam{
+    override suspend fun cancelLandTest(): MutableLiveData<Resource<String>> {
+        var cancelLandTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.cancelLand(object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
                 cancelLandTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
-                val successMessage = "";
+                val successMessage = Utils.getSuccessShowText("");
                 cancelLandTestResult.postValue(Resource.Companion.success(successMessage))
             }
         })
         return cancelLandTestResult
     }
 
-    override fun getVersionInfoTest(): MutableLiveData<Resource<FlyControllerVersionInfo>> {
-
-        var getVersionInfoTestResult : MutableLiveData<Resource<FlyControllerVersionInfo>> = MutableLiveData()
-        mController.getVersionInfo( object : CallbackWithOneParam<FlyControllerVersionInfo>{
+    override suspend fun getVersionInfoTest(): MutableLiveData<Resource<FlyControllerVersionInfo>> {
+        var getVersionInfoTestResult: MutableLiveData<Resource<FlyControllerVersionInfo>> =
+            MutableLiveData()
+        mController.getVersionInfo(object : CallbackWithOneParam<FlyControllerVersionInfo> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage = Utils.getFailureShowText(
+                    "\nReason - ${rcError.description}",
+                    methodName = "getVersionInfo"
+                );
                 getVersionInfoTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
-            override fun onSuccess(flyresult : FlyControllerVersionInfo) {
+            override fun onSuccess(flyresult: FlyControllerVersionInfo) {
                 val successMessage = "";
                 getVersionInfoTestResult.postValue(Resource.Companion.success(flyresult))
             }
@@ -417,16 +460,19 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
         return getVersionInfoTestResult
     }
 
-    override fun getSerialNumberTest(): MutableLiveData<Resource<String>> {
+    override suspend fun getSerialNumberTest(): MutableLiveData<Resource<String>> {
 
-        var getSerialNumberTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        mController.getSerialNumber( object : CallbackWithOneParam<String>{
+        var getSerialNumberTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
+        mController.getSerialNumber(object : CallbackWithOneParam<String> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
+                val errorMessage = Utils.getFailureShowText(
+                    "\nReason - ${rcError.description}",
+                    methodName = "getSerialNumber"
+                );
                 getSerialNumberTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
-            override fun onSuccess(result : String) {
+            override fun onSuccess(result: String) {
                 val successMessage = "";
                 getSerialNumberTestResult.postValue(Resource.Companion.success(result))
             }
@@ -434,17 +480,22 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
         return getSerialNumberTestResult
     }
 
-    override fun setCalibrateCompassListenerTest(): MutableLiveData<Resource<CalibrateCompassStatus>> {
-
-
-        var setCalibrateCompassListenerTestResult : MutableLiveData<Resource<CalibrateCompassStatus>> = MutableLiveData()
-        mController.setCalibrateCompassListener( object : CallbackWithOneParam<CalibrateCompassStatus>{
+    override suspend fun setCalibrateCompassListenerTest(): MutableLiveData<Resource<CalibrateCompassStatus>> {
+        var setCalibrateCompassListenerTestResult: MutableLiveData<Resource<CalibrateCompassStatus>> =
+            MutableLiveData()
+        mController.setCalibrateCompassListener(object :
+            CallbackWithOneParam<CalibrateCompassStatus> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = "";
-                setCalibrateCompassListenerTestResult.postValue(Resource.Companion.error(errorMessage, null))
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                setCalibrateCompassListenerTestResult.postValue(
+                    Resource.Companion.error(
+                        errorMessage,
+                        null
+                    )
+                )
             }
 
-            override fun onSuccess(result : CalibrateCompassStatus) {
+            override fun onSuccess(result: CalibrateCompassStatus) {
                 val successMessage = "";
                 setCalibrateCompassListenerTestResult.postValue(Resource.Companion.success(result))
             }
@@ -473,30 +524,5 @@ class FlyControllerRepositoryImpl<AutelFlyController>(
     })
     return setWarningListenerTestResult
     }*/
-
-
-
-
-
-
-
-
-
-//    override fun setLanguageTest(language : RemoteControllerLanguage): MutableLiveData<Resource<String>> {
-//        var setLanguageTestResult : MutableLiveData<Resource<String>> = MutableLiveData()
-//        mController.setLanguage(language, object : CallbackWithNoParam {
-//            override fun onFailure(rcError: AutelError) {
-//                val errorMessage = "";
-//                setLanguageTestResult.postValue(Resource.Companion.error(errorMessage, null))
-//            }
-//
-//            override fun onSuccess() {
-//                val successMessage = "";
-//                setLanguageTestResult.postValue(Resource.Companion.success(successMessage))
-//            }
-//        })
-//        return setLanguageTestResult
-//    }
-
 
 }

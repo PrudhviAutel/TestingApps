@@ -8,30 +8,29 @@ import com.autel.common.flycontroller.LedPilotLamp
 
 interface FlyControllerRepository {
 
-    fun setBeginnerModeStateTest(enable: Boolean): MutableLiveData<Resource<String>>
-    fun getBeginnerModeStateTest(): MutableLiveData<Resource<Boolean>>
-    fun getMaxHeightTest(): MutableLiveData<Resource<Float>>
-    fun getMaxRangeTest(): MutableLiveData<Resource<Float>>
-    fun setMaxHeightTest(): MutableLiveData<Resource<String>>
-    fun setMaxRangeTest(): MutableLiveData<Resource<String>>
-    fun getReturnHeightTest(): MutableLiveData<Resource<Float>>
-    fun setReturnHeightTest(): MutableLiveData<Resource<String>>
+    suspend fun setBeginnerModeStateTest(enable: Boolean): MutableLiveData<Resource<String>>
+    suspend fun getBeginnerModeStateTest(): MutableLiveData<Resource<Boolean>>
+    suspend fun getMaxHeightTest(): MutableLiveData<Resource<Float>>
+    suspend fun getMaxRangeTest(): MutableLiveData<Resource<Float>>
+    suspend fun setMaxHeightTest(value: Double): MutableLiveData<Resource<String>>
+    suspend fun setMaxRangeTest(value: Double): MutableLiveData<Resource<String>>
+    suspend fun getReturnHeightTest(): MutableLiveData<Resource<Float>>
+    suspend fun setReturnHeightTest(value: Double): MutableLiveData<Resource<String>>
 
-    fun setHorizontalSpeedTest(): MutableLiveData<Resource<String>>
-    fun getHorizontalSpeedTest(): MutableLiveData<Resource<Float>>
-    fun setCalibrateCompassListenerTest(): MutableLiveData<Resource<CalibrateCompassStatus>>
-    fun getSerialNumberTest(): MutableLiveData<Resource<String>>
-    fun getVersionInfoTest(): MutableLiveData<Resource<FlyControllerVersionInfo>>
-    fun cancelLandTest(): MutableLiveData<Resource<String>>
-    fun cancelReturnTest(): MutableLiveData<Resource<String>>
-    fun goHome(): MutableLiveData<Resource<String>>
-    fun landTest(): MutableLiveData<Resource<String>>
-    fun startCalibrateCompassTest(): MutableLiveData<Resource<CalibrateCompassStatus>>
-    fun setAircraftLocationAsHomePointTest(): MutableLiveData<Resource<String>>
-    fun setLocationAsHomePointTest(): MutableLiveData<Resource<String>>
-    fun setLedPilotLampTest(): MutableLiveData<Resource<String>>
-    fun getLedPilotLampTest(): MutableLiveData<Resource<LedPilotLamp>>
-    fun setAttiModeEnableTest(enable: Boolean): MutableLiveData<Resource<Boolean>>
-    fun isAttiModeEnableTest(): MutableLiveData<Resource<Boolean>>
-    fun createExcelWorkbook()
+    suspend fun setHorizontalSpeedTest(value: Double): MutableLiveData<Resource<String>>
+    suspend fun getHorizontalSpeedTest(): MutableLiveData<Resource<Float>>
+    suspend fun setCalibrateCompassListenerTest(): MutableLiveData<Resource<CalibrateCompassStatus>>
+    suspend fun getSerialNumberTest(): MutableLiveData<Resource<String>>
+    suspend fun getVersionInfoTest(): MutableLiveData<Resource<FlyControllerVersionInfo>>
+    suspend fun cancelLandTest(): MutableLiveData<Resource<String>>
+    suspend fun cancelReturnTest(): MutableLiveData<Resource<String>>
+    suspend fun goHomeTest(): MutableLiveData<Resource<String>>
+    suspend fun landTest(): MutableLiveData<Resource<String>>
+    suspend fun startCalibrateCompassTest(): MutableLiveData<Resource<CalibrateCompassStatus>>
+    suspend fun setAircraftLocationAsHomePointTest(): MutableLiveData<Resource<String>>
+    suspend fun setLocationAsHomePointTest(lat: Double, lon: Double): MutableLiveData<Resource<String>>
+    suspend fun setLedPilotLampTest(ledPilotLamp: LedPilotLamp): MutableLiveData<Resource<String>>
+    suspend fun getLedPilotLampTest(): MutableLiveData<Resource<LedPilotLamp>>
+    suspend fun setAttitudeModeEnableTest(enable: Boolean): MutableLiveData<Resource<Boolean>>
+    suspend fun isAttitudeModeEnableTest(): MutableLiveData<Resource<Boolean>>
 }

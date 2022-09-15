@@ -121,10 +121,7 @@
 <string name="mission_current_state_cannot_execute">Current state cannot be executed</string>
     <string name="testSdk">Test SDK</string>
     <string name="previousReports">Previous reports</string>
-
-
-
-
+    <string name="not_getting_any_response">\"Not getting any response for \"</string>
 
 
 </resources>

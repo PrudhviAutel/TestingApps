@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:animateLayoutChanges="true">
+
+            <include
+                android:id="@+id/language"
+                app:testName="@{`SW_Language`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Language`}"
+                app:showExtraSpinner="@{true}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/rfPower"
+                app:testName="@{`SW_RFPower`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set RFPower`}"
+                app:showExtraSpinner="@{true}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/parameterUnit"
+                app:testName="@{`SW_Parameter Unit`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Parameter Unit`}"
+                app:showExtraSpinner="@{true}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/yawCoefficient"
+                app:testName="@{`SW_Yaw_Coefficient`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Yaw Coefficient`}"
+                app:showExtraEdittext="@{true}"
+                app:extraEdittextHint="@{`yaw coefficient`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/gimbalDialAdjustSpeed"
+                app:testName="@{`SW_Gimbal_Dial_Adjust_Speed`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Gimbal Dial Adjust Speed`}"
+                app:showExtraEdittext="@{true}"
+                app:extraEdittextHint="@{`dial adjust speed`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/remoteButtonControllerListener"
+                app:testName="@{`SW_Remote_Button_Controller_Listener`}"
+                app:setButtonText="@{`Set`}"
+                app:viewButtonText="@{`Reset`}"
+                app:extraOptionText="@{`Set Remote Button Controller Listener`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/infoDataListener"
+                app:testName="@{`SW_Info_Data_Listener`}"
+                app:setButtonText="@{`Set`}"
+                app:viewButtonText="@{`Reset`}"
+                app:extraOptionText="@{`Set Info Data Listener`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/connectStateListener"
+                app:testName="@{`SW_Connect_State_Listener`}"
+                app:setButtonText="@{`Set`}"
+                app:viewButtonText="@{`Reset`}"
+                app:extraOptionText="@{`Set Connect State Listener`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/controlMenuListener"
+                app:testName="@{`SW_Connect_Menu_Listener`}"
+                app:setButtonText="@{`Set`}"
+                app:viewButtonText="@{`Reset`}"
+                app:extraOptionText="@{`Set Connect Menu Listener`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

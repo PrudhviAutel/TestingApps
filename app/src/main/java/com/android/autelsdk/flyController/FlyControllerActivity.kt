@@ -1,33 +1,41 @@
 package com.android.autelsdk.flyController
 
+import android.Manifest
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
 import com.android.autelsdk.BaseActivity
 import com.android.autelsdk.R
-//import com.android.autelsdk.remoteController.RemoteControllerActivity
 import com.android.autelsdk.databinding.ActivityFlyControllerBinding
+import com.android.autelsdk.util.Constants
+import com.android.autelsdk.util.ExcelWorkbook
+import com.android.autelsdk.util.Status
+import com.android.autelsdk.util.Utils
+import com.autel.common.flycontroller.LedPilotLamp
 import com.autel.sdk.flycontroller.AutelFlyController
 import com.autel.sdk.product.BaseProduct
-import com.autel.sdk.remotecontroller.AutelRemoteController
-import java.util.EnumSet.of
-import java.util.List.of
-import java.util.Set.of
+import kotlinx.coroutines.runBlocking
 
 
-//import com.android.autelsdk.R
-//import com.android.autelsdk.databinding.ActivityRemoteControllerBinding
-//import com.android.myapplication.R
-//import com.android.myapplication.databinding.ActivityFlyControllerBinding
-
-class FlyControllerActivity :  BaseActivity<AutelFlyController>() {
+class FlyControllerActivity : BaseActivity<AutelFlyController>() {
     val TAG = FlyControllerActivity::class.java.simpleName
-    lateinit var binding : ActivityFlyControllerBinding
+    lateinit var binding: ActivityFlyControllerBinding
+    private val viewModel: FlyControllerViewModel by viewModels()
+    var TestArray = arrayOf("one", "two")
+    private var ExcelTest = TestArray
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this , customViewResId)
+        binding = DataBindingUtil.setContentView(this, customViewResId)
         //val viewModel : FlyControllerViewModel<AutelFlyController> = ViewModelProvider.
+        requestPermission()
+        initUi()
+        //createReport()
+        runTests()
 
     }
 
@@ -46,8 +54,445 @@ class FlyControllerActivity :  BaseActivity<AutelFlyController>() {
     }
 
     override fun initUi() {
-        handleListeners()
+
     }
+
+    private fun createReport() {
+        val excelWorkbook: ExcelWorkbook = ExcelWorkbook()
+        excelWorkbook.createExcelWorkbook()
+        excelWorkbook.exportDataIntoWorkbook(applicationContext)
+        ///excelWorkbook.storeExcelInStorage(applicationContext,"TestDemo")
+    }
+
+    private fun requestPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        ) {
+            Toast.makeText(
+                this,
+                "Write External Storage permission allows us to save files. Please allow this permission in App Settings.",
+                Toast.LENGTH_LONG
+            ).show()
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                500
+            )
+        }
+    }
+
+    fun runTests() {
+
+        runBlocking {
+            viewModel.setBeginnerModeStateTest(true)
+                .observe(this@FlyControllerActivity, Observer { msg ->
+
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+
+                })
+
+            viewModel.getBeginnerModeStateTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.setBeginnerModeStateTest(false)
+                .observe(this@FlyControllerActivity, Observer { msg ->
+
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+
+                })
+
+            viewModel.getBeginnerModeStateTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.setMaxHeightTest(80.0)
+                .observe(this@FlyControllerActivity, Observer { msg ->
+
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+
+                })
+
+            viewModel.getMaxHeightTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.setReturnHeightTest(30.0)
+                .observe(this@FlyControllerActivity, Observer { msg ->
+
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+
+                })
+
+            viewModel.getReturnHeightTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.setMaxRangeTest(500.0)
+                .observe(this@FlyControllerActivity, Observer { msg ->
+
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+
+                })
+
+            viewModel.getMaxRangeTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.setMaxHorizontalSpeedTest(5.0)
+                .observe(this@FlyControllerActivity, Observer { msg ->
+
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+
+                })
+
+            viewModel.getMaxHorizontalSpeedTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.setCalibrateCompassListenerTest()
+                .observe(this@FlyControllerActivity, Observer { msg ->
+
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+
+                })
+
+            viewModel.getSerialNumberTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.getVersionInfoTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.cancelLandTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.cancelReturnTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.goHomeTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.landTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.startCalibrateCompassTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.setAircraftLocationAsHomePointTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.setLocationAsHomePointTest(0.0,0.0).observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            for (ledPilotLamp in LedPilotLamp.values()) {
+                viewModel.setLedPilotLampTest(ledPilotLamp).observe(this@FlyControllerActivity, Observer { msg ->
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+                })
+
+                viewModel.getLedPilotLampTest().observe(this@FlyControllerActivity, Observer { msg ->
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+                })
+            }
+
+            viewModel.setAttitudeModeEnableTest(true).observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.setAttitudeModeEnableTest(false).observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+            viewModel.isAttitudeModeEnableTest().observe(this@FlyControllerActivity, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                    }
+                    else -> {
+
+                    }
+                }
+            })
+
+
+        }
+    }
+
+
 }
 
 

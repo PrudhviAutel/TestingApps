@@ -253,4 +253,7 @@
     <color name="dsp_unstable_color">#ff0a3e</color>
     <!-- Tracking -->
     <color name="tracking_press_color">#f1f1f1</color>
+    <color name="grey_light1">#F2F1F6</color>
+    <color name="yellow_light">#FFEB3B</color>
+    <color name="blue_light_1">#2196F3</color>
 </resources>

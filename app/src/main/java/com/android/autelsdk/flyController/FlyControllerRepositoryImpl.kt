@@ -10,14 +10,14 @@ import com.autel.common.error.AutelError
 import com.autel.common.flycontroller.CalibrateCompassStatus
 import com.autel.common.flycontroller.FlyControllerVersionInfo
 import com.autel.common.flycontroller.LedPilotLamp
-import com.autel.internal.flycontroller.xstar.XStarFlyController
+import com.autel.internal.flycontroller.cruiser.CruiserFlyControllerImpl
 import com.autel.sdk.flycontroller.AutelFlyController
+import com.autel.sdk.flycontroller.CruiserFlyController
 
 
 class FlyControllerRepositoryImpl : FlyControllerRepository {
 
-    val mController: AutelFlyController =
-        XStarFlyController()      //TODO(Sreyans) : Need to look why CruiserFlyController() is not there
+    val mController: AutelFlyController = CruiserFlyControllerImpl()
 
     override suspend fun setBeginnerModeStateTest(enable: Boolean): MutableLiveData<Resource<String>> {
         var setBeginnerModeStateTestResult: MutableLiveData<Resource<String>> = MutableLiveData()

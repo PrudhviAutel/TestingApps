@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.autel.sdk.product.BaseProduct;
 
+import org.greenrobot.eventbus.EventBus;
+
 
 public abstract class BaseActivity<T> extends AppCompatActivity {
     protected final String TAG = getClass().getSimpleName();
@@ -75,4 +77,5 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     protected boolean isEmpty(String value) {
         return null == value || "".equals(value);
     }
+
 }

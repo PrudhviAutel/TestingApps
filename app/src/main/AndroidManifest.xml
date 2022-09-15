@@ -27,6 +27,7 @@
         <activity
             android:name=".remoteController.RemoteControllerActivity"
             android:label="Remote Controller"
+            android:screenOrientation="landscape"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"

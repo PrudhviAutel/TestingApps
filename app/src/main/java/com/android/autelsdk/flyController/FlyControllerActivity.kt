@@ -2,6 +2,8 @@ package com.android.autelsdk.flyController
 
 import android.Manifest
 import android.os.Bundle
+import android.text.Spannable
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
@@ -18,6 +20,7 @@ import com.autel.common.flycontroller.LedPilotLamp
 import com.autel.sdk.flycontroller.AutelFlyController
 import com.autel.sdk.product.BaseProduct
 import kotlinx.coroutines.runBlocking
+import org.apache.poi.ss.usermodel.Workbook
 
 
 class FlyControllerActivity : BaseActivity<AutelFlyController>() {
@@ -26,6 +29,9 @@ class FlyControllerActivity : BaseActivity<AutelFlyController>() {
     private val viewModel: FlyControllerViewModel by viewModels()
     var TestArray = arrayOf("one", "two")
     private var ExcelTest = TestArray
+    var excelWorkbook: ExcelWorkbook = ExcelWorkbook()
+    lateinit  var list : List<String>
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +40,7 @@ class FlyControllerActivity : BaseActivity<AutelFlyController>() {
         //val viewModel : FlyControllerViewModel<AutelFlyController> = ViewModelProvider.
         requestPermission()
         initUi()
-        createReport()
+
         runTests()
 
     }
@@ -57,10 +63,12 @@ class FlyControllerActivity : BaseActivity<AutelFlyController>() {
 
     }
 
-    private fun createReport() {
-         var excelWorkbook: ExcelWorkbook = ExcelWorkbook()
+    private fun createReport(datalist : List<String>) {
+        Log.i("Rl","inside create report function "+datalist)
+
         excelWorkbook.createExcelWorkbook()
-        excelWorkbook.exportDataIntoWorkbook(applicationContext)
+        excelWorkbook.exportDataIntoWorkbook(applicationContext,datalist)
+//        excelWorkbook.excel2pdf()
         ///excelWorkbook.storeExcelInStorage(applicationContext,"TestDemo")
     }
 
@@ -92,10 +100,23 @@ class FlyControllerActivity : BaseActivity<AutelFlyController>() {
 
                     when (msg.status) {
                         Status.SUCCESS -> {
-                            binding.testResults.append(Utils.getColoredText(msg.data.toString(), Constants.SUCCESS))
+                            val message : Spannable  = Utils.getColoredText(msg.data.toString(),Constants.SUCCESS)
+                            binding.testResults.append(message)
+                           var splitWords : List<String> = message.split(" ")
+                            Log.i("Rl","split completed "+splitWords)
+                            list = arrayListOf(splitWords[0],splitWords[1],splitWords[2],splitWords[4])
+                            Log.i("Rl","assigning completed "+list)
+                            createReport(list)
                         }
                         Status.ERROR -> {
-                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                           // binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                            val message : Spannable  = Utils.getColoredText(msg.message.toString(),Constants.FAILED)
+                            binding.testResults.append(message)
+                            var splitWords : List<String> = message.split(" ")
+                            Log.i("Rl","split completed "+splitWords)
+                            list = arrayListOf(splitWords[0],splitWords[1],splitWords[2],splitWords[4],splitWords[4],splitWords[5])
+                            Log.i("Rl","assigning completed "+list)
+                            createReport(list)
                         }
                         else -> {
 

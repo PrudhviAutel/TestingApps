@@ -11,20 +11,24 @@ import com.autel.common.gimbal.evo.GimbalAngleRange
 import com.autel.common.product.AutelProductType
 import com.autel.internal.gimbal.cruiser.CruiserGimbalImpl
 import com.autel.sdk.gimbal.AutelGimbal
+import com.autel.sdk.gimbal.CruiserGimbal
 import com.autel.sdk.product.BaseProduct
+import com.autel.sdk.product.CruiserAircraft
 
 class GimbalViewModel() : ViewModel() {
 
     private var mController: AutelGimbal = CruiserGimbalImpl()
+    private var cruiserGimbalController: CruiserGimbal = CruiserGimbalImpl()
     private var currentProduct: MutableLiveData<BaseProduct?> = MutableLiveData()
     private var currentProductType: MutableLiveData<AutelProductType> = MutableLiveData(AutelProductType.UNKNOWN)
     private val gimbalRepository: GimbalRepository = GimbalRepositoryImpl()
 
-
-
     fun setCurrentProduct(product : BaseProduct?) {
         setCurrentProductType(product?.type)
         currentProduct.postValue(product)
+        setController(product?.gimbal)
+        val cruiserGimbalController = (product as CruiserAircraft).gimbal
+        setController(cruiserGimbalController)
     }
 
     fun getCurrentProduct(): MutableLiveData<BaseProduct?> {
@@ -39,15 +43,23 @@ class GimbalViewModel() : ViewModel() {
         return currentProductType
     }
 
-    fun setController(controller : AutelGimbal) {
-        mController = controller
-        gimbalRepository.setController(mController)
+    fun <T> setController(controller : T) {
+        if (controller is CruiserGimbal) {
+            cruiserGimbalController = controller
+        } else if (controller is AutelGimbal) {
+            mController = controller
+        }
+
+        gimbalRepository.setController(controller)
     }
 
     fun getController() : AutelGimbal {
         return mController
     }
 
+    fun getCruiserGimbalController() : CruiserGimbal {
+        return cruiserGimbalController
+    }
 
     //Functions related to AutelGimbal Interface
     suspend fun setGimbalWorkModeTest(mode: GimbalWorkMode) : MutableLiveData<Resource<String>> {

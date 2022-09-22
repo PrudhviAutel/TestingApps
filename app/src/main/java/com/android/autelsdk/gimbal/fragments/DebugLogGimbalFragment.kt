@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.FragmentDebugLogControlGimbalBinding
-import com.android.autelsdk.databinding.FragmentDebugLogControlRcBinding
 import com.android.autelsdk.remoteController.RemoteControllerViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Status

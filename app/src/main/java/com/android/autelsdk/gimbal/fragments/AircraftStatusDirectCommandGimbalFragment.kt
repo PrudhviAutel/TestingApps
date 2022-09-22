@@ -11,16 +11,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.FragmentAircraftStatusDirectCommandGimbalBinding
-import com.android.autelsdk.databinding.FragmentAircraftStatusDirectCommandRcBinding
 import com.android.autelsdk.gimbal.GimbalViewModel
-import com.android.autelsdk.remoteController.RemoteControllerViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Status
 import com.android.autelsdk.util.Utils
 import com.android.autelsdk.util.Utils.observeOnce
 import com.autel.common.product.AutelProductType
-import com.autel.common.remotecontroller.RemoteControllerStickCalibration
-import com.autel.common.remotecontroller.TeachingMode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -61,6 +57,7 @@ class AircraftStatusDirectCommandGimbalFragment : Fragment() {
     private fun handleListeners() {
 
         binding.setAngleListener.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setAngleListenerTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -81,8 +78,28 @@ class AircraftStatusDirectCommandGimbalFragment : Fragment() {
             }
         }
 
+        binding.getAdjustGimbalAngle.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.getAdjustGimbalAngelDataTest()
+                    .observeOnce(viewLifecycleOwner, Observer { msg ->
+                        when (msg.status) {
+                            Status.SUCCESS -> {
+                                binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                            }
+                            Status.ERROR -> {
+                                binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                            }
+                            else -> {
+
+                            }
+                        }
+                    })
+            }
+        }
 
         binding.getAngleRange.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.getAngleRangeTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -103,6 +120,7 @@ class AircraftStatusDirectCommandGimbalFragment : Fragment() {
         }
 
         binding.getAngleSpeedRange.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.getAngleSpeedRangeTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -123,6 +141,7 @@ class AircraftStatusDirectCommandGimbalFragment : Fragment() {
         }
 
         binding.startGimbalCalibration.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setGimbalCalibrationTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -142,6 +161,7 @@ class AircraftStatusDirectCommandGimbalFragment : Fragment() {
         }
 
         binding.stopGimbalCalibration.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.stopGimbalCalibrationTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -161,6 +181,7 @@ class AircraftStatusDirectCommandGimbalFragment : Fragment() {
         }
 
         binding.getVersionInfo.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.getVersionInfoTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->

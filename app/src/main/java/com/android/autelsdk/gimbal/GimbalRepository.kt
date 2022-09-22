@@ -2,16 +2,11 @@ package com.android.autelsdk.gimbal
 
 import androidx.lifecycle.MutableLiveData
 import com.android.autelsdk.util.Resource
-import com.autel.AutelNet2.aircraft.gimbal.engine.LeaserRadarInfo
 import com.autel.common.RangePair
 import com.autel.common.gimbal.*
 import com.autel.common.gimbal.evo.EvoAngleInfo
 import com.autel.common.gimbal.evo.EvoGimbalParameterRangeManager
 import com.autel.common.gimbal.evo.GimbalAngleRange
-import com.autel.common.gimbal.evo.GimbalAngleSpeed
-import com.autel.common.remotecontroller.*
-import com.autel.sdk.gimbal.AutelGimbal
-import com.autel.sdk.remotecontroller.AutelRemoteController
 
 interface GimbalRepository {
 

@@ -11,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.FragmentInterfaceDebuggingGimbalBinding
-import com.android.autelsdk.databinding.FragmentInterfaceDebuggingRcBinding
 import com.android.autelsdk.event.ProductConnectEvent
 import com.android.autelsdk.remoteController.RemoteControllerViewModel
 import com.android.autelsdk.util.Constants

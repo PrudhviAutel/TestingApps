@@ -19,6 +19,7 @@ import com.autel.sdk.Autel
 import com.autel.sdk.ProductConnectListener
 import com.autel.sdk.gimbal.AutelGimbal
 import com.autel.sdk.product.BaseProduct
+import com.autel.sdk.product.CruiserAircraft
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -95,10 +96,9 @@ class GimbalActivity : BaseActivity<AutelGimbal>() {
     }
 
     override fun initController(product: BaseProduct?): AutelGimbal? {
-        if (product != null)
-            return product.gimbal
-
-        return null
+        val cruiserGimbalController = (product as CruiserAircraft).gimbal
+        viewModel.setController(cruiserGimbalController)
+        return product.gimbal
     }
 
     override fun getCustomViewResId(): Int {

@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -14,18 +13,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.FragmentFlightControlParameterReadingGimbalBinding
-import com.android.autelsdk.databinding.FragmentFlightControlParameterReadingRcBinding
 import com.android.autelsdk.gimbal.GimbalViewModel
-import com.android.autelsdk.remoteController.RemoteControllerViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Status
 import com.android.autelsdk.util.Utils
 import com.android.autelsdk.util.Utils.observeOnce
 import com.autel.common.gimbal.GimbalAxisType
 import com.autel.common.gimbal.GimbalWorkMode
-import com.autel.common.remotecontroller.RFPower
-import com.autel.common.remotecontroller.RemoteControllerLanguage
-import com.autel.common.remotecontroller.RemoteControllerParameterUnit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

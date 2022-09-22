@@ -7,6 +7,7 @@ object Constants {
     // Success Failure Show Text
     const val SUCCESS = "Success"
     const val FAILED = "Failed"
+    const val NORMAL = "Normal"
 
     // Module Names
     const val RemoteController = "RemoteController"

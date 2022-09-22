@@ -11,7 +11,6 @@ import com.autel.common.gimbal.*
 import com.autel.common.gimbal.evo.EvoAngleInfo
 import com.autel.common.gimbal.evo.EvoGimbalParameterRangeManager
 import com.autel.common.gimbal.evo.GimbalAngleRange
-import com.autel.common.remotecontroller.RemoteControllerParameterUnit
 import com.autel.internal.gimbal.cruiser.CruiserGimbalImpl
 import com.autel.sdk.gimbal.AutelGimbal
 import com.autel.sdk.gimbal.CruiserGimbal
@@ -22,10 +21,10 @@ class GimbalRepositoryImpl() : GimbalRepository {
     var cruisalGimbalController : CruiserGimbal = CruiserGimbalImpl()
 
     override fun <T> setController(controller: T) {
-        if (controller is AutelGimbal) {
-            autelGimbalController = controller
-        } else if (controller is CruiserGimbal) {
+        if (controller is CruiserGimbal) {
             cruisalGimbalController = controller
+        } else if (controller is AutelGimbal) {
+            autelGimbalController = controller
         }
     }
 

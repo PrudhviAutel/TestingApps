@@ -59,6 +59,7 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
     private fun handleListeners() {
 
         binding.enterBinding.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.enterPairingTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -80,11 +81,13 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
         }
 
         binding.exitBinding.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             viewModel.exitPairing()
             binding.testResults.setText(Utils.getColoredText("Exit Pairing Successful", Constants.SUCCESS))
         }
 
         binding.disableTeachingMode.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setTeacherStudentModeTest(TeachingMode.DISABLED)
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -105,6 +108,7 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
         }
 
         binding.enableStudentMode.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setTeacherStudentModeTest(TeachingMode.STUDENT)
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -125,6 +129,7 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
         }
 
         binding.enableTeachingMode.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setTeacherStudentModeTest(TeachingMode.TEACHER)
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -145,6 +150,7 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
         }
 
         binding.startStickCalibration.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setStickCalibrationTest(RemoteControllerStickCalibration.START)
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -164,6 +170,7 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
         }
 
         binding.completeStickCalibration.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setStickCalibrationTest(RemoteControllerStickCalibration.COMPLETE)
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -183,6 +190,7 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
         }
 
         binding.getVersionInfo.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.getVersionInfoTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -202,6 +210,7 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
         }
 
         binding.getSerialNumber.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.getSerialNumberTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->

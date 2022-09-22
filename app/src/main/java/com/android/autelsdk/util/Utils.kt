@@ -34,7 +34,7 @@ object Utils {
         return "$methodName() $status $extraText\n\n"
     }
 
-    fun getColoredText (text : String, status : String) : Spannable {
+    fun getColoredText (text : String, status : String = Constants.NORMAL) : Spannable {
         var color : Int
         if (status == Constants.SUCCESS) {
             color = Color.BLUE

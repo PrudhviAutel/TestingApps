@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:animateLayoutChanges="true">
+
+            <include
+                android:id="@+id/gimbalWorkMode"
+                app:testName="@{`SW_Gimbal_Work_Mode`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Gimbal Work Mode`}"
+                app:showExtraSpinner="@{true}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/gimbalAngle"
+                app:testName="@{`SW_Gimbal_Angle`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:setValuesOptionText="@{`Set and Save`}"
+                app:showExtraEdittext1="@{true}"
+                app:extraEdittext1Hint="@{`angle pitch`}"
+                app:showExtraEdittext2="@{true}"
+                app:extraEdittext2Hint="@{`angle roll`}"
+                app:showExtraEdittext3="@{true}"
+                app:extraEdittext3Hint="@{`angle yaw`}"
+                layout="@layout/item_3edittexts"
+                />
+
+            <include
+                android:id="@+id/gimbalSpeed"
+                app:testName="@{`SW_Gimbal_Speed`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:setValuesOptionText="@{`Set and Save`}"
+                app:showExtraEdittext1="@{true}"
+                app:extraEdittext1Hint="@{`angle pitch`}"
+                app:showExtraEdittext3="@{true}"
+                app:extraEdittext3Hint="@{`angle yaw`}"
+                layout="@layout/item_3edittexts"
+                />
+
+            <include
+                android:id="@+id/leaseRadar"
+                app:testName="@{`SW_Lease_Radar_Listener`}"
+                app:setButtonText="@{`Set`}"
+                app:viewButtonText="@{`Reset`}"
+                app:extraOptionText="@{`Set Lease Radar Listener`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/gimbalDirection"
+                app:testName="@{`SW_Gimbal_Direction`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:setValuesOptionText="@{`Set Gimbal Direction`}"
+                app:showExtraEdittext1="@{true}"
+                app:extraEdittext1Hint="@{`angle pitch`}"
+                app:showExtraEdittext2="@{true}"
+                app:extraEdittext2Hint="@{`angle roll`}"
+                app:showExtraEdittext3="@{true}"
+                app:extraEdittext3Hint="@{`angle yaw`}"
+                app:showExtraEdittext4="@{true}"
+                app:extraEdittext4Hint="@{`   x   `}"
+                app:showExtraEdittext5="@{true}"
+                app:extraEdittext5Hint="@{`   y   `}"
+                layout="@layout/item_3edittexts"
+                />
+
+            <include
+                android:id="@+id/roll"
+                app:testName="@{`SW_Roll_Adjust_Data`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Adjust Roll`}"
+                app:showExtraEdittext="@{true}"
+                app:extraEdittextHint="@{`adjust roll`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/yaw"
+                app:testName="@{`SW_Yaw_Adjust_Data`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Adjust Yaw`}"
+                app:showExtraEdittext="@{true}"
+                app:extraEdittextHint="@{`adjust yaw`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/pitch"
+                app:testName="@{`SW_Pitch_Adjust_Data`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Adjust Pitch`}"
+                app:showExtraEdittext="@{true}"
+                app:extraEdittextHint="@{`adjust pitch`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

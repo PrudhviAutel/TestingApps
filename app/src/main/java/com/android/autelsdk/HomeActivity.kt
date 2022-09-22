@@ -29,7 +29,7 @@ class HomeActivity : AppCompatActivity() {
         binding.recyclerviewListOfComponent.layoutManager = GridLayoutManager(this, 2)
         binding.recyclerviewListOfComponent.adapter = adapter
 
-        initialAlertDialog()
+        //initialAlertDialog()
 
 
     }

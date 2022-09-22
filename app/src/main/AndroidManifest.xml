@@ -30,6 +30,11 @@
             android:screenOrientation="landscape"
             android:exported="false" />
         <activity
+            android:name=".gimbal.GimbalActivity"
+            android:label="Gimbal Activity"
+            android:screenOrientation="landscape"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity

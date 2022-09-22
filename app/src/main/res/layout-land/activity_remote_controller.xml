@@ -64,7 +64,7 @@
             <include
                 android:id="@+id/flightControl"
                 layout="@layout/item_options"
-                app:option="@{`Flight Control Paramter Reading`}"
+                app:option="@{`Flight Control Parameter Reading`}"
                 app:src="@{@drawable/ic_launcher_background}"/>
 
             <include

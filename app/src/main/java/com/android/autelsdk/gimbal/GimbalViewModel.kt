@@ -104,7 +104,7 @@ class GimbalViewModel() : ViewModel() {
         return gimbalRepository.setLeaserRadarListenerTest()
     }
 
-    suspend fun resetLeaserRadarListenerTest() {
+    fun resetLeaserRadarListenerTest() {
         return gimbalRepository.resetLeaserRadarListenerTest()
     }
 

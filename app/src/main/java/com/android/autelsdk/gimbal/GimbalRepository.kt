@@ -46,7 +46,7 @@ interface GimbalRepository {
     //Extra Methods not given in Dragon Fish Sdk Sample Taken from CruiserGimbalImpl
     suspend fun setLeaserRadarListenerTest() : MutableLiveData<Resource<LeaserRadar>>
 
-    suspend fun resetLeaserRadarListenerTest()
+    fun resetLeaserRadarListenerTest()
 
     suspend fun adjustGimbalDirectionTest(x: Float, y: Float, pitch: Float, roll: Float, yaw: Float) : MutableLiveData<Resource<String>>
 

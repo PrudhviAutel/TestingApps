@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.FragmentAircraftStatusDirectCommandGimbalBinding
 import com.android.autelsdk.databinding.FragmentAircraftStatusDirectCommandRcBinding
+import com.android.autelsdk.gimbal.GimbalViewModel
 import com.android.autelsdk.remoteController.RemoteControllerViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Status
@@ -26,7 +27,7 @@ import kotlinx.coroutines.launch
 class AircraftStatusDirectCommandGimbalFragment : Fragment() {
 
     private lateinit var binding: FragmentAircraftStatusDirectCommandGimbalBinding
-    private val viewModel: RemoteControllerViewModel by activityViewModels()
+    private val viewModel: GimbalViewModel by activityViewModels()
 
     companion object {
         fun newInstance() = AircraftStatusDirectCommandGimbalFragment()
@@ -61,7 +62,7 @@ class AircraftStatusDirectCommandGimbalFragment : Fragment() {
 
         binding.setAngleListener.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.enterPairingTest()
+                viewModel.setAngleListenerTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
 
                         when (msg.status) {
@@ -80,34 +81,10 @@ class AircraftStatusDirectCommandGimbalFragment : Fragment() {
             }
         }
 
-        binding.exitBinding.setOnClickListener {
-            viewModel.exitPairing()
-            binding.testResults.setText(Utils.getColoredText("Exit Pairing Successful", Constants.SUCCESS))
-        }
 
         binding.getAngleRange.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setTeacherStudentModeTest(TeachingMode.DISABLED)
-                    .observeOnce(viewLifecycleOwner, Observer { msg ->
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                            }
-                            Status.ERROR -> {
-                                binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                            }
-                            else -> {
-
-                            }
-                        }
-
-                    })
-            }
-        }
-
-        binding.enableStudentMode.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setTeacherStudentModeTest(TeachingMode.STUDENT)
+                viewModel.getAngleRangeTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
                         when (msg.status) {
                             Status.SUCCESS -> {
@@ -127,7 +104,7 @@ class AircraftStatusDirectCommandGimbalFragment : Fragment() {
 
         binding.getAngleSpeedRange.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setTeacherStudentModeTest(TeachingMode.TEACHER)
+                viewModel.getAngleSpeedRangeTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
                         when (msg.status) {
                             Status.SUCCESS -> {
@@ -147,7 +124,7 @@ class AircraftStatusDirectCommandGimbalFragment : Fragment() {
 
         binding.startGimbalCalibration.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setStickCalibrationTest(RemoteControllerStickCalibration.START)
+                viewModel.setGimbalCalibrationTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
                         when (msg.status) {
                             Status.SUCCESS -> {
@@ -166,7 +143,7 @@ class AircraftStatusDirectCommandGimbalFragment : Fragment() {
 
         binding.stopGimbalCalibration.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setStickCalibrationTest(RemoteControllerStickCalibration.COMPLETE)
+                viewModel.stopGimbalCalibrationTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
                         when (msg.status) {
                             Status.SUCCESS -> {
@@ -186,25 +163,6 @@ class AircraftStatusDirectCommandGimbalFragment : Fragment() {
         binding.getVersionInfo.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.getVersionInfoTest()
-                    .observeOnce(viewLifecycleOwner, Observer { msg ->
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                            }
-                            Status.ERROR -> {
-                                binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                            }
-                            else -> {
-
-                            }
-                        }
-                    })
-            }
-        }
-
-        binding.getSerialNumber.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.getSerialNumberTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
                         when (msg.status) {
                             Status.SUCCESS -> {

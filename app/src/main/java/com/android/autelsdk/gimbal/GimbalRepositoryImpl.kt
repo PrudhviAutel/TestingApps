@@ -202,7 +202,7 @@ class GimbalRepositoryImpl() : GimbalRepository {
         return setLeaserRadarListenerTestResult
     }
 
-    override suspend fun resetLeaserRadarListenerTest() {
+    override fun resetLeaserRadarListenerTest() {
         cruisalGimbalController.setLeaserRadarListener(null)
     }
 

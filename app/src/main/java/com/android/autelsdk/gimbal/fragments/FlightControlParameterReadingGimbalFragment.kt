@@ -21,6 +21,7 @@ import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Status
 import com.android.autelsdk.util.Utils
 import com.android.autelsdk.util.Utils.observeOnce
+import com.autel.common.gimbal.GimbalAxisType
 import com.autel.common.gimbal.GimbalWorkMode
 import com.autel.common.remotecontroller.RFPower
 import com.autel.common.remotecontroller.RemoteControllerLanguage
@@ -74,6 +75,11 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
         binding.gimbalAngle.setBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
             binding.gimbalAngle.setValuesParent.visibility = View.VISIBLE
+        }
+
+        binding.gimbalAngle.viewBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.gimbalAngle.extraOptionParent.visibility = View.VISIBLE
         }
 
         binding.gimbalSpeed.setBtn.setOnClickListener {
@@ -177,6 +183,28 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setGimbalAngleTest(pitch, roll, yaw)
                 viewModel.setSaveParamsTest()
+                    .observeOnce(viewLifecycleOwner, Observer { msg ->
+                        when (msg.status) {
+                            Status.SUCCESS -> {
+                                binding.gimbalAngle.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                            }
+                            Status.ERROR -> {
+                                binding.gimbalAngle.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                            }
+                            else -> {
+                                binding.gimbalAngle.showResponseText.setText("No Response From Server")
+                            }
+                        }
+                    })
+            }
+        }
+
+        binding.gimbalAngle.extraOption.setOnClickListener {
+            binding.gimbalAngle.showResponseText.visibility = View.VISIBLE
+            binding.gimbalAngle.showResponseText.setText("Please Wait...")
+            val gimbalAxisType = GimbalAxisType.values()[binding.gimbalAngle.extraSpinner.selectedItemPosition]
+            lifecycleScope.launch {
+                viewModel.resetGimbalAngleTest(gimbalAxisType)
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
                         when (msg.status) {
                             Status.SUCCESS -> {
@@ -394,27 +422,6 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
             }
         }
 
-        binding.gimbalAngle.viewBtn.setOnClickListener {
-            closeAllExtraOptionLayouts()
-            binding.gimbalAngle.showResponseText.visibility = View.VISIBLE
-            binding.gimbalAngle.showResponseText.setText("Please Wait...")
-            lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.getAngleRangeTest().observeOnce(viewLifecycleOwner) { msg ->
-                    when (msg.status) {
-                        Status.SUCCESS -> {
-                            binding.gimbalAngle.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
-                        }
-                        Status.ERROR -> {
-                            binding.gimbalAngle.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.FAILED))
-                        }
-                        else -> {
-
-                        }
-                    }
-                }
-            }
-        }
-
         binding.gimbalSpeed.viewBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
             binding.gimbalSpeed.showResponseText.visibility = View.VISIBLE
@@ -501,6 +508,7 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
 
         binding.leaseRadar.viewBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
+            viewModel.resetLeaserRadarListenerTest()
             binding.leaseRadar.showResponseText.visibility = View.VISIBLE
             binding.leaseRadar.showResponseText.setText(Utils.getColoredText("Reset Lease Radar Listener successful if device is connected.", Constants.SUCCESS))
         }
@@ -553,12 +561,27 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
             android.R.layout.simple_spinner_item
         )
         binding.gimbalSpeed.extraSpinner.adapter = spinnerAdapter
+        spinnerAdapter = ArrayAdapter(
+            requireActivity().baseContext,
+            android.R.layout.simple_spinner_item,
+            getGimbalAxisTypes()
+        )
+        binding.gimbalAngle.extraSpinner.adapter = spinnerAdapter
     }
 
     private fun getGimbalWorkModes() : Array<CharSequence> {
 
         var modes = mutableListOf<CharSequence>()
         for (mode in GimbalWorkMode.values()) {
+            modes.add(mode.name)
+        }
+        return modes.toList().toTypedArray()
+    }
+
+    private fun getGimbalAxisTypes() : Array<CharSequence> {
+
+        var modes = mutableListOf<CharSequence>()
+        for (mode in GimbalAxisType.values()) {
             modes.add(mode.name)
         }
         return modes.toList().toTypedArray()

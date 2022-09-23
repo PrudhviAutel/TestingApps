@@ -33,13 +33,15 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var setGimbalWorkModeTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         autelGimbalController.setGimbalWorkMode(mode, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                methodName = "setGimbalWorkMode");
                 setGimbalWorkModeTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText(
-                    "\non Mode = ${mode.name} "
+                    "\non Mode = ${mode.name} ",
+                    methodName = "setGimbalWorkMode"
                 );
                 setGimbalWorkModeTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
@@ -51,13 +53,15 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var getGimbalWorkModeTestResult: MutableLiveData<Resource<GimbalWorkMode>> = MutableLiveData()
         autelGimbalController.getGimbalWorkMode(object : CallbackWithOneParam<GimbalWorkMode> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "getGimbalWorkMode");
                 getGimbalWorkModeTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess(mode: GimbalWorkMode) {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nMode = ${mode.name} "
+                    "\nMode = ${mode.name} ",
+                    methodName = "getGimbalWorkMode"
                 );
                 getGimbalWorkModeTestResult.postValue(Resource.Companion.success(mode, successMessage))
             }
@@ -76,7 +80,8 @@ class GimbalRepositoryImpl() : GimbalRepository {
 
             override fun onSuccess(info: GimbalVersionInfo) {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nMode = ${info} "
+                    "\nVersion Info = ${info} ",
+                    methodName = "getVersionInfo"
                 );
                 getVersionInfoTestResult.postValue(Resource.Companion.success(info, successMessage))
             }
@@ -93,13 +98,15 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var setAngleListenerTestResult: MutableLiveData<Resource<EvoAngleInfo>> = MutableLiveData()
         cruisalGimbalController.setAngleListener(object : CallbackWithOneParam<EvoAngleInfo> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "setAngleListener");
                 setAngleListenerTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess(evoAngleInfo: EvoAngleInfo?) {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nYaw Unit = ${evoAngleInfo?.yaw} "
+                    "\nPitch = ${evoAngleInfo?.pitch}, Roll = ${evoAngleInfo?.roll}, Yaw = ${evoAngleInfo?.yaw}",
+                    methodName = "setAngleListener"
                 );
                 setAngleListenerTestResult.postValue(Resource.Companion.success(evoAngleInfo, successMessage))
             }
@@ -111,13 +118,15 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var getAngleListenerTestResult: MutableLiveData<Resource<GimbalAngleRange>> = MutableLiveData()
         cruisalGimbalController.parameterRangeManager.getAngleRange(object : CallbackWithOneParam<GimbalAngleRange> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "getAngleRange");
                 getAngleListenerTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess(data: GimbalAngleRange?) {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nYaw Unit = ${data?.yawMin} "
+                    "\nPitch = ${data?.pitchMinimum} to ${data?.pitchMax},\n Roll = ${data?.rollMin} to ${data?.rollMax},\n Yaw = ${data?.yawMin} to ${data?.yawMax}",
+                    methodName = "getAngleRange"
                 );
                 getAngleListenerTestResult.postValue(Resource.Companion.success(data, successMessage))
             }
@@ -128,15 +137,14 @@ class GimbalRepositoryImpl() : GimbalRepository {
     override suspend fun getAngleSpeedRangeTest(): MutableLiveData<Resource<RangePair<Int>>> {
         var getAngleListenerTestResult: MutableLiveData<Resource<RangePair<Int>>> = MutableLiveData()
         val support = cruisalGimbalController.parameterRangeManager.angleSpeedRange
-        val successMessage = "Gimbal Angle Speed Range is from ${support.valueFrom} to ${support.valueTo}"
+        val successMessage = Utils.getSuccessShowText("Gimbal Angle Speed Range is from ${support.valueFrom} to ${support.valueTo}",
+            methodName = "getAngleSpeedRange")
         getAngleListenerTestResult.postValue(Resource.Companion.success(support, successMessage));
         return getAngleListenerTestResult
     }
 
     override suspend fun setGimbalAngleTest(pitch: Float, roll: Float, yaw: Float) {
-
         cruisalGimbalController.setGimbalAngle(pitch, roll, yaw)
-
     }
 
     override suspend fun setGimbalAngleSpeedTest(pitch: Int, yaw: Int) {
@@ -147,13 +155,15 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var resetGimbalAngleTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         cruisalGimbalController.resetGimbalAngle(gimbalAxisType,object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "resetGimbalAngle");
                 resetGimbalAngleTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nGimbal Axis Type reset to ${gimbalAxisType.name} "
+                    "\nGimbal Axis Type reset to ${gimbalAxisType.name} ",
+                    methodName = "resetGimbalAngle"
                 );
                 resetGimbalAngleTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
@@ -169,13 +179,15 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var getRollAdjustDataTestResult: MutableLiveData<Resource<Double>> = MutableLiveData()
         cruisalGimbalController.getRollAdjustData(object : CallbackWithOneParam<Double> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "getRollAdjustData");
                 getRollAdjustDataTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess(data: Double) {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nYaw Unit = ${data} "
+                    "\nAdjusted Roll = ${data} ",
+                    methodName = "getRollAdjustData"
                 );
                 getRollAdjustDataTestResult.postValue(Resource.Companion.success(data, successMessage))
             }
@@ -187,13 +199,15 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var setLeaserRadarListenerTestResult: MutableLiveData<Resource<LeaserRadar>> = MutableLiveData()
         cruisalGimbalController.setLeaserRadarListener(object : CallbackWithOneParam<LeaserRadar> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "setLeaserRadarListener");
                 setLeaserRadarListenerTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess(data: LeaserRadar) {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nYaw Unit = ${data} "
+                    "\nLatitude = ${data.latitude}, Longitude = ${data.longitude}\n Distance = ${data.distance}, Altitude = ${data.altitude}, Speed = ${data.speed}",
+                    methodName = "setLeaserRadarListener"
                 );
                 setLeaserRadarListenerTestResult.postValue(Resource.Companion.success(data, successMessage))
             }
@@ -208,7 +222,8 @@ class GimbalRepositoryImpl() : GimbalRepository {
     override suspend fun adjustGimbalDirectionTest(x: Float, y: Float, pitch: Float, roll: Float, yaw: Float): MutableLiveData<Resource<String>> {
         var adjustGimbalDirectionTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         cruisalGimbalController.adjustGimbalDirection(x, y, pitch, yaw, roll)
-        val successMessage = "Adjusted values x = ${x}, y = ${y}, pitch = ${pitch}, yaw = ${yaw}, roll = ${roll} successfully.\nMake sure your drone is connected, otherwise values will not be set."
+        val successMessage = Utils.getSuccessShowText("Adjusted values x = ${x}, y = ${y}, pitch = ${pitch}, yaw = ${yaw}, roll = ${roll} successfully.\nMake sure your drone is connected, otherwise values will not be set.",
+            methodName = "adjustGimbalDirection")
         adjustGimbalDirectionTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
         return adjustGimbalDirectionTestResult
     }
@@ -220,7 +235,9 @@ class GimbalRepositoryImpl() : GimbalRepository {
     override suspend fun setYawAdjustDataTest(yaw: Float): MutableLiveData<Resource<String>> {
         var setYawAdjustDataTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         cruisalGimbalController.setYawAdjustData(yaw)
-        setYawAdjustDataTestResult.postValue(Resource.Companion.success("Adjusted yaw = ${yaw}"))
+        val successMessage = Utils.getSuccessShowText("Adjusted Yaw = ${yaw}",
+            methodName = "setYawAdjustData")
+        setYawAdjustDataTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
         return setYawAdjustDataTestResult
     }
 
@@ -228,13 +245,15 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var getYawAdjustDataTestResult: MutableLiveData<Resource<Double>> = MutableLiveData()
         cruisalGimbalController.getYawAdjustData(object : CallbackWithOneParam<Double> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "getYawAdjustData");
                 getYawAdjustDataTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess(data: Double) {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nYaw  = ${data} "
+                    "\nYaw Adjustment = ${data} ",
+                    methodName = "getYawAdjustData"
                 );
                 getYawAdjustDataTestResult.postValue(Resource.Companion.success(data, successMessage))
             }
@@ -245,7 +264,9 @@ class GimbalRepositoryImpl() : GimbalRepository {
     override suspend fun setPitchAdjustDataTest(pitch: Float): MutableLiveData<Resource<String>> {
         var setPitchAdjustDataTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         cruisalGimbalController.setPitchAdjustData(pitch)
-        setPitchAdjustDataTestResult.postValue(Resource.Companion.success("Adjusted pitch = ${pitch}"))
+        val successMessage = Utils.getSuccessShowText("Adjusted Pitch = ${pitch}",
+            methodName = "setPitchAdjustData")
+        setPitchAdjustDataTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
         return setPitchAdjustDataTestResult
     }
 
@@ -253,13 +274,15 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var getYawAdjustDataTestResult: MutableLiveData<Resource<Double>> = MutableLiveData()
         cruisalGimbalController.getYawAdjustData(object : CallbackWithOneParam<Double> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "getPitchAdjustData");
                 getYawAdjustDataTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess(data: Double) {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nYaw  = ${data} "
+                    "\nPitch Adjustment  = ${data} ",
+                    methodName = "getPitchAdjustData"
                 );
                 getYawAdjustDataTestResult.postValue(Resource.Companion.success(data, successMessage))
             }
@@ -271,13 +294,15 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var setGimbalCalibrationTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         cruisalGimbalController.setSaveParams(object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "setSaveParams");
                 setGimbalCalibrationTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nYaw  =  "
+                    "\nParameters set and saved successfully.",
+                    methodName = "setSaveParams"
                 );
                 setGimbalCalibrationTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
@@ -289,13 +314,15 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var setGimbalCalibrationTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         cruisalGimbalController.setGimbalCalibration(object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "setGimbalCalibration");
                 setGimbalCalibrationTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nYaw  =  "
+                    "\nGimbal Calibration Started. ",
+                    methodName = "setGimbalCalibration"
                 );
                 setGimbalCalibrationTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
@@ -307,13 +334,15 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var stopGimbalCalibrationTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         cruisalGimbalController.stopGimbalCalibration(object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "stopGimbalCalibration");
                 stopGimbalCalibrationTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nYaw  = "
+                    "\nGimbal Calibration Ended. ",
+                    methodName = "stopGimbalCalibration"
                 );
                 stopGimbalCalibrationTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
@@ -325,13 +354,15 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var getAdjustGimbalAngelDataTestResult: MutableLiveData<Resource<GimbalAdjustmentAngle>> = MutableLiveData()
         cruisalGimbalController.getAdjustGimbalAngelData(object : CallbackWithOneParam<GimbalAdjustmentAngle> {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}");
+                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                    methodName = "getAdjustGimbalAngelData");
                 getAdjustGimbalAngelDataTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
-            override fun onSuccess(data: GimbalAdjustmentAngle) {
+            override fun onSuccess(data: GimbalAdjustmentAngle?) {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nYaw  = ${data} "
+                    "\nPitch = ${data?.pitch}, Roll = ${data?.roll}, Yaw = ${data?.yaw}",
+                    methodName = "getAdjustGimbalAngelData"
                 );
                 getAdjustGimbalAngelDataTestResult.postValue(Resource.Companion.success(data, successMessage))
             }

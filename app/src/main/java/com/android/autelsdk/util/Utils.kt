@@ -18,7 +18,7 @@ object Utils {
                 .getStackTrace().size > 6
         ) Thread.currentThread().getStackTrace()[6].getMethodName() else ""
     ): String {
-        return "$methodName() $status $extraText"
+        return "$methodName() $status $extraText\n\n"
     }
 
     fun getAllStackTraceFunctions(): Array<out StackTraceElement> {

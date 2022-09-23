@@ -106,7 +106,7 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
             binding.leaseRadar.showResponseText.visibility = View.VISIBLE
             binding.leaseRadar.showResponseText.setText("Please Wait...")
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setLeaserRadarListenerTest().observeOnce(viewLifecycleOwner) { msg ->
+                viewModel.setLeaserRadarListenerTest().observeOnce(viewLifecycleOwner, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
                             binding.leaseRadar.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
@@ -118,7 +118,7 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
 
                         }
                     }
-                }
+                })
             }
         }
 
@@ -288,7 +288,7 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
 
             }
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.adjustGimbalDirectionTest(x, y, roll, pitch, yaw)
+                viewModel.adjustGimbalDirectionTest(x, y, pitch, roll, yaw)
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
                         when (msg.status) {
                             Status.SUCCESS -> {
@@ -400,7 +400,7 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
             binding.gimbalWorkMode.showResponseText.visibility = View.VISIBLE
             binding.gimbalWorkMode.showResponseText.setText("Please Wait...")
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.getGimbalWorkModeTest().observeOnce(viewLifecycleOwner) { msg ->
+                viewModel.getGimbalWorkModeTest().observeOnce(viewLifecycleOwner, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
                             binding.gimbalWorkMode.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
@@ -412,7 +412,7 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
 
                         }
                     }
-                }
+                })
             }
         }
 
@@ -421,7 +421,7 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
             binding.gimbalSpeed.showResponseText.visibility = View.VISIBLE
             binding.gimbalSpeed.showResponseText.setText("Please Wait...")
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.getAngleSpeedRangeTest().observeOnce(viewLifecycleOwner) { msg ->
+                viewModel.getAngleSpeedRangeTest().observeOnce(viewLifecycleOwner, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
                             binding.gimbalSpeed.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
@@ -433,7 +433,7 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
 
                         }
                     }
-                }
+                })
             }
         }
 
@@ -442,7 +442,7 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
             binding.roll.showResponseText.visibility = View.VISIBLE
             binding.roll.showResponseText.setText("Please Wait...")
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.getRollAdjustDataTest().observeOnce(viewLifecycleOwner) { msg ->
+                viewModel.getRollAdjustDataTest().observeOnce(viewLifecycleOwner, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
                             binding.roll.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
@@ -454,7 +454,7 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
 
                         }
                     }
-                }
+                })
             }
         }
 
@@ -463,7 +463,7 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
             binding.yaw.showResponseText.visibility = View.VISIBLE
             binding.yaw.showResponseText.setText("Please Wait...")
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.getYawAdjustDataTest().observeOnce(viewLifecycleOwner) { msg ->
+                viewModel.getYawAdjustDataTest().observeOnce(viewLifecycleOwner, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
                             binding.yaw.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
@@ -475,7 +475,7 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
 
                         }
                     }
-                }
+                })
             }
         }
 
@@ -484,7 +484,7 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
             binding.pitch.showResponseText.visibility = View.VISIBLE
             binding.pitch.showResponseText.setText("Please Wait...")
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.getPitchAdjustDataTest().observeOnce(viewLifecycleOwner) { msg ->
+                viewModel.getPitchAdjustDataTest().observeOnce(viewLifecycleOwner, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
                             binding.pitch.showResponseText.setText(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
@@ -496,7 +496,7 @@ class FlightControlParameterReadingGimbalFragment : Fragment() {
 
                         }
                     }
-                }
+                })
             }
         }
 

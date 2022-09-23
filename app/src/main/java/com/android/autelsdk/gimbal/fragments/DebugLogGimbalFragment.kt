@@ -11,16 +11,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.FragmentDebugLogControlGimbalBinding
+import com.android.autelsdk.gimbal.GimbalViewModel
 import com.android.autelsdk.remoteController.RemoteControllerViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Status
 import com.android.autelsdk.util.Utils
+import com.android.autelsdk.util.Utils.observeOnce
+import com.autel.common.gimbal.GimbalAxisType
+import com.autel.common.gimbal.GimbalWorkMode
 import com.autel.common.remotecontroller.*
 
 class DebugLogGimbalFragment : Fragment() {
 
     private lateinit var binding: FragmentDebugLogControlGimbalBinding
-    private val viewModel : RemoteControllerViewModel by activityViewModels()
+    private val viewModel : GimbalViewModel by activityViewModels()
 
     companion object {
         fun newInstance() = DebugLogGimbalFragment()
@@ -37,48 +41,17 @@ class DebugLogGimbalFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.testResults.setText("")
         runTests()
     }
 
     fun runTests() {
 
+        binding.testResults.setText("It may take a while to run the tests. \n\n")
         lifecycleScope.launchWhenStarted {
 
-            for (language in RemoteControllerLanguage.values()) {
-                viewModel.setLanguageTest(language)
-                    .observe(viewLifecycleOwner, Observer { msg ->
-
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                            }
-                            Status.ERROR -> {
-                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                            }
-                            else -> {
-
-                            }
-                        }
-
-                    })
-
-                viewModel.getLanguageTest().observe(viewLifecycleOwner, Observer { msg ->
-                    when (msg.status) {
-                        Status.SUCCESS -> {
-                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                        }
-                        Status.ERROR -> {
-                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                        }
-                        else -> {
-
-                        }
-                    }
-                })
-            }
-
-            viewModel.enterPairingTest()
-                .observe(viewLifecycleOwner, Observer { msg ->
+            viewModel.setAngleListenerTest()
+                .observeOnce(viewLifecycleOwner, Observer { msg ->
 
                     when (msg.status) {
                         Status.SUCCESS -> {
@@ -94,25 +67,8 @@ class DebugLogGimbalFragment : Fragment() {
 
                 })
 
-            for (rfPower in RFPower.values()) {
-                viewModel.setRFPowerTest(rfPower)
-                    .observe(viewLifecycleOwner, Observer { msg ->
-
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                            }
-                            Status.ERROR -> {
-                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                            }
-                            else -> {
-
-                            }
-                        }
-
-                    })
-
-                viewModel.getRFPowerTest().observe(viewLifecycleOwner, Observer { msg ->
+            viewModel.getAdjustGimbalAngelDataTest()
+                .observeOnce(viewLifecycleOwner, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
                             binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
@@ -125,27 +81,41 @@ class DebugLogGimbalFragment : Fragment() {
                         }
                     }
                 })
-            }
 
-            for (mode in TeachingMode.values()) {
-                viewModel.setTeacherStudentModeTest(mode)
-                    .observe(viewLifecycleOwner, Observer { msg ->
-
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                            }
-                            Status.ERROR -> {
-                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                            }
-                            else -> {
-
-                            }
+            viewModel.getAngleRangeTest()
+                .observeOnce(viewLifecycleOwner, Observer { msg ->
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                         }
+                        Status.ERROR -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        }
+                        else -> {
 
-                    })
+                        }
+                    }
 
-                viewModel.getTeacherStudentModeTest().observe(viewLifecycleOwner, Observer { msg ->
+                })
+
+            viewModel.getAngleSpeedRangeTest()
+                .observeOnce(viewLifecycleOwner, Observer { msg ->
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        }
+                        else -> {
+
+                        }
+                    }
+
+                })
+
+            viewModel.setGimbalCalibrationTest()
+                .observeOnce(viewLifecycleOwner, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
                             binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
@@ -158,27 +128,9 @@ class DebugLogGimbalFragment : Fragment() {
                         }
                     }
                 })
-            }
 
-            for (parameterUnit in RemoteControllerParameterUnit.values()) {
-                viewModel.setParameterUnitTest(parameterUnit)
-                    .observe(viewLifecycleOwner, Observer { msg ->
-
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                            }
-                            Status.ERROR -> {
-                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                            }
-                            else -> {
-
-                            }
-                        }
-
-                    })
-
-                viewModel.getParameterUnitTest().observe(viewLifecycleOwner, Observer { msg ->
+            viewModel.stopGimbalCalibrationTest()
+                .observeOnce(viewLifecycleOwner, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
                             binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
@@ -191,27 +143,9 @@ class DebugLogGimbalFragment : Fragment() {
                         }
                     }
                 })
-            }
 
-            for (mode in RemoteControllerCommandStickMode.values()) {
-                viewModel.setRCCommandStickModeTest(mode)
-                    .observe(viewLifecycleOwner, Observer { msg ->
-
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                            }
-                            Status.ERROR -> {
-                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                            }
-                            else -> {
-
-                            }
-                        }
-
-                    })
-
-                viewModel.getRCCommandStickModeTest().observe(viewLifecycleOwner, Observer { msg ->
+            viewModel.getVersionInfoTest()
+                .observeOnce(viewLifecycleOwner, Observer { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
                             binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
@@ -224,83 +158,238 @@ class DebugLogGimbalFragment : Fragment() {
                         }
                     }
                 })
-            }
 
-            for (calibration in RemoteControllerStickCalibration.values()) {
-                viewModel.setStickCalibrationTest(calibration)
-                    .observe(viewLifecycleOwner, Observer {msg ->
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                            }
-                            Status.ERROR -> {
-                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                            }
-                            else -> {
-
-                            }
-                        }
-                    })
-            }
-
-            viewModel.setYawCoefficientTest(0.3f)
-                .observe(viewLifecycleOwner, Observer { msg ->
-
-                    when (msg.status) {
-                        Status.SUCCESS -> {
-                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                        }
-                        Status.ERROR -> {
-                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                        }
-                        else -> {
-                            binding.testResults.append(Utils.getColoredText(getString(R.string.not_getting_any_response) + "setYawCoefficient() = ${0.3f}", ""))
-                        }
-                    }
-
-                })
-
-            viewModel.getYawCoefficientTest().observe(viewLifecycleOwner, Observer { msg ->
+            viewModel.setLeaserRadarListenerTest().observeOnce(viewLifecycleOwner, Observer { msg ->
                 when (msg.status) {
                     Status.SUCCESS -> {
-                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
                     }
                     Status.ERROR -> {
-                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(),Constants.FAILED))
                     }
                     else -> {
-                        binding.testResults.append(Utils.getColoredText(getString(R.string.not_getting_any_response) + "getYawCoefficient()", ""))
+
+                    }
+                }
+            })
+            
+
+            for (gimbalWorkMode in GimbalWorkMode.values()) {
+                viewModel.setGimbalWorkModeTest(gimbalWorkMode)
+                    .observeOnce(viewLifecycleOwner, Observer { msg ->
+                        when (msg.status) {
+                            Status.SUCCESS -> {
+                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                            }
+                            Status.ERROR -> {
+                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                            }
+                            else -> {
+
+                            }
+                        }
+                    })
+
+                viewModel.getGimbalWorkModeTest()
+                    .observeOnce(viewLifecycleOwner, Observer { msg ->
+                        when (msg.status) {
+                            Status.SUCCESS -> {
+                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                            }
+                            Status.ERROR -> {
+                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                            }
+                            else -> {
+
+                            }
+                        }
+                    })
+            }
+
+            for (pitch in 0..90 step 30) {
+                for (roll in 0..90 step 30) {
+                    for (yaw in 0..90 step 30) {
+                        viewModel.setGimbalAngleTest(pitch.toFloat(), roll.toFloat(), yaw.toFloat())
+                        viewModel.setSaveParamsTest()
+                            .observeOnce(viewLifecycleOwner, Observer { msg ->
+                                when (msg.status) {
+                                    Status.SUCCESS -> {
+                                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                                    }
+                                    Status.ERROR -> {
+                                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                                    }
+                                    else -> {
+                                        binding.testResults.append("No Response From Server")
+                                    }
+                                }
+                            })
+                    }
+                }
+            }
+
+            for (gimbalAxisType in GimbalAxisType.values()) {
+                viewModel.resetGimbalAngleTest(gimbalAxisType)
+                    .observeOnce(viewLifecycleOwner, Observer { msg ->
+                        when (msg.status) {
+                            Status.SUCCESS -> {
+                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                            }
+                            Status.ERROR -> {
+                                binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                            }
+                            else -> {
+                                binding.testResults.append("No Response From Server")
+                            }
+                        }
+                    })
+            }
+
+            for (pitch in 0..90 step 30) {
+                for (yaw in 0..90 step 30) {
+                    viewModel.setGimbalAngleSpeedTest(pitch, yaw)
+                    viewModel.setSaveParamsTest()
+                        .observeOnce(viewLifecycleOwner, Observer { msg ->
+                            when (msg.status) {
+                                Status.SUCCESS -> {
+                                    binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                                }
+                                Status.ERROR -> {
+                                    binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                                }
+                                else -> {
+                                    binding.testResults.append("No Response From Server")
+                                }
+                            }
+                        })
+
+                    viewModel.getAngleSpeedRangeTest().observeOnce(viewLifecycleOwner, Observer { msg ->
+                        when (msg.status) {
+                            Status.SUCCESS -> {
+                                binding.testResults.append(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
+                            }
+                            Status.ERROR -> {
+                                binding.testResults.append(Utils.getColoredText(msg.message.toString(),Constants.FAILED))
+                            }
+                            else -> {
+
+                            }
+                        }
+                    })
+                }
+            }
+            val x = 0.0F;val y = 0.0F
+            for (pitch in 0..90 step 30) {
+                for (roll in 0..90 step 30) {
+                    for (yaw in 0..90 step 30) {
+                        viewModel.adjustGimbalDirectionTest(x, y, pitch.toFloat(), roll.toFloat(), yaw.toFloat())
+                            .observeOnce(viewLifecycleOwner, Observer { msg ->
+                                when (msg.status) {
+                                    Status.SUCCESS -> {
+                                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                                    }
+                                    Status.ERROR -> {
+                                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                                    }
+                                    else -> {
+                                        binding.testResults.append("No Response From Server")
+                                    }
+                                }
+                            })
+                    }
+                }
+            }
+
+            viewModel.setRollAdjustDataTest(0.0F)
+            viewModel.setSaveParamsTest()
+                .observeOnce(viewLifecycleOwner, Observer { msg ->
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        }
+                        else -> {
+                            binding.testResults.append("No Response From Server")
+                        }
+                    }
+                })
+            viewModel.getRollAdjustDataTest().observeOnce(viewLifecycleOwner, Observer { msg ->
+                when (msg.status) {
+                    Status.SUCCESS -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
+                    }
+                    Status.ERROR -> {
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(),Constants.FAILED))
+                    }
+                    else -> {
+
                     }
                 }
             })
 
-            viewModel.getVersionInfoTest().observe(viewLifecycleOwner, Observer { msg ->
+            viewModel.setPitchAdjustDataTest(0.0F)
+            viewModel.setSaveParamsTest()
+                .observeOnce(viewLifecycleOwner, Observer { msg ->
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        }
+                        else -> {
+                            binding.testResults.append("No Response From Server")
+                        }
+                    }
+                })
+
+            viewModel.getPitchAdjustDataTest().observeOnce(viewLifecycleOwner, Observer { msg ->
                 when (msg.status) {
                     Status.SUCCESS -> {
-                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
                     }
                     Status.ERROR -> {
-                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(),Constants.FAILED))
                     }
                     else -> {
-                        binding.testResults.append(Utils.getColoredText(getString(R.string.not_getting_any_response) + "getVersionInfo()", ""))
+
                     }
                 }
             })
 
-            viewModel.getSerialNumberTest().observe(viewLifecycleOwner, Observer { msg ->
+            viewModel.setYawAdjustDataTest(0.0F)
+            viewModel.setSaveParamsTest()
+                .observeOnce(viewLifecycleOwner, Observer { msg ->
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                        }
+                        Status.ERROR -> {
+                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        }
+                        else -> {
+                            binding.testResults.append("No Response From Server")
+                        }
+                    }
+                })
+
+            viewModel.getYawAdjustDataTest().observeOnce(viewLifecycleOwner, Observer { msg ->
                 when (msg.status) {
                     Status.SUCCESS -> {
-                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(),Constants.SUCCESS))
                     }
                     Status.ERROR -> {
-                        binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                        binding.testResults.append(Utils.getColoredText(msg.message.toString(),Constants.FAILED))
                     }
                     else -> {
-                        binding.testResults.append(Utils.getColoredText(getString(R.string.not_getting_any_response) + "getSerialNumber()", ""))
+
                     }
                 }
             })
+
+            viewModel.resetLeaserRadarListenerTest()
 
         }
 

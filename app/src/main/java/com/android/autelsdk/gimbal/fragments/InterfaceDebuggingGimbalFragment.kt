@@ -13,15 +13,11 @@ import com.android.autelsdk.R
 import com.android.autelsdk.databinding.FragmentInterfaceDebuggingGimbalBinding
 import com.android.autelsdk.event.ProductConnectEvent
 import com.android.autelsdk.gimbal.GimbalViewModel
-import com.android.autelsdk.remoteController.RemoteControllerViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Utils
 import com.autel.internal.gimbal.cruiser.CruiserGimbalImpl
-import com.autel.internal.remotecontroller.RemoteController10
-import com.autel.internal.remotecontroller.RemoteController20
 import com.autel.sdk.gimbal.AutelGimbal
 import com.autel.sdk.gimbal.CruiserGimbal
-import com.autel.sdk.remotecontroller.AutelRemoteController
 import org.greenrobot.eventbus.EventBus
 
 class InterfaceDebuggingGimbalFragment : Fragment() {

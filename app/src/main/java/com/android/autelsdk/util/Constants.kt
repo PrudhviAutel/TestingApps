@@ -2,6 +2,7 @@ package com.android.autelsdk.util
 
 import com.autel.internal.remotecontroller.RemoteController10
 import com.autel.internal.remotecontroller.RemoteController20
+import com.autel.sdk.gimbal.CruiserGimbal
 
 object Constants {
     // Success Failure Show Text
@@ -25,5 +26,8 @@ object Constants {
     //Remote Controller Names
     const val RemoteController10 = "Remote Controller 10"
     const val RemoteController20 = "Remote Controller 20"
+
+    //Gimbal Names
+    const val CruiserGimbal = "Cruiser Gimbal"
 
 }

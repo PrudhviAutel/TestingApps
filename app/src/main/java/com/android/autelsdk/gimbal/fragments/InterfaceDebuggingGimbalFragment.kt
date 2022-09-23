@@ -12,11 +12,15 @@ import androidx.lifecycle.Observer
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.FragmentInterfaceDebuggingGimbalBinding
 import com.android.autelsdk.event.ProductConnectEvent
+import com.android.autelsdk.gimbal.GimbalViewModel
 import com.android.autelsdk.remoteController.RemoteControllerViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Utils
+import com.autel.internal.gimbal.cruiser.CruiserGimbalImpl
 import com.autel.internal.remotecontroller.RemoteController10
 import com.autel.internal.remotecontroller.RemoteController20
+import com.autel.sdk.gimbal.AutelGimbal
+import com.autel.sdk.gimbal.CruiserGimbal
 import com.autel.sdk.remotecontroller.AutelRemoteController
 import org.greenrobot.eventbus.EventBus
 
@@ -28,7 +32,7 @@ class InterfaceDebuggingGimbalFragment : Fragment() {
         fun newInstance() = InterfaceDebuggingGimbalFragment()
     }
 
-    private val viewModel: RemoteControllerViewModel by activityViewModels()
+    private val viewModel: GimbalViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,24 +51,23 @@ class InterfaceDebuggingGimbalFragment : Fragment() {
 
     private fun handleListeners() {
 
-        binding.chooseRemoteController.viewBtn.setOnClickListener {
-            binding.chooseRemoteController.showResponseText.visibility = View.VISIBLE
-            binding.chooseRemoteController.extraOptionParent.visibility = View.GONE
-            binding.chooseRemoteController.showResponseText.setText("Currently set to ${getCurrentRemoteControllerByName(viewModel.getRemoteController())}")
+        binding.chooseGimbal.viewBtn.setOnClickListener {
+            binding.chooseGimbal.showResponseText.visibility = View.VISIBLE
+            binding.chooseGimbal.extraOptionParent.visibility = View.GONE
+            binding.chooseGimbal.showResponseText.setText("Currently set to ${getCurrentGimbalByName(viewModel.getCruiserGimbalController())}")
         }
 
-        binding.chooseRemoteController.setBtn.setOnClickListener {
-            binding.chooseRemoteController.showResponseText.visibility = View.GONE
+        binding.chooseGimbal.setBtn.setOnClickListener {
+            binding.chooseGimbal.showResponseText.visibility = View.GONE
             binding.showResponseText.visibility = View.GONE
-            binding.chooseRemoteController.extraOptionParent.visibility = View.VISIBLE
+            binding.chooseGimbal.extraOptionParent.visibility = View.VISIBLE
         }
         
-        binding.chooseRemoteController.extraOption.setOnClickListener {
-            val controller = setCurrentRemoteControllerByName(binding.chooseRemoteController.extraSpinner.selectedItem.toString())
-            viewModel.setRemoteController(controller)
-            binding.chooseRemoteController.showResponseText.visibility = View.VISIBLE
-            binding.chooseRemoteController.extraOptionParent.visibility = View.GONE
-            binding.chooseRemoteController.showResponseText.setText("Currently set to ${getCurrentRemoteControllerByName(viewModel.getRemoteController())}")
+        binding.chooseGimbal.extraOption.setOnClickListener {
+            val controller = setCurrentGimbalByName(binding.chooseGimbal.extraSpinner.selectedItem.toString())
+            viewModel.setController(controller)
+            binding.chooseGimbal.showResponseText.visibility = View.VISIBLE
+            binding.chooseGimbal.showResponseText.setText("Currently set to ${getCurrentGimbalByName(viewModel.getCruiserGimbalController())}")
         }
 
         binding.connectDevice.setOnClickListener {
@@ -85,43 +88,38 @@ class InterfaceDebuggingGimbalFragment : Fragment() {
 
     }
 
-    private fun getCurrentRemoteControllerByName(controller : AutelRemoteController) : String {
+    private fun getCurrentGimbalByName(controller : AutelGimbal) : String {
         when(controller) {
-            is RemoteController10 -> {
-                return Constants.RemoteController10
-            }
-            is RemoteController20 -> {
-                return Constants.RemoteController20
+            is CruiserGimbal -> {
+                return Constants.CruiserGimbal
             }
         }
         return ""
     }
 
-    private fun setCurrentRemoteControllerByName(name : String) : AutelRemoteController {
+    private fun setCurrentGimbalByName(name : String) : AutelGimbal {
         when(name) {
-            Constants.RemoteController10 -> {
-                return RemoteController10()
-            }
-            Constants.RemoteController20 -> {
-                return RemoteController20()
+            Constants.CruiserGimbal -> {
+                return CruiserGimbalImpl()
             }
         }
-        return viewModel.getRemoteController()
+        return viewModel.getCruiserGimbalController()
     }
 
     private fun setSpinnerItems() {
 
-        var spinnerAdapter = ArrayAdapter.createFromResource(
+        val gimbals = arrayOf(Constants.CruiserGimbal)
+        var spinnerAdapter = ArrayAdapter(
             requireActivity().baseContext,
-            R.array.remote_controllers,
-            android.R.layout.simple_spinner_item
+            android.R.layout.simple_spinner_item,
+            gimbals
         )
-        binding.chooseRemoteController.extraSpinner.adapter = spinnerAdapter
+        binding.chooseGimbal.extraSpinner.adapter = spinnerAdapter
 
-        val index = context?.resources?.getStringArray(R.array.remote_controllers)?.indexOf(getCurrentRemoteControllerByName(viewModel.getRemoteController()))
+        val index = gimbals?.indexOf(getCurrentGimbalByName(viewModel.getCruiserGimbalController()))
 
         index?.let { index
-            binding.chooseRemoteController.extraSpinner.setSelection(index)
+            binding.chooseGimbal.extraSpinner.setSelection(index)
         }
     }
 

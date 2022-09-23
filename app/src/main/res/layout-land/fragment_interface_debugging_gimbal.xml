@@ -22,11 +22,11 @@
             android:animateLayoutChanges="true">
 
             <include
-                android:id="@+id/chooseRemoteController"
-                app:testName="@{`Remote Controller`}"
+                android:id="@+id/chooseGimbal"
+                app:testName="@{`Gimbal`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`View`}"
-                app:extraOptionText="@{`Set Remote Controller`}"
+                app:extraOptionText="@{`Set Gimbal`}"
                 app:showExtraSpinner="@{true}"
                 layout="@layout/item_testoptions_setup_view"
                 />

@@ -2,15 +2,31 @@ package com.android.autelsdk.flyController
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.android.autelsdk.remoteController.RemoteControllerRepository
+import com.android.autelsdk.remoteController.RemoteControllerRepositoryImpl
 import com.android.autelsdk.util.Resource
+import com.autel.common.flycontroller.ARMWarning
 import com.autel.common.flycontroller.CalibrateCompassStatus
 import com.autel.common.flycontroller.FlyControllerVersionInfo
 import com.autel.common.flycontroller.LedPilotLamp
+import com.autel.common.product.AutelProductType
+import com.autel.internal.flycontroller.cruiser.CruiserFlyControllerImpl
+import com.autel.internal.remotecontroller.RemoteController10
+import com.autel.sdk.flycontroller.AutelFlyController
+import com.autel.sdk.product.BaseProduct
+import com.autel.sdk.remotecontroller.AutelRemoteController
 
 
 class FlyControllerViewModel : ViewModel() {
 
     val flyControllerRepository: FlyControllerRepository = FlyControllerRepositoryImpl()
+    private var mController: AutelFlyController = CruiserFlyControllerImpl()
+    private var currentProduct: MutableLiveData<BaseProduct?> = MutableLiveData()
+    private var currentProductType: MutableLiveData<AutelProductType> = MutableLiveData(AutelProductType.UNKNOWN)
+
+
+
+
 
     suspend fun setBeginnerModeStateTest(enable: Boolean): MutableLiveData<Resource<String>> {
         return flyControllerRepository.setBeginnerModeStateTest(enable)
@@ -22,6 +38,15 @@ class FlyControllerViewModel : ViewModel() {
 
     suspend fun getMaxHeightTest(): MutableLiveData<Resource<Float>> {
         return flyControllerRepository.getMaxHeightTest()
+    }
+
+     fun setFlyController(controller : AutelFlyController) {
+        mController = controller
+        flyControllerRepository.setFlyController(mController)
+    }
+
+    fun getCurrentProduct(): MutableLiveData<BaseProduct?> {
+        return currentProduct
     }
 
     suspend fun setMaxHeightTest(value: Double): MutableLiveData<Resource<String>> {
@@ -109,6 +134,18 @@ class FlyControllerViewModel : ViewModel() {
 
     suspend fun isAttitudeModeEnableTest(): MutableLiveData<Resource<Boolean>> {
         return flyControllerRepository.isAttitudeModeEnableTest()
+    }
+
+    fun getFlyController() : AutelFlyController {
+        return mController
+    }
+
+    fun setWarningListenerTest() :  MutableLiveData<Resource<ARMWarning>> {
+        return flyControllerRepository.setWarningListenerTest()
+    }
+
+    fun getCurrentProductType(): MutableLiveData<AutelProductType> {
+        return currentProductType
     }
 
 }

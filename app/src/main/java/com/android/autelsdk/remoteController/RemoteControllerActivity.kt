@@ -10,6 +10,8 @@ import com.android.autelsdk.R
 import com.android.autelsdk.TestApplication
 import com.android.autelsdk.databinding.ActivityRemoteControllerBinding
 import com.android.autelsdk.event.ProductConnectEvent
+import com.android.autelsdk.flyController.fragments.AircraftStatusDirectCommandFCFragment
+import com.android.autelsdk.flyController.fragments.FlightControlParameterReadingFCFragment
 import com.android.autelsdk.remoteController.fragments.AircraftStatusDirectCommandRCFragment
 import com.android.autelsdk.remoteController.fragments.DebugLogRCFragment
 import com.android.autelsdk.remoteController.fragments.FlightControlParameterReadingRCFragment

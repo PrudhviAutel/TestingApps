@@ -104,4 +104,14 @@
         <item>@string/camera_display_mode_ir</item>
         <item>@string/camera_display_mode_pip</item>
     </string-array>
+
+    <string-array name="fly_controllers">
+        <item> AutelFlyController20 </item>
+        <item> CruiserFlyControllerImpl </item>
+    </string-array>
+
+    <string-array name="rc_Boolean">
+        <item>True</item>
+        <item>False</item>
+    </string-array>
 </resources>

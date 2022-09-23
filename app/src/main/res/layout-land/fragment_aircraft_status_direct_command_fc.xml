@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+
+
+        <TextView
+            android:id="@+id/planeConnectStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="The plane is not connected"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="14dp"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/enterBinding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go Home"
+            android:textAllCaps="false"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/planeConnectStatus" />
+
+        <Button
+            android:id="@+id/cancelreturn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="10dp"
+            android:text="Cancel Return"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="@+id/enterBinding"
+            app:layout_constraintStart_toEndOf="@+id/enterBinding"
+            app:layout_constraintTop_toTopOf="@+id/enterBinding" />
+
+        <Button
+            android:id="@+id/cancelland"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:text="Cancel Land"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="@+id/cancelreturn"
+            app:layout_constraintStart_toEndOf="@+id/cancelreturn"
+            app:layout_constraintTop_toTopOf="@+id/cancelreturn" />
+
+        <Button
+            android:id="@+id/land"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:text="Land"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/craftlocationashomepoint" />
+
+        <Button
+            android:id="@+id/startcalibretingcompass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:text="Start Calibrating Compass"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="@+id/land"
+            app:layout_constraintStart_toEndOf="@+id/land"
+            app:layout_constraintTop_toTopOf="@+id/land" />
+
+        <Button
+            android:id="@+id/craftlocationashomepoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:text="Set Aircraft Location As Home Point"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enterBinding" />
+
+
+        <Button
+            android:id="@+id/getVersionInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:text="Get Version Info"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/land" />
+
+        <Button
+            android:id="@+id/getSerialNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:text="Get Serial Number"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="@+id/getVersionInfo"
+            app:layout_constraintStart_toEndOf="@+id/getVersionInfo"
+            app:layout_constraintTop_toTopOf="@+id/getVersionInfo" />
+
+
+
+        <Button
+            android:id="@+id/isattitudemodeenabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:text="Check Attitude Mode Enabled"
+            android:textAllCaps="false"
+            app:layout_constraintTop_toBottomOf="@id/getVersionInfo"
+            app:layout_constraintStart_toStartOf="@id/getVersionInfo"
+             />
+
+        <TextView
+            android:id="@+id/testResults"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/isattitudemodeenabled"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra er" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+</layout>

@@ -1,6 +1,7 @@
 package com.android.autelsdk.flyController.fragments
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -183,38 +184,36 @@ class FlightControlParameterReadingFCFragment : Fragment() {
         }
 
         binding.rfPower.extraOption.setOnClickListener {
-
-            var value : Double
-            if(!binding.rfPower.extraEdittext.toString().equals("")){
-                binding.rfPower.showResponseText.visibility = View.VISIBLE
-                binding.rfPower.showResponseText.setText("Please Wait...")
-                value = Integer.parseInt(binding.rfPower.extraEdittext.toString()).toDouble()
-
-                lifecycleScope.launch(Dispatchers.Main) {
-                    viewModel.setMaxHeightTest(value)
-                        .observeOnce(viewLifecycleOwner, Observer { msg ->
-                            when (msg.status) {
-                                Status.SUCCESS -> {
-                                    binding.rfPower.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                                }
-                                Status.ERROR -> {
-                                    binding.rfPower.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                                }
-                                else -> {
-
-                                }
-                            }
-                        })
-                }
-
-            }else{
-                Toast.makeText(
-                    context,
-                    "Please Enter Value To Continue",
-                    Toast.LENGTH_LONG
-                ).show()
-
+            binding.rfPower.showResponseText.visibility = View.VISIBLE
+            var value : Double = 0.0
+            if(TextUtils.isEmpty(binding.rfPower.extraEdittext.text)) {
+                binding.rfPower.showResponseText.setText("Please enter height value")
+                return@setOnClickListener
+            } else {
+                value = binding.rfPower.extraEdittext.text.toString().toDouble()
             }
+
+            binding.rfPower.showResponseText.setText("Please Wait...")
+            //value = Integer.parseInt(binding.rfPower.extraEdittext.text.toString()).toDouble()
+
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.setMaxHeightTest(value)
+                    .observeOnce(viewLifecycleOwner, Observer { msg ->
+                        when (msg.status) {
+                            Status.SUCCESS -> {
+                                binding.rfPower.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                            }
+                            Status.ERROR -> {
+                                binding.rfPower.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                            }
+                            else -> {
+
+                            }
+                        }
+                    })
+            }
+
+
 //
 
         }
@@ -363,9 +362,11 @@ class FlightControlParameterReadingFCFragment : Fragment() {
 
             binding.language.viewBtn.setOnClickListener {
                 closeAllExtraOptionLayouts()
+                binding.language.showResponseText.visibility = View.VISIBLE
+                binding.language.showResponseText.setText("Please Wait...")
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.getBeginnerModeStateTest().observeOnce(viewLifecycleOwner) { msg ->
-                        binding.language.showResponseText.visibility = View.VISIBLE
+
                         when (msg.status) {
                             Status.SUCCESS -> {
                                 binding.language.showResponseText.setText(
@@ -427,9 +428,12 @@ class FlightControlParameterReadingFCFragment : Fragment() {
 
             binding.rfPower.viewBtn.setOnClickListener {
                 closeAllExtraOptionLayouts()
+                binding.rfPower.showResponseText.visibility = View.VISIBLE
+                binding.rfPower.showResponseText.setText("Please Wait...")
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.getMaxHeightTest().observeOnce(viewLifecycleOwner) { msg ->
-                        binding.rfPower.showResponseText.visibility = View.VISIBLE
+
+
                         when (msg.status) {
                             Status.SUCCESS -> {
                                 binding.rfPower.showResponseText.setText(
@@ -455,11 +459,48 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                 }
             }
 
+
+        binding.rfPower.viewBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.rfPower.showResponseText.visibility = View.VISIBLE
+            binding.rfPower.showResponseText.setText("Please Wait...")
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.getMaxHeightTest().observeOnce(viewLifecycleOwner) { msg ->
+
+
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.rfPower.showResponseText.setText(
+                                Utils.getColoredText(
+                                    msg.message.toString(),
+                                    Constants.SUCCESS
+                                )
+                            )
+                        }
+                        Status.ERROR -> {
+                            binding.rfPower.showResponseText.setText(
+                                Utils.getColoredText(
+                                    msg.message.toString(),
+                                    Constants.FAILED
+                                )
+                            )
+                        }
+                        else -> {
+
+                        }
+                    }
+                }
+            }
+        }
+
             binding.parameterUnit.viewBtn.setOnClickListener {
                 closeAllExtraOptionLayouts()
+                binding.parameterUnit.showResponseText.visibility = View.VISIBLE
+                binding.parameterUnit.showResponseText.setText("Please Wait...")
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.getMaxRangeTest().observeOnce(viewLifecycleOwner) { msg ->
-                        binding.parameterUnit.showResponseText.visibility = View.VISIBLE
+
+
                         when (msg.status) {
                             Status.SUCCESS -> {
                                 binding.parameterUnit.showResponseText.setText(
@@ -487,9 +528,12 @@ class FlightControlParameterReadingFCFragment : Fragment() {
 
             binding.yawCoefficient.viewBtn.setOnClickListener {
                 closeAllExtraOptionLayouts()
+                binding.yawCoefficient.showResponseText.visibility = View.VISIBLE
+                binding.yawCoefficient.showResponseText.setText("Please Wait...")
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.getReturnHeightTest().observeOnce(viewLifecycleOwner) { msg ->
-                        binding.yawCoefficient.showResponseText.visibility = View.VISIBLE
+
+
                         when (msg.status) {
                             Status.SUCCESS -> {
                                 binding.yawCoefficient.showResponseText.setText(
@@ -517,9 +561,12 @@ class FlightControlParameterReadingFCFragment : Fragment() {
 
             binding.maxhorizontalspeed.viewBtn.setOnClickListener {
                 closeAllExtraOptionLayouts()
+                binding.maxhorizontalspeed.showResponseText.visibility = View.VISIBLE
+                binding.maxhorizontalspeed.showResponseText.setText("Please Wait...")
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.getMaxHorizontalSpeedTest().observeOnce(viewLifecycleOwner) { msg ->
-                        binding.maxhorizontalspeed.showResponseText.visibility = View.VISIBLE
+
+
                         when (msg.status) {
                             Status.SUCCESS -> {
                                 binding.maxhorizontalspeed.showResponseText.setText(
@@ -545,21 +592,47 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                 }
             }
 
-            binding.ledlamppilot.viewBtn.setOnClickListener {
-                closeAllExtraOptionLayouts()
-                binding.ledlamppilot.showResponseText.visibility = View.VISIBLE
-                //viewModel.setLedPilotLampTest()
-                binding.ledlamppilot.showResponseText.setText(
-                    Utils.getColoredText(
-                        "Remote Button Controller Listener set to null",
-                        Constants.SUCCESS
-                    )
-                )
+        binding.ledlamppilot.viewBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.ledlamppilot.showResponseText.visibility = View.VISIBLE
+            binding.ledlamppilot.showResponseText.setText("Please Wait...")
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.getLedPilotLampTest().observeOnce(viewLifecycleOwner) { msg ->
+
+
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.ledlamppilot.showResponseText.setText(
+                                Utils.getColoredText(
+                                    msg.message.toString(),
+                                    Constants.SUCCESS
+                                )
+                            )
+                        }
+                        Status.ERROR -> {
+                            binding.ledlamppilot.showResponseText.setText(
+                                Utils.getColoredText(
+                                    msg.message.toString(),
+                                    Constants.FAILED
+                                )
+                            )
+                        }
+                        else -> {
+
+                        }
+                    }
+                }
             }
+        }
+
+
 
             binding.infoDataListener.viewBtn.setOnClickListener {
                 closeAllExtraOptionLayouts()
+
                 binding.infoDataListener.showResponseText.visibility = View.VISIBLE
+                binding.infoDataListener.showResponseText.setText("Please Wait...")
+
                 viewModel.setWarningListenerTest()
                 binding.infoDataListener.showResponseText.setText(
                     Utils.getColoredText(
@@ -568,6 +641,37 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                     )
                 )
             }
+
+        binding.locationashomepoint.viewBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+
+            binding.locationashomepoint.showResponseText.visibility = View.VISIBLE
+            binding.locationashomepoint.showResponseText.setText("Please Wait...")
+
+            viewModel.setWarningListenerTest()
+            binding.locationashomepoint.showResponseText.setText(
+                Utils.getColoredText(
+                    "Location set to null",
+                    Constants.SUCCESS
+                )
+            )
+        }
+
+        binding.attitudemodetest.viewBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+
+            binding.attitudemodetest.showResponseText.visibility = View.VISIBLE
+            binding.attitudemodetest.showResponseText.setText("Please Wait...")
+
+            viewModel.setWarningListenerTest()
+            binding.attitudemodetest.showResponseText.setText(
+                Utils.getColoredText(
+                    "attitude reset to null",
+                    Constants.SUCCESS
+                )
+            )
+        }
+
 
         }
 

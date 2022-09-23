@@ -45,16 +45,19 @@ class DebugLogFCFragment : Fragment() {
 
     fun runTests() {
         lifecycleScope.launchWhenStarted {
-        val boolean = arrayListOf<Boolean>()
+        val boolean = arrayListOf<Boolean>(true,false)
+            binding.DelayText.visibility = View.VISIBLE
         for (state in boolean) {
                 viewModel.setBeginnerModeStateTest(state)
                     .observe(viewLifecycleOwner, Observer { msg ->
 
                         when (msg.status) {
                             Status.SUCCESS -> {
+                                binding.DelayText.visibility = View.GONE
                                 binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                             }
                             Status.ERROR -> {
+                                binding.DelayText.visibility = View.GONE
                                 binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
                             }
                             else -> {
@@ -392,23 +395,6 @@ class DebugLogFCFragment : Fragment() {
                 })
 
             viewModel.getSerialNumberTest()
-                .observe(viewLifecycleOwner, Observer { msg ->
-
-                    when (msg.status) {
-                        Status.SUCCESS -> {
-                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                        }
-                        Status.ERROR -> {
-                            binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                        }
-                        else -> {
-                            binding.testResults.append(Utils.getColoredText(getString(R.string.not_getting_any_response) + "setYawCoefficient() = ${0.3f}", ""))
-                        }
-                    }
-
-                })
-
-            viewModel.isAttitudeModeEnableTest()
                 .observe(viewLifecycleOwner, Observer { msg ->
 
                     when (msg.status) {

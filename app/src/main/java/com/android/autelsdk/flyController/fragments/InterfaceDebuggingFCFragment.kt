@@ -110,7 +110,7 @@ class InterfaceDebuggingFCFragment : Fragment() {
             viewModel.setFlyController(controller)
             binding.chooseFlyController.showResponseText.visibility = View.VISIBLE
             binding.chooseFlyController.extraOptionParent.visibility = View.GONE
-            binding.chooseFlyController.showResponseText.setText("Currently set to ${getCurrentFlyControllerByName(viewModel.getFlyController())}")
+            binding.chooseFlyController.showResponseText.setText("Currently set to " + binding.chooseFlyController.extraSpinner.selectedItem.toString())
         }
 
         binding.connectDevice.setOnClickListener {

@@ -636,7 +636,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                 viewModel.setWarningListenerTest()
                 binding.infoDataListener.showResponseText.setText(
                     Utils.getColoredText(
-                        "Info Data Listener set to null",
+                        "Warning Listener set to null",
                         Constants.SUCCESS
                     )
                 )

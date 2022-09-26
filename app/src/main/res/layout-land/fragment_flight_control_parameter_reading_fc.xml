@@ -22,7 +22,7 @@
             android:animateLayoutChanges="true">
 
             <include
-                android:id="@+id/language"
+                android:id="@+id/beginnerMode"
                 app:testName="@{`SW_Beginner_Mode_State`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`View`}"
@@ -32,7 +32,7 @@
                 />
 
             <include
-                android:id="@+id/rfPower"
+                android:id="@+id/maxHeight"
                 app:testName="@{`SW_Max_Height`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`View`}"
@@ -43,7 +43,7 @@
                 />
 
             <include
-                android:id="@+id/parameterUnit"
+                android:id="@+id/maxRange"
                 app:testName="@{`SW_Max_Range`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`View`}"
@@ -54,7 +54,7 @@
                 />
 
             <include
-                android:id="@+id/yawCoefficient"
+                android:id="@+id/returnHeight"
                 app:testName="@{`SW_Return_Height`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`View`}"
@@ -65,7 +65,7 @@
                 />
 
                 <include
-                android:id="@+id/maxhorizontalspeed"
+                android:id="@+id/maxHorizontalSpeed"
                 app:testName="@{`SW_Max_Horizontal_Speed`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`View`}"
@@ -76,7 +76,7 @@
                 />
 
             <include
-                android:id="@+id/attitudemodetest"
+                android:id="@+id/attitudeModeTest"
                 app:testName="@{`SW_Enable_Attitude_Mode`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`Reset`}"
@@ -86,7 +86,7 @@
                 />
 
             <include
-                android:id="@+id/locationashomepoint"
+                android:id="@+id/locationasHomePoint"
                 app:testName="@{`SW_Location_As_Homepoint`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`Reset`}"
@@ -99,7 +99,7 @@
                 />
 
             <include
-                android:id="@+id/ledlamppilot"
+                android:id="@+id/ledLampPilot"
                 app:testName="@{`SW_LED_Pilot_Lamp`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`View`}"
@@ -109,7 +109,7 @@
                 />
 
             <include
-                android:id="@+id/infoDataListener"
+                android:id="@+id/warningListener"
                 app:testName="@{`SW_Warning_Listener`}"
                 app:setButtonText="@{`Set`}"
                 app:viewButtonText="@{`Reset`}"

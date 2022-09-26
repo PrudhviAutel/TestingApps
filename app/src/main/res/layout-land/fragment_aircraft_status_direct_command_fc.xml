@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/enterBinding"
+            android:id="@+id/goHomeTest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Go Home"
@@ -42,28 +42,28 @@
             app:layout_constraintTop_toBottomOf="@+id/planeConnectStatus" />
 
         <Button
-            android:id="@+id/cancelreturn"
+            android:id="@+id/cancelReturn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:layout_marginVertical="10dp"
             android:text="Cancel Return"
             android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="@+id/enterBinding"
-            app:layout_constraintStart_toEndOf="@+id/enterBinding"
-            app:layout_constraintTop_toTopOf="@+id/enterBinding" />
+            app:layout_constraintBottom_toBottomOf="@+id/goHomeTest"
+            app:layout_constraintStart_toEndOf="@+id/goHomeTest"
+            app:layout_constraintTop_toTopOf="@+id/goHomeTest" />
 
         <Button
-            android:id="@+id/cancelland"
+            android:id="@+id/cancelLand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="10dp"
             android:text="Cancel Land"
             android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="@+id/cancelreturn"
-            app:layout_constraintStart_toEndOf="@+id/cancelreturn"
-            app:layout_constraintTop_toTopOf="@+id/cancelreturn" />
+            app:layout_constraintBottom_toBottomOf="@+id/cancelReturn"
+            app:layout_constraintStart_toEndOf="@+id/cancelReturn"
+            app:layout_constraintTop_toTopOf="@+id/cancelReturn" />
 
         <Button
             android:id="@+id/land"
@@ -74,10 +74,10 @@
             android:text="Land"
             android:textAllCaps="false"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/craftlocationashomepoint" />
+            app:layout_constraintTop_toBottomOf="@+id/craftLocationasHomepoint" />
 
         <Button
-            android:id="@+id/startcalibretingcompass"
+            android:id="@+id/startCalibretingCompass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
@@ -89,7 +89,7 @@
             app:layout_constraintTop_toTopOf="@+id/land" />
 
         <Button
-            android:id="@+id/craftlocationashomepoint"
+            android:id="@+id/craftLocationasHomepoint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
@@ -97,7 +97,7 @@
             android:text="Set Aircraft Location As Home Point"
             android:textAllCaps="false"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/enterBinding" />
+            app:layout_constraintTop_toBottomOf="@+id/goHomeTest" />
 
 
         <Button
@@ -126,7 +126,7 @@
 
 
         <Button
-            android:id="@+id/isattitudemodeenabled"
+            android:id="@+id/isAttitudeModeEnabled"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
@@ -145,7 +145,7 @@
             android:paddingVertical="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/isattitudemodeenabled"
+            app:layout_constraintTop_toBottomOf="@+id/isAttitudeModeEnabled"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra er" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

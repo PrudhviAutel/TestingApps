@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -56,55 +55,55 @@ class FlightControlParameterReadingFCFragment : Fragment() {
     }
 
     private fun handleListeners() {
-        binding.language.setBtn.setOnClickListener {
+        binding.beginnerMode.setBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.language.extraOptionParent.visibility = View.VISIBLE
+            binding.beginnerMode.extraOptionParent.visibility = View.VISIBLE
         }
 
-        binding.rfPower.setBtn.setOnClickListener {
+        binding.maxHeight.setBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.rfPower.extraOptionParent.visibility = View.VISIBLE
+            binding.maxHeight.extraOptionParent.visibility = View.VISIBLE
         }
 
-        binding.parameterUnit.setBtn.setOnClickListener {
+        binding.maxRange.setBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.parameterUnit.extraOptionParent.visibility = View.VISIBLE
+            binding.maxRange.extraOptionParent.visibility = View.VISIBLE
         }
 
-        binding.yawCoefficient.setBtn.setOnClickListener {
+        binding.returnHeight.setBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.yawCoefficient.extraOptionParent.visibility = View.VISIBLE
+            binding.returnHeight.extraOptionParent.visibility = View.VISIBLE
         }
 
-        binding.maxhorizontalspeed.setBtn.setOnClickListener {
+        binding.maxHorizontalSpeed.setBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.maxhorizontalspeed.extraOptionParent.visibility = View.VISIBLE
+            binding.maxHorizontalSpeed.extraOptionParent.visibility = View.VISIBLE
         }
 
-        binding.ledlamppilot.setBtn.setOnClickListener {
+        binding.ledLampPilot.setBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.ledlamppilot.extraOptionParent.visibility = View.VISIBLE
+            binding.ledLampPilot.extraOptionParent.visibility = View.VISIBLE
         }
 
-        binding.attitudemodetest.setBtn.setOnClickListener{
+        binding.attitudeModeTest.setBtn.setOnClickListener{
             closeAllExtraOptionLayouts()
-            binding.attitudemodetest.extraOptionParent.visibility = View.VISIBLE
+            binding.attitudeModeTest.extraOptionParent.visibility = View.VISIBLE
         }
 
-        binding.locationashomepoint.setBtn.setOnClickListener{
+        binding.locationasHomePoint.setBtn.setOnClickListener{
             closeAllExtraOptionLayouts()
-            binding.locationashomepoint.extraOptionParent.visibility = View.VISIBLE
+            binding.locationasHomePoint.extraOptionParent.visibility = View.VISIBLE
         }
 
-        binding.infoDataListener.setBtn.setOnClickListener {
+        binding.warningListener.setBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.infoDataListener.showResponseText.visibility = View.VISIBLE
-            binding.infoDataListener.showResponseText.setText("Please Wait...")
+            binding.warningListener.showResponseText.visibility = View.VISIBLE
+            binding.warningListener.showResponseText.setText("Please Wait...")
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setWarningListenerTest().observeOnce(viewLifecycleOwner) { msg ->
                     when (msg.status) {
                         Status.SUCCESS -> {
-                            binding.infoDataListener.showResponseText.setText(
+                            binding.warningListener.showResponseText.setText(
                                 Utils.getColoredText(
                                     msg.message.toString(),
                                     Constants.SUCCESS
@@ -112,7 +111,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                             )
                         }
                         Status.ERROR -> {
-                            binding.infoDataListener.showResponseText.setText(
+                            binding.warningListener.showResponseText.setText(
                                 Utils.getColoredText(
                                     msg.message.toString(),
                                     Constants.FAILED
@@ -129,12 +128,12 @@ class FlightControlParameterReadingFCFragment : Fragment() {
 
 
 
-        binding.language.extraOption.setOnClickListener {
-            binding.language.showResponseText.visibility = View.VISIBLE
-            binding.language.showResponseText.setText("Please Wait...")
+        binding.beginnerMode.extraOption.setOnClickListener {
+            binding.beginnerMode.showResponseText.visibility = View.VISIBLE
+            binding.beginnerMode.showResponseText.setText("Please Wait...")
 
             val state =
-                if (0 == binding.language.extraSpinner.selectedItemPosition)
+                if (0 == binding.beginnerMode.extraSpinner.selectedItemPosition)
                     true
                 else
                     false
@@ -143,10 +142,10 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
                         when (msg.status) {
                             Status.SUCCESS -> {
-                                binding.language.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                                binding.beginnerMode.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                             }
                             Status.ERROR -> {
-                                binding.language.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                                binding.beginnerMode.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
                             }
                             else -> {
 
@@ -156,12 +155,12 @@ class FlightControlParameterReadingFCFragment : Fragment() {
             }
         }
 
-        binding.attitudemodetest.extraOption.setOnClickListener {
-            binding.attitudemodetest.showResponseText.visibility = View.VISIBLE
-            binding.attitudemodetest.showResponseText.setText("Please Wait...")
+        binding.attitudeModeTest.extraOption.setOnClickListener {
+            binding.attitudeModeTest.showResponseText.visibility = View.VISIBLE
+            binding.attitudeModeTest.showResponseText.setText("Please Wait...")
 
             val state =
-                if (0 == binding.attitudemodetest.extraSpinner.selectedItemPosition)
+                if (0 == binding.attitudeModeTest.extraSpinner.selectedItemPosition)
                     true
                 else
                     false
@@ -170,10 +169,10 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
                         when (msg.status) {
                             Status.SUCCESS -> {
-                                binding.attitudemodetest.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                                binding.attitudeModeTest.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                             }
                             Status.ERROR -> {
-                                binding.attitudemodetest.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                                binding.attitudeModeTest.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
                             }
                             else -> {
 
@@ -183,17 +182,17 @@ class FlightControlParameterReadingFCFragment : Fragment() {
             }
         }
 
-        binding.rfPower.extraOption.setOnClickListener {
-            binding.rfPower.showResponseText.visibility = View.VISIBLE
+        binding.maxHeight.extraOption.setOnClickListener {
+            binding.maxHeight.showResponseText.visibility = View.VISIBLE
             var value : Double = 0.0
-            if(TextUtils.isEmpty(binding.rfPower.extraEdittext.text)) {
-                binding.rfPower.showResponseText.setText("Please enter height value")
+            if(TextUtils.isEmpty(binding.maxHeight.extraEdittext.text)) {
+                binding.maxHeight.showResponseText.setText("Please enter height")
                 return@setOnClickListener
             } else {
-                value = binding.rfPower.extraEdittext.text.toString().toDouble()
+                value = binding.maxHeight.extraEdittext.text.toString().toDouble()
             }
 
-            binding.rfPower.showResponseText.setText("Please Wait...")
+            binding.maxHeight.showResponseText.setText("Please Wait...")
             //value = Integer.parseInt(binding.rfPower.extraEdittext.text.toString()).toDouble()
 
             lifecycleScope.launch(Dispatchers.Main) {
@@ -201,10 +200,10 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
                         when (msg.status) {
                             Status.SUCCESS -> {
-                                binding.rfPower.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                                binding.maxHeight.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                             }
                             Status.ERROR -> {
-                                binding.rfPower.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                                binding.maxHeight.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
                             }
                             else -> {
 
@@ -218,22 +217,25 @@ class FlightControlParameterReadingFCFragment : Fragment() {
 
         }
 
-        binding.parameterUnit.extraOption.setOnClickListener {
-            var value : Double
-            if(!binding.parameterUnit.extraEdittext.toString().equals("")){
-                binding.parameterUnit.showResponseText.visibility = View.VISIBLE
-                binding.parameterUnit.showResponseText.setText("Please Wait...")
-                value = Integer.parseInt(binding.parameterUnit.extraEdittext.toString()).toDouble()
+        binding.maxRange.extraOption.setOnClickListener {
+            binding.maxRange.showResponseText.visibility = View.VISIBLE
 
+            var value : Double
+            if(TextUtils.isEmpty(binding.maxRange.extraEdittext.text)) {
+                binding.maxRange.showResponseText.setText("Please enter range")
+                return@setOnClickListener
+            } else {
+                value = binding.maxRange.extraEdittext.text.toString().toDouble()
+            }
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.setMaxRangeTest(value)
                         .observeOnce(viewLifecycleOwner, Observer { msg ->
                             when (msg.status) {
                                 Status.SUCCESS -> {
-                                    binding.parameterUnit.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                                    binding.maxRange.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                                 }
                                 Status.ERROR -> {
-                                    binding.parameterUnit.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                                    binding.maxRange.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
                                 }
                                 else -> {
 
@@ -242,33 +244,28 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                         })
                 }
 
-            }else{
-                Toast.makeText(
-                    context,
-                    "Please Enter Value To Continue",
-                    Toast.LENGTH_LONG
-                ).show()
-
-
-           }
             }
 
-            binding.yawCoefficient.extraOption.setOnClickListener {
-                var value : Double
-                if(!binding.yawCoefficient.extraEdittext.toString().equals("")){
-                    binding.yawCoefficient.showResponseText.visibility = View.VISIBLE
-                    binding.yawCoefficient.showResponseText.setText("Please Wait...")
-                    value = Integer.parseInt(binding.yawCoefficient.extraEdittext.toString()).toDouble()
 
+            binding.returnHeight.extraOption.setOnClickListener {
+                binding.returnHeight.showResponseText.visibility = View.VISIBLE
+
+                var value : Double
+                if(TextUtils.isEmpty(binding.returnHeight.extraEdittext.text)) {
+                    binding.returnHeight.showResponseText.setText("Please enter height")
+                    return@setOnClickListener
+                } else {
+                    value = binding.returnHeight.extraEdittext.text.toString().toDouble()
+                }
                     lifecycleScope.launch(Dispatchers.Main) {
                         viewModel.setReturnHeightTest(value)
                             .observeOnce(viewLifecycleOwner, Observer { msg ->
                                 when (msg.status) {
                                     Status.SUCCESS -> {
-                                        binding.yawCoefficient.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                                        binding.returnHeight.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                                     }
                                     Status.ERROR -> {
-                                        binding.yawCoefficient.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                                        binding.returnHeight.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
                                     }
                                     else -> {
 
@@ -277,33 +274,29 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                             })
                     }
 
-                }else{
-                    Toast.makeText(
-                        context,
-                        "Please Enter Value To Continue",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-
                 }
+
+        binding.locationasHomePoint.extraOption.setOnClickListener {
+            binding.locationasHomePoint.showResponseText.visibility = View.VISIBLE
+
+            val lat : Double
+            val lon : Double
+            if(TextUtils.isEmpty(binding.locationasHomePoint.extraEdittext.text)) {
+                binding.locationasHomePoint.showResponseText.setText("Please enter Both values")
+                return@setOnClickListener
+            } else {
+                lat = binding.locationasHomePoint.extraEdittext.text.toString().toDouble()
+                lon = binding.locationasHomePoint.extraEdittext2.text.toString().toDouble()
             }
-
-        binding.locationashomepoint.extraOption.setOnClickListener {
-            if(!binding.locationashomepoint.extraEdittext.toString().equals("") && !!binding.locationashomepoint.extraEdittext2.toString().equals("")){
-                binding.locationashomepoint.showResponseText.visibility = View.VISIBLE
-                binding.locationashomepoint.showResponseText.setText("Please Wait...")
-                val lat = Integer.parseInt(binding.locationashomepoint.extraEdittext.toString()).toDouble()
-                val lon = Integer.parseInt(binding.locationashomepoint.extraEdittext2.toString()).toDouble()
-
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.setLocationAsHomePointTest(lat,lon)
                         .observeOnce(viewLifecycleOwner, Observer { msg ->
                             when (msg.status) {
                                 Status.SUCCESS -> {
-                                    binding.locationashomepoint.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                                    binding.locationasHomePoint.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                                 }
                                 Status.ERROR -> {
-                                    binding.locationashomepoint.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                                    binding.locationasHomePoint.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
                                 }
                                 else -> {
 
@@ -312,33 +305,28 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                         })
                 }
 
-            }else{
-                Toast.makeText(
-                    context,
-                    "Please Enter Value To Continue",
-                    Toast.LENGTH_LONG
-                ).show()
-
-
             }
-        }
 
-        binding.maxhorizontalspeed.extraOption.setOnClickListener {
+
+        binding.maxHorizontalSpeed.extraOption.setOnClickListener {
+            binding.maxHorizontalSpeed.showResponseText.visibility = View.VISIBLE
+
             var value : Double
-            if(!binding.maxhorizontalspeed.extraEdittext.toString().equals("")){
-                binding.maxhorizontalspeed.showResponseText.visibility = View.VISIBLE
-                binding.maxhorizontalspeed.showResponseText.setText("Please Wait...")
-                value = Integer.parseInt(binding.maxhorizontalspeed.extraEdittext.toString()).toDouble()
-
+            if(TextUtils.isEmpty(binding.maxHorizontalSpeed.extraEdittext.text)) {
+                binding.maxHorizontalSpeed.showResponseText.setText("Please enter value")
+                return@setOnClickListener
+            } else {
+                value = binding.maxHorizontalSpeed.extraEdittext.text.toString().toDouble()
+            }
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.setMaxHorizontalSpeedTest(value)
                         .observeOnce(viewLifecycleOwner, Observer { msg ->
                             when (msg.status) {
                                 Status.SUCCESS -> {
-                                    binding.maxhorizontalspeed.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                                    binding.maxHorizontalSpeed.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                                 }
                                 Status.ERROR -> {
-                                    binding.maxhorizontalspeed.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                                    binding.maxHorizontalSpeed.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
                                 }
                                 else -> {
 
@@ -347,29 +335,20 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                         })
                 }
 
-            }else{
-                Toast.makeText(
-                    context,
-                    "Please Enter Value To Continue",
-                    Toast.LENGTH_LONG
-                ).show()
-
-
             }
-        }
 
 
 
-            binding.language.viewBtn.setOnClickListener {
+            binding.beginnerMode.viewBtn.setOnClickListener {
                 closeAllExtraOptionLayouts()
-                binding.language.showResponseText.visibility = View.VISIBLE
-                binding.language.showResponseText.setText("Please Wait...")
+                binding.beginnerMode.showResponseText.visibility = View.VISIBLE
+                binding.beginnerMode.showResponseText.setText("Please Wait...")
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.getBeginnerModeStateTest().observeOnce(viewLifecycleOwner) { msg ->
 
                         when (msg.status) {
                             Status.SUCCESS -> {
-                                binding.language.showResponseText.setText(
+                                binding.beginnerMode.showResponseText.setText(
                                     Utils.getColoredText(
                                         msg.message.toString(),
                                         Constants.SUCCESS
@@ -377,7 +356,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                                 )
                             }
                             Status.ERROR -> {
-                                binding.language.showResponseText.setText(
+                                binding.beginnerMode.showResponseText.setText(
                                     Utils.getColoredText(
                                         msg.message.toString(),
                                         Constants.FAILED
@@ -392,13 +371,13 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                 }
             }
 
-        binding.ledlamppilot.extraOption.setOnClickListener {
+        binding.ledLampPilot.extraOption.setOnClickListener {
 
-            binding.ledlamppilot.showResponseText.visibility = View.VISIBLE
-            binding.ledlamppilot.showResponseText.setText("Please Wait...")
+            binding.ledLampPilot.showResponseText.visibility = View.VISIBLE
+            binding.ledLampPilot.showResponseText.setText("Please Wait...")
             lateinit var state : LedPilotLamp
 
-            when (binding.ledlamppilot.extraSpinner.selectedItemPosition) {
+            when (binding.ledLampPilot.extraSpinner.selectedItemPosition) {
                     0 -> state = LedPilotLamp.ALL_OFF
                     1 -> state = LedPilotLamp.BACK_ONLY
                     2 -> state = LedPilotLamp.FRONT_ONLY
@@ -413,10 +392,10 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                         when (msg.status) {
 
                             Status.SUCCESS -> {
-                                binding.ledlamppilot.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                                binding.ledLampPilot.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
                             }
                             Status.ERROR -> {
-                                binding.ledlamppilot.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                                binding.ledLampPilot.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
                             }
                             else -> {
 
@@ -426,17 +405,17 @@ class FlightControlParameterReadingFCFragment : Fragment() {
             }
         }
 
-            binding.rfPower.viewBtn.setOnClickListener {
+            binding.maxHeight.viewBtn.setOnClickListener {
                 closeAllExtraOptionLayouts()
-                binding.rfPower.showResponseText.visibility = View.VISIBLE
-                binding.rfPower.showResponseText.setText("Please Wait...")
+                binding.maxHeight.showResponseText.visibility = View.VISIBLE
+                binding.maxHeight.showResponseText.setText("Please Wait...")
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.getMaxHeightTest().observeOnce(viewLifecycleOwner) { msg ->
 
 
                         when (msg.status) {
                             Status.SUCCESS -> {
-                                binding.rfPower.showResponseText.setText(
+                                binding.maxHeight.showResponseText.setText(
                                     Utils.getColoredText(
                                         msg.message.toString(),
                                         Constants.SUCCESS
@@ -444,7 +423,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                                 )
                             }
                             Status.ERROR -> {
-                                binding.rfPower.showResponseText.setText(
+                                binding.maxHeight.showResponseText.setText(
                                     Utils.getColoredText(
                                         msg.message.toString(),
                                         Constants.FAILED
@@ -460,17 +439,17 @@ class FlightControlParameterReadingFCFragment : Fragment() {
             }
 
 
-        binding.rfPower.viewBtn.setOnClickListener {
+        binding.maxHeight.viewBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.rfPower.showResponseText.visibility = View.VISIBLE
-            binding.rfPower.showResponseText.setText("Please Wait...")
+            binding.maxHeight.showResponseText.visibility = View.VISIBLE
+            binding.maxHeight.showResponseText.setText("Please Wait...")
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.getMaxHeightTest().observeOnce(viewLifecycleOwner) { msg ->
 
 
                     when (msg.status) {
                         Status.SUCCESS -> {
-                            binding.rfPower.showResponseText.setText(
+                            binding.maxHeight.showResponseText.setText(
                                 Utils.getColoredText(
                                     msg.message.toString(),
                                     Constants.SUCCESS
@@ -478,7 +457,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                             )
                         }
                         Status.ERROR -> {
-                            binding.rfPower.showResponseText.setText(
+                            binding.maxHeight.showResponseText.setText(
                                 Utils.getColoredText(
                                     msg.message.toString(),
                                     Constants.FAILED
@@ -493,17 +472,17 @@ class FlightControlParameterReadingFCFragment : Fragment() {
             }
         }
 
-            binding.parameterUnit.viewBtn.setOnClickListener {
+            binding.maxRange.viewBtn.setOnClickListener {
                 closeAllExtraOptionLayouts()
-                binding.parameterUnit.showResponseText.visibility = View.VISIBLE
-                binding.parameterUnit.showResponseText.setText("Please Wait...")
+                binding.maxRange.showResponseText.visibility = View.VISIBLE
+                binding.maxRange.showResponseText.setText("Please Wait...")
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.getMaxRangeTest().observeOnce(viewLifecycleOwner) { msg ->
 
 
                         when (msg.status) {
                             Status.SUCCESS -> {
-                                binding.parameterUnit.showResponseText.setText(
+                                binding.maxRange.showResponseText.setText(
                                     Utils.getColoredText(
                                         msg.message.toString(),
                                         Constants.SUCCESS
@@ -511,7 +490,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                                 )
                             }
                             Status.ERROR -> {
-                                binding.parameterUnit.showResponseText.setText(
+                                binding.maxRange.showResponseText.setText(
                                     Utils.getColoredText(
                                         msg.message.toString(),
                                         Constants.FAILED
@@ -526,17 +505,17 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                 }
             }
 
-            binding.yawCoefficient.viewBtn.setOnClickListener {
+            binding.returnHeight.viewBtn.setOnClickListener {
                 closeAllExtraOptionLayouts()
-                binding.yawCoefficient.showResponseText.visibility = View.VISIBLE
-                binding.yawCoefficient.showResponseText.setText("Please Wait...")
+                binding.returnHeight.showResponseText.visibility = View.VISIBLE
+                binding.returnHeight.showResponseText.setText("Please Wait...")
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.getReturnHeightTest().observeOnce(viewLifecycleOwner) { msg ->
 
 
                         when (msg.status) {
                             Status.SUCCESS -> {
-                                binding.yawCoefficient.showResponseText.setText(
+                                binding.returnHeight.showResponseText.setText(
                                     Utils.getColoredText(
                                         msg.message.toString(),
                                         Constants.SUCCESS
@@ -544,7 +523,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                                 )
                             }
                             Status.ERROR -> {
-                                binding.yawCoefficient.showResponseText.setText(
+                                binding.returnHeight.showResponseText.setText(
                                     Utils.getColoredText(
                                         msg.message.toString(),
                                         Constants.FAILED
@@ -559,17 +538,17 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                 }
             }
 
-            binding.maxhorizontalspeed.viewBtn.setOnClickListener {
+            binding.maxHorizontalSpeed.viewBtn.setOnClickListener {
                 closeAllExtraOptionLayouts()
-                binding.maxhorizontalspeed.showResponseText.visibility = View.VISIBLE
-                binding.maxhorizontalspeed.showResponseText.setText("Please Wait...")
+                binding.maxHorizontalSpeed.showResponseText.visibility = View.VISIBLE
+                binding.maxHorizontalSpeed.showResponseText.setText("Please Wait...")
                 lifecycleScope.launch(Dispatchers.Main) {
                     viewModel.getMaxHorizontalSpeedTest().observeOnce(viewLifecycleOwner) { msg ->
 
 
                         when (msg.status) {
                             Status.SUCCESS -> {
-                                binding.maxhorizontalspeed.showResponseText.setText(
+                                binding.maxHorizontalSpeed.showResponseText.setText(
                                     Utils.getColoredText(
                                         msg.message.toString(),
                                         Constants.SUCCESS
@@ -577,7 +556,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                                 )
                             }
                             Status.ERROR -> {
-                                binding.maxhorizontalspeed.showResponseText.setText(
+                                binding.maxHorizontalSpeed.showResponseText.setText(
                                     Utils.getColoredText(
                                         msg.message.toString(),
                                         Constants.FAILED
@@ -592,17 +571,17 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                 }
             }
 
-        binding.ledlamppilot.viewBtn.setOnClickListener {
+        binding.ledLampPilot.viewBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.ledlamppilot.showResponseText.visibility = View.VISIBLE
-            binding.ledlamppilot.showResponseText.setText("Please Wait...")
+            binding.ledLampPilot.showResponseText.visibility = View.VISIBLE
+            binding.ledLampPilot.showResponseText.setText("Please Wait...")
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.getLedPilotLampTest().observeOnce(viewLifecycleOwner) { msg ->
 
 
                     when (msg.status) {
                         Status.SUCCESS -> {
-                            binding.ledlamppilot.showResponseText.setText(
+                            binding.ledLampPilot.showResponseText.setText(
                                 Utils.getColoredText(
                                     msg.message.toString(),
                                     Constants.SUCCESS
@@ -610,7 +589,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                             )
                         }
                         Status.ERROR -> {
-                            binding.ledlamppilot.showResponseText.setText(
+                            binding.ledLampPilot.showResponseText.setText(
                                 Utils.getColoredText(
                                     msg.message.toString(),
                                     Constants.FAILED
@@ -627,14 +606,14 @@ class FlightControlParameterReadingFCFragment : Fragment() {
 
 
 
-            binding.infoDataListener.viewBtn.setOnClickListener {
+            binding.warningListener.viewBtn.setOnClickListener {
                 closeAllExtraOptionLayouts()
 
-                binding.infoDataListener.showResponseText.visibility = View.VISIBLE
-                binding.infoDataListener.showResponseText.setText("Please Wait...")
+                binding.warningListener.showResponseText.visibility = View.VISIBLE
+                binding.warningListener.showResponseText.setText("Please Wait...")
 
                 viewModel.setWarningListenerTest()
-                binding.infoDataListener.showResponseText.setText(
+                binding.warningListener.showResponseText.setText(
                     Utils.getColoredText(
                         "Warning Listener set to null",
                         Constants.SUCCESS
@@ -642,14 +621,14 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                 )
             }
 
-        binding.locationashomepoint.viewBtn.setOnClickListener {
+        binding.locationasHomePoint.viewBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
 
-            binding.locationashomepoint.showResponseText.visibility = View.VISIBLE
-            binding.locationashomepoint.showResponseText.setText("Please Wait...")
+            binding.locationasHomePoint.showResponseText.visibility = View.VISIBLE
+            binding.locationasHomePoint.showResponseText.setText("Please Wait...")
 
             viewModel.setWarningListenerTest()
-            binding.locationashomepoint.showResponseText.setText(
+            binding.locationasHomePoint.showResponseText.setText(
                 Utils.getColoredText(
                     "Location set to null",
                     Constants.SUCCESS
@@ -657,14 +636,14 @@ class FlightControlParameterReadingFCFragment : Fragment() {
             )
         }
 
-        binding.attitudemodetest.viewBtn.setOnClickListener {
+        binding.attitudeModeTest.viewBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
 
-            binding.attitudemodetest.showResponseText.visibility = View.VISIBLE
-            binding.attitudemodetest.showResponseText.setText("Please Wait...")
+            binding.attitudeModeTest.showResponseText.visibility = View.VISIBLE
+            binding.attitudeModeTest.showResponseText.setText("Please Wait...")
 
             viewModel.setWarningListenerTest()
-            binding.attitudemodetest.showResponseText.setText(
+            binding.attitudeModeTest.showResponseText.setText(
                 Utils.getColoredText(
                     "attitude reset to null",
                     Constants.SUCCESS
@@ -677,26 +656,26 @@ class FlightControlParameterReadingFCFragment : Fragment() {
 
         private fun closeAllExtraOptionLayouts() {
 
-            binding.language.extraOptionParent.visibility = View.GONE
-            binding.rfPower.extraOptionParent.visibility = View.GONE
-            binding.parameterUnit.extraOptionParent.visibility = View.GONE
-            binding.yawCoefficient.extraOptionParent.visibility = View.GONE
-            binding.maxhorizontalspeed.extraOptionParent.visibility = View.GONE
-            binding.attitudemodetest.extraOptionParent.visibility=View.GONE
-            binding.locationashomepoint.extraOptionParent.visibility=View.GONE
-            binding.ledlamppilot.extraOptionParent.visibility=View.GONE
+            binding.beginnerMode.extraOptionParent.visibility = View.GONE
+            binding.maxHeight.extraOptionParent.visibility = View.GONE
+            binding.maxRange.extraOptionParent.visibility = View.GONE
+            binding.returnHeight.extraOptionParent.visibility = View.GONE
+            binding.maxHorizontalSpeed.extraOptionParent.visibility = View.GONE
+            binding.attitudeModeTest.extraOptionParent.visibility=View.GONE
+            binding.locationasHomePoint.extraOptionParent.visibility=View.GONE
+            binding.ledLampPilot.extraOptionParent.visibility=View.GONE
 
             // We should hide both extraOptionLayout and Response text
-            binding.language.showResponseText.visibility = View.GONE
-            binding.rfPower.showResponseText.visibility = View.GONE
-            binding.parameterUnit.showResponseText.visibility = View.GONE
-            binding.yawCoefficient.showResponseText.visibility = View.GONE
-            binding.maxhorizontalspeed.showResponseText.visibility = View.GONE
-            binding.ledlamppilot.showResponseText.visibility = View.GONE
-            binding.infoDataListener.showResponseText.visibility = View.GONE
-            binding.attitudemodetest.showResponseText.visibility = View.GONE
-            binding.locationashomepoint.showResponseText.visibility = View.GONE
-            binding.ledlamppilot.showResponseText.visibility = View.GONE
+            binding.beginnerMode.showResponseText.visibility = View.GONE
+            binding.maxHeight.showResponseText.visibility = View.GONE
+            binding.maxRange.showResponseText.visibility = View.GONE
+            binding.returnHeight.showResponseText.visibility = View.GONE
+            binding.maxHorizontalSpeed.showResponseText.visibility = View.GONE
+            binding.ledLampPilot.showResponseText.visibility = View.GONE
+            binding.warningListener.showResponseText.visibility = View.GONE
+            binding.attitudeModeTest.showResponseText.visibility = View.GONE
+            binding.locationasHomePoint.showResponseText.visibility = View.GONE
+            binding.ledLampPilot.showResponseText.visibility = View.GONE
 
 
         }
@@ -708,32 +687,32 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                 R.array.rc_Boolean,
                 android.R.layout.simple_spinner_item
             )
-            binding.language.extraSpinner.adapter = spinnerAdapter
+            binding.beginnerMode.extraSpinner.adapter = spinnerAdapter
             spinnerAdapter = ArrayAdapter.createFromResource(
                 requireActivity().baseContext,
                 R.array.rc_rfs,
                 android.R.layout.simple_spinner_item
             )
-            binding.rfPower.extraSpinner.adapter = spinnerAdapter
+            binding.maxHeight.extraSpinner.adapter = spinnerAdapter
             spinnerAdapter = ArrayAdapter.createFromResource(
                 requireActivity().baseContext,
                 R.array.rc_length_unit,
                 android.R.layout.simple_spinner_item
             )
-            binding.parameterUnit.extraSpinner.adapter = spinnerAdapter
-
-            spinnerAdapter = ArrayAdapter.createFromResource(
-                requireActivity().baseContext,
-                R.array.rc_led_pilot_lamp,
-                android.R.layout.simple_spinner_item
-            )
-            binding.ledlamppilot.extraSpinner.adapter = spinnerAdapter
+//            binding.ledlamppilot.extraSpinner.adapter = spinnerAdapter
+//
+//            spinnerAdapter = ArrayAdapter.createFromResource(
+//                requireActivity().baseContext,
+//                R.array.rc_led_pilot_lamp,
+//                android.R.layout.simple_spinner_item
+//            )
+            binding.ledLampPilot.extraSpinner.adapter = spinnerAdapter
             spinnerAdapter = ArrayAdapter.createFromResource(
                 requireActivity().baseContext,
                 R.array.rc_Boolean,
                 android.R.layout.simple_spinner_item
             )
-            binding.attitudemodetest.extraSpinner.adapter = spinnerAdapter
+            binding.attitudeModeTest.extraSpinner.adapter = spinnerAdapter
         }
 
 

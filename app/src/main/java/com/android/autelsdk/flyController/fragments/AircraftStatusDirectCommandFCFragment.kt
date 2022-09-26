@@ -60,7 +60,7 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
     }
 
     private fun handleListeners() {
-        binding.enterBinding.setOnClickListener {
+        binding.goHomeTest.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.goHomeTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -81,7 +81,7 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
             }
         }
 
-        binding.cancelreturn.setOnClickListener {
+        binding.cancelReturn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.cancelReturnTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -102,10 +102,11 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
             }
         }
 
-        binding.cancelland.setOnClickListener {
+        binding.cancelLand.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.cancelLandTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
+                        binding.testResults.setText("No response for this")
 
                         when (msg.status) {
                             Status.SUCCESS -> {
@@ -123,7 +124,7 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
             }
         }
 
-        binding.craftlocationashomepoint.setOnClickListener {
+        binding.craftLocationasHomepoint.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setAircraftLocationAsHomePointTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -165,7 +166,7 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
             }
         }
 
-        binding.startcalibretingcompass.setOnClickListener {
+        binding.startCalibretingCompass.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.startCalibrateCompassTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -228,7 +229,7 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
             }
         }
 
-        binding.isattitudemodeenabled.setOnClickListener {
+        binding.isAttitudeModeEnabled.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.isAttitudeModeEnableTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->

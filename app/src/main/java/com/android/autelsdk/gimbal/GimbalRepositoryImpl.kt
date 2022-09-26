@@ -33,7 +33,7 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var setGimbalWorkModeTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         autelGimbalController.setGimbalWorkMode(mode, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                val errorMessage = Utils.getFailureShowText("on Mode = ${mode.name}.\nReason - ${rcError.description}",
                 methodName = "setGimbalWorkMode");
                 setGimbalWorkModeTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
@@ -155,7 +155,7 @@ class GimbalRepositoryImpl() : GimbalRepository {
         var resetGimbalAngleTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         cruisalGimbalController.resetGimbalAngle(gimbalAxisType,object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                val errorMessage = Utils.getFailureShowText("on Gimbal Axis Type = ${gimbalAxisType.name}.\nReason - ${rcError.description}",
                     methodName = "resetGimbalAngle");
                 resetGimbalAngleTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }

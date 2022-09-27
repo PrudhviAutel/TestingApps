@@ -10,31 +10,37 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.android.autelsdk.R
+import com.android.autelsdk.databinding.FragmentInterfaceDebuggingDspBinding
 import com.android.autelsdk.databinding.FragmentInterfaceDebuggingGimbalBinding
+import com.android.autelsdk.dsp.DspViewModel
 import com.android.autelsdk.event.ProductConnectEvent
 import com.android.autelsdk.gimbal.GimbalViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Utils
+import com.autel.internal.dsp.cruiser.CruiserDspImpl
 import com.autel.internal.gimbal.cruiser.CruiserGimbalImpl
+import com.autel.sdk.Autel
+import com.autel.sdk.dsp.AutelDsp
+import com.autel.sdk.dsp.CruiserDsp
 import com.autel.sdk.gimbal.AutelGimbal
 import com.autel.sdk.gimbal.CruiserGimbal
 import org.greenrobot.eventbus.EventBus
 
 class InterfaceDebuggingDspFragment : Fragment() {
 
-    private lateinit var binding: FragmentInterfaceDebuggingGimbalBinding
+    private lateinit var binding: FragmentInterfaceDebuggingDspBinding
 
     companion object {
         fun newInstance() = InterfaceDebuggingDspFragment()
     }
 
-    private val viewModel: GimbalViewModel by activityViewModels()
+    private val viewModel: DspViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_interface_debugging_gimbal , container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_interface_debugging_dsp , container, false)
         return binding.root
     }
 
@@ -47,23 +53,23 @@ class InterfaceDebuggingDspFragment : Fragment() {
 
     private fun handleListeners() {
 
-        binding.chooseGimbal.viewBtn.setOnClickListener {
-            binding.chooseGimbal.showResponseText.visibility = View.VISIBLE
-            binding.chooseGimbal.extraOptionParent.visibility = View.GONE
-            binding.chooseGimbal.showResponseText.setText("Currently set to ${getCurrentGimbalByName(viewModel.getCruiserGimbalController())}")
+        binding.chooseDsp.viewBtn.setOnClickListener {
+            binding.chooseDsp.showResponseText.visibility = View.VISIBLE
+            binding.chooseDsp.extraOptionParent.visibility = View.GONE
+            binding.chooseDsp.showResponseText.setText("Currently set to ${getCurrentDspByName(viewModel.getCruiserDspController())}")
         }
 
-        binding.chooseGimbal.setBtn.setOnClickListener {
-            binding.chooseGimbal.showResponseText.visibility = View.GONE
+        binding.chooseDsp.setBtn.setOnClickListener {
+            binding.chooseDsp.showResponseText.visibility = View.GONE
             binding.showResponseText.visibility = View.GONE
-            binding.chooseGimbal.extraOptionParent.visibility = View.VISIBLE
+            binding.chooseDsp.extraOptionParent.visibility = View.VISIBLE
         }
         
-        binding.chooseGimbal.extraOption.setOnClickListener {
-            val controller = setCurrentGimbalByName(binding.chooseGimbal.extraSpinner.selectedItem.toString())
+        binding.chooseDsp.extraOption.setOnClickListener {
+            val controller = setCurrentDspByName(binding.chooseDsp.extraSpinner.selectedItem.toString())
             viewModel.setController(controller)
-            binding.chooseGimbal.showResponseText.visibility = View.VISIBLE
-            binding.chooseGimbal.showResponseText.setText("Currently set to ${getCurrentGimbalByName(viewModel.getCruiserGimbalController())}")
+            binding.chooseDsp.showResponseText.visibility = View.VISIBLE
+            binding.chooseDsp.showResponseText.setText("Currently set to ${getCurrentDspByName(viewModel.getCruiserDspController())}")
         }
 
         binding.connectDevice.setOnClickListener {
@@ -84,38 +90,38 @@ class InterfaceDebuggingDspFragment : Fragment() {
 
     }
 
-    private fun getCurrentGimbalByName(controller : AutelGimbal) : String {
+    private fun getCurrentDspByName(controller : AutelDsp) : String {
         when(controller) {
-            is CruiserGimbal -> {
-                return Constants.CruiserGimbal
+            is CruiserDsp -> {
+                return Constants.CruiserDsp
             }
         }
         return ""
     }
 
-    private fun setCurrentGimbalByName(name : String) : AutelGimbal {
+    private fun setCurrentDspByName(name : String) : AutelDsp {
         when(name) {
-            Constants.CruiserGimbal -> {
-                return CruiserGimbalImpl()
+            Constants.CruiserDsp -> {
+                return CruiserDspImpl()
             }
         }
-        return viewModel.getCruiserGimbalController()
+        return viewModel.getCruiserDspController()
     }
 
     private fun setSpinnerItems() {
 
-        val gimbals = arrayOf(Constants.CruiserGimbal)
+        val dsps = arrayOf(Constants.CruiserDsp)
         var spinnerAdapter = ArrayAdapter(
             requireActivity().baseContext,
             android.R.layout.simple_spinner_item,
-            gimbals
+            dsps
         )
-        binding.chooseGimbal.extraSpinner.adapter = spinnerAdapter
+        binding.chooseDsp.extraSpinner.adapter = spinnerAdapter
 
-        val index = gimbals?.indexOf(getCurrentGimbalByName(viewModel.getCruiserGimbalController()))
+        val index = dsps?.indexOf(getCurrentDspByName(viewModel.getCruiserDspController()))
 
         index?.let { index
-            binding.chooseGimbal.extraSpinner.setSelection(index)
+            binding.chooseDsp.extraSpinner.setSelection(index)
         }
     }
 

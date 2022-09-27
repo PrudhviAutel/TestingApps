@@ -13,6 +13,7 @@ import com.autel.common.gimbal.evo.GimbalAngleRange
 import com.autel.common.product.AutelProductType
 import com.autel.internal.dsp.cruiser.CruiserDspImpl
 import com.autel.internal.gimbal.cruiser.CruiserGimbalImpl
+import com.autel.sdk.Autel
 import com.autel.sdk.dsp.AutelDsp
 import com.autel.sdk.dsp.CruiserDsp
 import com.autel.sdk.gimbal.AutelGimbal
@@ -56,6 +57,14 @@ class DspViewModel() : ViewModel() {
         }
 
         dspRepository.setController(controller)
+    }
+
+    fun getController() : AutelDsp {
+        return autelDspController
+    }
+
+    fun getCruiserDspController() : CruiserDsp {
+        return cruiserDspController
     }
 
     //Functions related to AutelDsp Interface

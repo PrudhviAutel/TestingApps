@@ -36,6 +36,7 @@ class FlightControlParameterReadingDspFragment : Fragment() {
     private var rfDataList : List<RFData> = ArrayList()
     private var fetchRFDataList = false
     private var fetchRFDataListMessage :String? = null
+    private val booleanList = arrayOf(true,false)
 
     companion object {
         fun newInstance() = FlightControlParameterReadingDspFragment()
@@ -202,11 +203,7 @@ class FlightControlParameterReadingDspFragment : Fragment() {
         binding.baseStationState.extraOption.setOnClickListener {
             binding.baseStationState.showResponseText.visibility = View.VISIBLE
             binding.baseStationState.showResponseText.setText("Please Wait...")
-            var baseStationState : Boolean = true
-            when(binding.baseStationState.extraSpinner.selectedItemPosition) {
-                0 -> baseStationState = true
-                1 -> baseStationState = false
-            }
+            var baseStationState = booleanList[binding.baseStationState.extraSpinner.selectedItemPosition]
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setBaseStationEnableTest(baseStationState)
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -249,6 +246,8 @@ class FlightControlParameterReadingDspFragment : Fragment() {
 
         binding.rfData.viewBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
+            binding.rfData.showResponseText.visibility = View.VISIBLE
+            binding.rfData.showResponseText.setText("Please Wait...")
             var maxRetryCount : Int = 3
             if (!TextUtils.isEmpty(binding.rfData.extraEdittext.text))
                 maxRetryCount = binding.rfData.extraEdittext.text.toString().toInt()
@@ -272,6 +271,8 @@ class FlightControlParameterReadingDspFragment : Fragment() {
 
         binding.syncMsgBroadcastListener.viewBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
+            binding.syncMsgBroadcastListener.showResponseText.visibility = View.VISIBLE
+            binding.syncMsgBroadcastListener.showResponseText.setText("Please Wait...")
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setSynMsgBroadcastListenerTest().observeOnce(viewLifecycleOwner) { msg ->
                     binding.syncMsgBroadcastListener.showResponseText.visibility = View.VISIBLE
@@ -292,6 +293,8 @@ class FlightControlParameterReadingDspFragment : Fragment() {
 
         binding.transferMode.viewBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
+            binding.transferMode.showResponseText.visibility = View.VISIBLE
+            binding.transferMode.showResponseText.setText("Please Wait...")
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.getTransferModeTest().observeOnce(viewLifecycleOwner) { msg ->
                     binding.transferMode.showResponseText.visibility = View.VISIBLE
@@ -312,6 +315,8 @@ class FlightControlParameterReadingDspFragment : Fragment() {
 
         binding.baseStationState.viewBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
+            binding.baseStationState.showResponseText.visibility = View.VISIBLE
+            binding.baseStationState.showResponseText.setText("Please Wait...")
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.isBaseStationEnableTest().observeOnce(viewLifecycleOwner) { msg ->
                     binding.baseStationState.showResponseText.visibility = View.VISIBLE
@@ -353,43 +358,50 @@ class FlightControlParameterReadingDspFragment : Fragment() {
 
     private fun setSpinnerItems() {
 
-        var spinnerAdapter = ArrayAdapter(
+        var spinnerAdapter : ArrayAdapter<*> = ArrayAdapter(
             requireActivity().baseContext,
             android.R.layout.simple_spinner_item,
             getRFDataList()
         )
         binding.rfData.extraSpinner.adapter = spinnerAdapter
-        var spinnerAdapter2 = ArrayAdapter(
+        spinnerAdapter = ArrayAdapter(
             requireActivity().baseContext,
             android.R.layout.simple_spinner_item,
             AppAction.values()
         )
-        binding.syncMsgBroadcastListener.extraSpinner.adapter = spinnerAdapter2
-        var spinnerAdapter3 = ArrayAdapter(
+        binding.syncMsgBroadcastListener.extraSpinner.adapter = spinnerAdapter
+        spinnerAdapter = ArrayAdapter(
             requireActivity().baseContext,
             android.R.layout.simple_spinner_item,
             AppActionParam.values()
         )
-        binding.syncMsgBroadcastListener.extraSpinner2.adapter = spinnerAdapter3
+        binding.syncMsgBroadcastListener.extraSpinner2.adapter = spinnerAdapter
 
-        spinnerAdapter = ArrayAdapter.createFromResource(
+        spinnerAdapter = ArrayAdapter (
             requireActivity().baseContext,
-            R.array.rc_length_unit,
-            android.R.layout.simple_spinner_item
+            android.R.layout.simple_spinner_item,
+            BandMode.values()
         )
         binding.bandwidthInfo.extraSpinner.adapter = spinnerAdapter
 
-        spinnerAdapter = ArrayAdapter.createFromResource(
+        spinnerAdapter = ArrayAdapter (
             requireActivity().baseContext,
-            R.array.rc_rfs,
-            android.R.layout.simple_spinner_item
+            android.R.layout.simple_spinner_item,
+            Bandwidth.values()
+        )
+        binding.bandwidthInfo.extraSpinner2.adapter = spinnerAdapter
+
+        spinnerAdapter = ArrayAdapter(
+            requireActivity().baseContext,
+            android.R.layout.simple_spinner_item,
+            TransferMode.values()
         )
         binding.transferMode.extraSpinner.adapter = spinnerAdapter
 
-        spinnerAdapter = ArrayAdapter.createFromResource(
+        spinnerAdapter = ArrayAdapter(
             requireActivity().baseContext,
-            R.array.rc_rfs,
-            android.R.layout.simple_spinner_item
+            android.R.layout.simple_spinner_item,
+            booleanList
         )
         binding.baseStationState.extraSpinner.adapter = spinnerAdapter
 

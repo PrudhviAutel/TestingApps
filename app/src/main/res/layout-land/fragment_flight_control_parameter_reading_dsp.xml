@@ -38,8 +38,9 @@
                 app:testName="@{`SW_Sync_Message_Broadcast_Listener`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`View`}"
-                app:extraOptionText="@{`Set Values`}"
+                app:extraOptionText="@{`Set AppAction and AppActionParam`}"
                 app:showExtraSpinner="@{true}"
+                app:showExtraSpinner2="@{true}"
                 layout="@layout/item_testoptions_setup_view"
                 />
 

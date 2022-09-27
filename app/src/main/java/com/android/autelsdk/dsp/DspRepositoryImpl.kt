@@ -71,14 +71,14 @@ class DspRepositoryImpl() : DspRepository {
         autelDspController.setCurrentRFData(selectedRFHz, maxRetryCount, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
-                    methodName = "getCurrentRFData");
+                    methodName = "setCurrentRFData");
                 setCurrentRFDataTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText(
                     "\non Selected RF Hz = ${selectedRFHz} and Max Retry Count = ${maxRetryCount}",
-                    methodName = "getCurrentRFData"
+                    methodName = "setCurrentRFData"
                 );
                 setCurrentRFDataTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
@@ -143,14 +143,14 @@ class DspRepositoryImpl() : DspRepository {
         cruiserDspController.setDspInfoListener(object : CallbackWithOneParam<EvoDspInfo> {
             override fun onFailure(rcError: AutelError) {
                 val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
-                    methodName = "getCurrentRFData");
+                    methodName = "setDspInfoListener");
                 setDspInfoListenerTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess(info: EvoDspInfo?) {
                 val successMessage = Utils.getSuccessShowText(
                     "\non EvoDspInfo = ${info}",
-                    methodName = "getCurrentRFData"
+                    methodName = "setDspInfoListener"
                 );
                 setDspInfoListenerTestResult.postValue(Resource.Companion.success(info, successMessage))
             }
@@ -213,7 +213,7 @@ class DspRepositoryImpl() : DspRepository {
         var setVideoLinkStateTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         cruiserDspController.setVideoLinkState(state, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                val errorMessage = Utils.getFailureShowText("on state = ${state}.\nReason - ${rcError.description}",
                     methodName = "setVideoLinkState");
                 setVideoLinkStateTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
@@ -253,14 +253,14 @@ class DspRepositoryImpl() : DspRepository {
         var setBaseStationEnableTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         cruiserDspController.setBaseStationEnable(state, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                val errorMessage = Utils.getFailureShowText("on state = ${state}.\nReason - ${rcError.description}",
                     methodName = "setBaseStationEnable");
                 setBaseStationEnableTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText(
-                    "\non Base Station Enable State = ${state.toString()}",
+                    "\non Base Station Enabled = ${state}",
                     methodName = "setBaseStationEnable"
                 );
                 setBaseStationEnableTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
@@ -280,7 +280,7 @@ class DspRepositoryImpl() : DspRepository {
 
             override fun onSuccess(state: Boolean) {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nBase Station State = ${state} ",
+                    "\nBase Station Enabled = ${state} ",
                     methodName = "isBaseStationEnable"
                 );
                 isBaseStationEnableTestResult.postValue(Resource.Companion.success(state, successMessage))

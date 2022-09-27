@@ -18,7 +18,7 @@ object Utils {
                 .getStackTrace().size > 6
         ) Thread.currentThread().getStackTrace()[6].getMethodName() else ""
     ): String {
-        return "$methodName() $status $extraText"
+        return "$methodName() $status $extraText\n\n"
     }
 
     fun getAllStackTraceFunctions(): Array<out StackTraceElement> {
@@ -34,7 +34,7 @@ object Utils {
         return "$methodName() $status $extraText\n\n"
     }
 
-    fun getColoredText (text : String, status : String) : Spannable {
+    fun getColoredText (text : String, status : String = Constants.NORMAL) : Spannable {
         var color : Int
         if (status == Constants.SUCCESS) {
             color = Color.BLUE

@@ -63,7 +63,6 @@ class InterfaceDebuggingRCFragment : Fragment() {
             val controller = setCurrentRemoteControllerByName(binding.chooseRemoteController.extraSpinner.selectedItem.toString())
             viewModel.setRemoteController(controller)
             binding.chooseRemoteController.showResponseText.visibility = View.VISIBLE
-            binding.chooseRemoteController.extraOptionParent.visibility = View.GONE
             binding.chooseRemoteController.showResponseText.setText("Currently set to ${getCurrentRemoteControllerByName(viewModel.getRemoteController())}")
         }
 

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.autelsdk.databinding.ModuleItemBinding
 import com.android.autelsdk.flyController.FlyControllerActivity
 import com.android.autelsdk.flyController.FlyControllerRepositoryImpl
+import com.android.autelsdk.gimbal.GimbalActivity
 import com.android.autelsdk.remoteController.RemoteControllerActivity
 import com.android.autelsdk.util.Constants
 
@@ -53,6 +54,9 @@ class ModuleRecyclerViewAdapter : RecyclerView.Adapter<ModuleViewHolder>() {
                 }
                 Constants.FlyController -> {
                     context.startActivity(Intent(context, FlyControllerActivity::class.java))
+                }
+                Constants.Gimbal -> {
+                    context.startActivity(Intent(context, GimbalActivity::class.java))
                 }
             }
         })

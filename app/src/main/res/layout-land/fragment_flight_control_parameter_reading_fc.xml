@@ -36,7 +36,7 @@
                 app:testName="@{`SW_Max_Height`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`View`}"
-                app:extraOptionText="@{`set Height`}"
+                app:extraOptionText="@{`Set Height`}"
                 app:showExtraEdittext ="@{true}"
                 app:extraEdittextHint="@{`Height`}"
                 layout="@layout/item_testoptions_setup_view"
@@ -113,7 +113,7 @@
                 app:testName="@{`SW_Warning_Listener`}"
                 app:setButtonText="@{`Set`}"
                 app:viewButtonText="@{`Reset`}"
-                app:extraOptionText="@{`Set Info Data Listener`}"
+                app:extraOptionText="@{`Set Warning Listener`}"
                 layout="@layout/item_testoptions_setup_view"
                 />
 

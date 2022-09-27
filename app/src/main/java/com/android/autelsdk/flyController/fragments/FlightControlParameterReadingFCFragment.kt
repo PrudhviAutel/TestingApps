@@ -184,6 +184,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
 
         binding.maxHeight.extraOption.setOnClickListener {
             binding.maxHeight.showResponseText.visibility = View.VISIBLE
+            binding.maxHeight.showResponseText.setText("Please Wait...")
             var value : Double = 0.0
             if(TextUtils.isEmpty(binding.maxHeight.extraEdittext.text)) {
                 binding.maxHeight.showResponseText.setText("Please enter height")
@@ -192,7 +193,6 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                 value = binding.maxHeight.extraEdittext.text.toString().toDouble()
             }
 
-            binding.maxHeight.showResponseText.setText("Please Wait...")
             //value = Integer.parseInt(binding.rfPower.extraEdittext.text.toString()).toDouble()
 
             lifecycleScope.launch(Dispatchers.Main) {
@@ -219,6 +219,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
 
         binding.maxRange.extraOption.setOnClickListener {
             binding.maxRange.showResponseText.visibility = View.VISIBLE
+            binding.maxRange.showResponseText.setText("Please Wait...")
 
             var value : Double
             if(TextUtils.isEmpty(binding.maxRange.extraEdittext.text)) {
@@ -249,7 +250,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
 
             binding.returnHeight.extraOption.setOnClickListener {
                 binding.returnHeight.showResponseText.visibility = View.VISIBLE
-
+                binding.returnHeight.showResponseText.setText("Please Wait...")
                 var value : Double
                 if(TextUtils.isEmpty(binding.returnHeight.extraEdittext.text)) {
                     binding.returnHeight.showResponseText.setText("Please enter height")
@@ -278,10 +279,14 @@ class FlightControlParameterReadingFCFragment : Fragment() {
 
         binding.locationasHomePoint.extraOption.setOnClickListener {
             binding.locationasHomePoint.showResponseText.visibility = View.VISIBLE
-
+            binding.locationasHomePoint.showResponseText.setText("Please Wait...")
             val lat : Double
             val lon : Double
             if(TextUtils.isEmpty(binding.locationasHomePoint.extraEdittext.text)) {
+                binding.locationasHomePoint.showResponseText.setText("Please enter Both values")
+                return@setOnClickListener
+            }
+            if(TextUtils.isEmpty(binding.locationasHomePoint.extraEdittext2.text)) {
                 binding.locationasHomePoint.showResponseText.setText("Please enter Both values")
                 return@setOnClickListener
             } else {
@@ -310,7 +315,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
 
         binding.maxHorizontalSpeed.extraOption.setOnClickListener {
             binding.maxHorizontalSpeed.showResponseText.visibility = View.VISIBLE
-
+            binding.maxHorizontalSpeed.showResponseText.setText("Please Wait...")
             var value : Double
             if(TextUtils.isEmpty(binding.maxHorizontalSpeed.extraEdittext.text)) {
                 binding.maxHorizontalSpeed.showResponseText.setText("Please enter value")
@@ -630,7 +635,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
             viewModel.setWarningListenerTest()
             binding.locationasHomePoint.showResponseText.setText(
                 Utils.getColoredText(
-                    "Location set to null",
+                    "Location for Homepoint set to null",
                     Constants.SUCCESS
                 )
             )
@@ -645,7 +650,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
             viewModel.setWarningListenerTest()
             binding.attitudeModeTest.showResponseText.setText(
                 Utils.getColoredText(
-                    "attitude reset to null",
+                    "Attitude Mode reset to null",
                     Constants.SUCCESS
                 )
             )
@@ -693,19 +698,19 @@ class FlightControlParameterReadingFCFragment : Fragment() {
                 R.array.rc_rfs,
                 android.R.layout.simple_spinner_item
             )
-            binding.maxHeight.extraSpinner.adapter = spinnerAdapter
-            spinnerAdapter = ArrayAdapter.createFromResource(
-                requireActivity().baseContext,
-                R.array.rc_length_unit,
-                android.R.layout.simple_spinner_item
-            )
-//            binding.ledlamppilot.extraSpinner.adapter = spinnerAdapter
-//
+//            binding.maxHeight.extraSpinner.adapter = spinnerAdapter
 //            spinnerAdapter = ArrayAdapter.createFromResource(
 //                requireActivity().baseContext,
-//                R.array.rc_led_pilot_lamp,
+//                R.array.rc_length_unit,
 //                android.R.layout.simple_spinner_item
 //            )
+//            binding.ledLampPilot.extraSpinner.adapter = spinnerAdapter
+
+            spinnerAdapter = ArrayAdapter.createFromResource(
+                requireActivity().baseContext,
+                R.array.rc_led_pilot_lamp,
+                android.R.layout.simple_spinner_item
+            )
             binding.ledLampPilot.extraSpinner.adapter = spinnerAdapter
             spinnerAdapter = ArrayAdapter.createFromResource(
                 requireActivity().baseContext,

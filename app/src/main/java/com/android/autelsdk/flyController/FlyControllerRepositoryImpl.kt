@@ -389,26 +389,24 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
         return startCalibrateCompassTestResult
     }
 
-    /**override fun takeOffTest(): MutableLiveData<Resource<CalibrateCompassStatus>> {
-    val lat = 22.0
-    val lon = 22.0
-
-    var takeOffTestResult : MutableLiveData<Resource<CalibrateCompassStatus>> = MutableLiveData()
-    var value : Double
-    value = 200.0
-    mController.takeOff( object : CallbackWithOneParam<Pair<Boolean>>{
-    override fun onFailure(rcError: AutelError) {
-    val errorMessage = "";
-    takeOffTestResult.postValue(Resource.Companion.error(errorMessage, null))
-    }
-
-    override fun onSuccess(calibrateCompassStatus : CalibrateCompassStatus) {
-    val successMessage = "";
-    takeOffTestResult.postValue(Resource.Companion.success(calibrateCompassStatus))
-    }
-    })
-    return takeOffTestResult
-    }*/
+//    override fun takeOffTest(): MutableLiveData<Resource<Pair<Boolean,FlightErrorState>>> {
+//    val lat = 22.0
+//    val lon = 22.0
+//
+//    var takeOffTestResult : MutableLiveData<Resource<Pair<Boolean,FlightErrorState>>> = MutableLiveData()
+//    mController.takeOff( object : CallbackWithOneParam<Pair<Boolean,FlightErrorState>> {
+//    override fun onFailure(rcError: AutelError) {
+//    val errorMessage = "";
+//    takeOffTestResult.postValue(Resource.Companion.error(errorMessage, null))
+//    }
+//
+//    override fun onSuccess(calibrateCompassStatus : CalibrateCompassStatus) {
+//    val successMessage = "";
+//    takeOffTestResult.postValue(Resource.Companion.success(calibrateCompassStatus))
+//    }
+//    })
+//    return takeOffTestResult
+//    }
 
     override suspend fun landTest(): MutableLiveData<Resource<String>> {
         var landTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
@@ -574,6 +572,10 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
 
     override fun setFlyController(controller: AutelFlyController) {
         mController = controller
+    }
+
+    override fun takeOffTest(): MutableLiveData<Resource<Pair<Boolean, FlightErrorState>>> {
+        TODO("Not yet implemented")
     }
 
 }

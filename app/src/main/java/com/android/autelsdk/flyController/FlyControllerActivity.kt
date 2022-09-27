@@ -59,10 +59,10 @@ class FlyControllerActivity : BaseActivity<AutelFlyController>() {
         handleListeners()
 
         runTests()
-//        binding.interfaceDebugAfc.optionParent.setBackgroundColor(ContextCompat.getColor(this@FlyControllerActivity, R.color.blue))
-//        supportFragmentManager.beginTransaction()
-//            .replace(binding.container.id, InterfaceDebuggingFCFragment())
-//            .commitNow()
+        binding.interfaceDebugAfc.optionParent.setBackgroundColor(ContextCompat.getColor(this@FlyControllerActivity, R.color.blue))
+        supportFragmentManager.beginTransaction()
+            .replace(binding.container.id, InterfaceDebuggingFCFragment())
+            .commitNow()
 //
 //        binding.flightControl.optionParent.setBackgroundColor(ContextCompat.getColor(this@FlyControllerActivity,R.color.blue))
 //        supportFragmentManager.beginTransaction()

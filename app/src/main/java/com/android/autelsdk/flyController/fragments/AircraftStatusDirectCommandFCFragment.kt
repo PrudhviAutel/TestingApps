@@ -61,6 +61,8 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
 
     private fun handleListeners() {
         binding.goHomeTest.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.goHomeTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -82,6 +84,7 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
         }
 
         binding.cancelReturn.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.cancelReturnTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -103,6 +106,8 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
         }
 
         binding.cancelLand.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.cancelLandTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -125,6 +130,8 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
         }
 
         binding.craftLocationasHomepoint.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setAircraftLocationAsHomePointTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -146,6 +153,8 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
         }
 
         binding.land.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.landTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -167,6 +176,8 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
         }
 
         binding.startCalibretingCompass.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.startCalibrateCompassTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -188,6 +199,8 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
         }
 
         binding.getVersionInfo.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.getVersionInfoTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -209,6 +222,8 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
         }
 
         binding.getSerialNumber.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.getSerialNumberTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -230,6 +245,8 @@ class AircraftStatusDirectCommandFCFragment : Fragment() {
         }
 
         binding.isAttitudeModeEnabled.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.isAttitudeModeEnableTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->

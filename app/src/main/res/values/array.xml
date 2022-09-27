@@ -106,7 +106,7 @@
     </string-array>
 
     <string-array name="fly_controllers">
-        <item> CruiserFlyControllerImpl </item>
+        <item> Cruiser Fly Controller</item>
     </string-array>
 
     <string-array name="rc_Boolean">

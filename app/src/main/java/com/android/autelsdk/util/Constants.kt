@@ -27,7 +27,7 @@ object Constants {
     const val RemoteController20 = "Remote Controller 20"
 
     //Fly Controller Names
-    const val AutelFlyController20 = "AutelFlyController20"
-    const val CruiserFlyController = "CruiserFlyController"
+    const val AutelFlyController20 = "Autel FlyController 20"
+    const val CruiserFlyController = "Cruiser Fly Controller"
 
 }

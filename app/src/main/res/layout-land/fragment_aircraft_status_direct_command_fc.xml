@@ -54,18 +54,6 @@
             app:layout_constraintTop_toTopOf="@+id/goHomeTest" />
 
         <Button
-            android:id="@+id/cancelLand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            android:text="Cancel Land"
-            android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="@+id/cancelReturn"
-            app:layout_constraintStart_toEndOf="@+id/cancelReturn"
-            app:layout_constraintTop_toTopOf="@+id/cancelReturn" />
-
-        <Button
             android:id="@+id/land"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -73,8 +61,33 @@
             android:layout_marginVertical="10dp"
             android:text="Land"
             android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="@+id/cancelReturn"
+            app:layout_constraintStart_toEndOf="@+id/cancelReturn"
+            app:layout_constraintTop_toTopOf="@+id/cancelReturn"/>
+
+        <Button
+            android:id="@+id/cancelLand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:text="Cancel Land"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="@+id/craftLocationasHomepoint"
+            app:layout_constraintStart_toEndOf="@+id/craftLocationasHomepoint"
+            app:layout_constraintTop_toTopOf="@+id/craftLocationasHomepoint" />
+
+        <Button
+            android:id="@+id/isAttitudeModeEnabled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:text="Check Attitude Mode Enabled"
+            android:textAllCaps="false"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/craftLocationasHomepoint" />
+            app:layout_constraintTop_toBottomOf="@+id/craftLocationasHomepoint"
+            />
 
         <Button
             android:id="@+id/startCalibretingCompass"
@@ -84,9 +97,9 @@
             android:layout_marginVertical="10dp"
             android:text="Start Calibrating Compass"
             android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="@+id/land"
-            app:layout_constraintStart_toEndOf="@+id/land"
-            app:layout_constraintTop_toTopOf="@+id/land" />
+            app:layout_constraintBottom_toBottomOf="@+id/isAttitudeModeEnabled"
+            app:layout_constraintStart_toEndOf="@+id/isAttitudeModeEnabled"
+            app:layout_constraintTop_toTopOf="@+id/isAttitudeModeEnabled" />
 
         <Button
             android:id="@+id/craftLocationasHomepoint"
@@ -109,7 +122,7 @@
             android:text="Get Version Info"
             android:textAllCaps="false"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/land" />
+            app:layout_constraintTop_toBottomOf="@+id/startCalibretingCompass" />
 
         <Button
             android:id="@+id/getSerialNumber"
@@ -124,19 +137,6 @@
             app:layout_constraintTop_toTopOf="@+id/getVersionInfo" />
 
 
-
-        <Button
-            android:id="@+id/isAttitudeModeEnabled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginVertical="10dp"
-            android:text="Check Attitude Mode Enabled"
-            android:textAllCaps="false"
-            app:layout_constraintTop_toBottomOf="@id/getVersionInfo"
-            app:layout_constraintStart_toStartOf="@id/getVersionInfo"
-             />
-
         <TextView
             android:id="@+id/testResults"
             android:layout_width="wrap_content"
@@ -145,7 +145,7 @@
             android:paddingVertical="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/isAttitudeModeEnabled"
+            app:layout_constraintTop_toBottomOf="@+id/getVersionInfo"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra er" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

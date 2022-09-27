@@ -173,7 +173,7 @@ class FlyControllerActivity : BaseActivity<AutelFlyController>() {
                             Log.i("Rl","split completed "+splitWords)
                             list = arrayListOf(splitWords[0],splitWords[1],splitWords[2],splitWords[4])
                             Log.i("Rl","assigning completed "+list)
-                            createReport(list)
+                            //createReport(list)
                         }
                         Status.ERROR -> {
                            // binding.testResults.append(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
@@ -183,7 +183,7 @@ class FlyControllerActivity : BaseActivity<AutelFlyController>() {
                             Log.i("Rl","split completed "+splitWords)
                             list = arrayListOf(splitWords[0],splitWords[1],splitWords[2],splitWords[4],splitWords[4],splitWords[5])
                             Log.i("Rl","assigning completed "+list)
-                            createReport(list)
+                            //createReport(list)
                         }
                         else -> {
 

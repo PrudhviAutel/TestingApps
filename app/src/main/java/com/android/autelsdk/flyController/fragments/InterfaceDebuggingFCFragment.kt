@@ -69,9 +69,6 @@ class InterfaceDebuggingFCFragment : Fragment() {
 
     private fun getCurrentFlyControllerByName(controller : AutelFlyController) : String {
         when(controller) {
-            is AutelFlyController20 -> {
-                return Constants.AutelFlyController20
-            }
             is CruiserFlyControllerImpl -> {
                 return Constants.CruiserFlyController
             }
@@ -84,9 +81,6 @@ class InterfaceDebuggingFCFragment : Fragment() {
             Constants.CruiserFlyController -> {
                 return CruiserFlyControllerImpl()
             }
-//            Constants.RemoteController20 -> {
-//                return RemoteController20()
-//            }
         }
         return viewModel.getFlyController()
     }

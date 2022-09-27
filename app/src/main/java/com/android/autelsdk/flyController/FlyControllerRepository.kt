@@ -20,20 +20,19 @@ interface FlyControllerRepository {
     suspend fun setMaxHorizontalSpeedTest(value: Double): MutableLiveData<Resource<String>>
     suspend fun getMaxHorizontalSpeedTest(): MutableLiveData<Resource<Float>>
     suspend fun setCalibrateCompassListenerTest(): MutableLiveData<Resource<CalibrateCompassStatus>>
-    /***/suspend fun getSerialNumberTest(): MutableLiveData<Resource<String>>
-    /***/suspend fun getVersionInfoTest(): MutableLiveData<Resource<FlyControllerVersionInfo>>
-    /***/suspend fun cancelLandTest(): MutableLiveData<Resource<String>>
-    /***/suspend fun cancelReturnTest(): MutableLiveData<Resource<String>>
-    /***/suspend fun goHomeTest(): MutableLiveData<Resource<String>>
-    /***/suspend fun landTest(): MutableLiveData<Resource<String>>
-    /***/suspend fun startCalibrateCompassTest(): MutableLiveData<Resource<CalibrateCompassStatus>>
-    /***/suspend fun setAircraftLocationAsHomePointTest(): MutableLiveData<Resource<String>>
-    /***/suspend fun setLocationAsHomePointTest(lat: Double, lon: Double): MutableLiveData<Resource<String>>
+    suspend fun getSerialNumberTest(): MutableLiveData<Resource<String>>
+    suspend fun getVersionInfoTest(): MutableLiveData<Resource<FlyControllerVersionInfo>>
+    suspend fun cancelLandTest(): MutableLiveData<Resource<String>>
+    suspend fun cancelReturnTest(): MutableLiveData<Resource<String>>
+    suspend fun goHomeTest(): MutableLiveData<Resource<String>>
+    suspend fun landTest(): MutableLiveData<Resource<String>>
+    suspend fun startCalibrateCompassTest(): MutableLiveData<Resource<CalibrateCompassStatus>>
+    suspend fun setAircraftLocationAsHomePointTest(): MutableLiveData<Resource<String>>
+    suspend fun setLocationAsHomePointTest(lat: Double, lon: Double): MutableLiveData<Resource<String>>
     suspend fun setLedPilotLampTest(ledPilotLamp: LedPilotLamp): MutableLiveData<Resource<String>>
     suspend fun getLedPilotLampTest(): MutableLiveData<Resource<LedPilotLamp>>
-    /***/suspend fun setAttitudeModeEnableTest(enable: Boolean): MutableLiveData<Resource<Boolean>>
-    /***/suspend fun isAttitudeModeEnableTest(): MutableLiveData<Resource<Boolean>>
-    //fun setWarningListenerTest(): MutableLiveData<Resource<ARMWarning>>
+    suspend fun setAttitudeModeEnableTest(enable: Boolean): MutableLiveData<Resource<Boolean>>
+    suspend fun isAttitudeModeEnableTest(): MutableLiveData<Resource<Boolean>>
     fun setWarningListenerTest(): MutableLiveData<Resource<ARMWarning>>
 
      fun setFlyController(controller : AutelFlyController)

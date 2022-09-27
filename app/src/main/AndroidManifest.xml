@@ -41,21 +41,24 @@
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".flyController.FlyControllerActivity"
             android:label="Fly Controller"
+            android:screenOrientation="landscape"
             android:exported="false" />
 
         <activity
             android:name="com.android.autelsdk.MainActivity2"
             android:label="SDK Tester"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <receiver

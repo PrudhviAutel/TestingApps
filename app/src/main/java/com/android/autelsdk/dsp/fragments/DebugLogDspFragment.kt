@@ -1,4 +1,4 @@
-package com.android.autelsdk.gimbal.fragments
+package com.android.autelsdk.dsp.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

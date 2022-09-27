@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.autelsdk.databinding.ModuleItemBinding
+import com.android.autelsdk.dsp.DspActivity
 import com.android.autelsdk.flyController.FlyControllerActivity
 import com.android.autelsdk.flyController.FlyControllerRepositoryImpl
 import com.android.autelsdk.gimbal.GimbalActivity
@@ -57,6 +58,9 @@ class ModuleRecyclerViewAdapter : RecyclerView.Adapter<ModuleViewHolder>() {
                 }
                 Constants.Gimbal -> {
                     context.startActivity(Intent(context, GimbalActivity::class.java))
+                }
+                Constants.Dsp -> {
+                    context.startActivity(Intent(context, DspActivity::class.java))
                 }
             }
         })

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:animateLayoutChanges="true">
+
+            <include
+                android:id="@+id/rfData"
+                app:testName="@{`SW_RF_Data`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set RF Data`}"
+                app:showExtraSpinner="@{true}"
+                app:showExtraEdittext="@{true}"
+                app:extraEdittextHint="@{`max retry count (default=3)`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/syncMsgBroadcastListener"
+                app:testName="@{`SW_Sync_Message_Broadcast_Listener`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Sync Message Broadcast Listener`}"
+                app:showExtraSpinner="@{true}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/bandwidthInfo"
+                app:testName="@{`SW_Bandwidth_Info`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Bandmode and Bandwidth`}"
+                app:showExtraSpinner="@{true}"
+                app:showExtraSpinner2="@{true}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/transferMode"
+                app:testName="@{`SW_Transfer_Mode`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Transfer Mode`}"
+                app:showExtraSpinner="@{true}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/baseStationState"
+                app:testName="@{`SW_BaseStation_State`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set BaseStation State`}"
+                app:showExtraSpinner="@{true}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/routeWifiConfig"
+                app:testName="@{`SW_Route_Wifi_Config`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Route Wifi Config`}"
+                app:showExtraSpinner="@{true}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

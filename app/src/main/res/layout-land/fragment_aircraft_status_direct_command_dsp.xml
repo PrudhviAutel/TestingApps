@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
+
+
+        <TextView
+            android:id="@+id/planeConnectStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="The plane is not connected"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="14dp"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/setDspInfoListener"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set Dsp Info Listener"
+            android:textAllCaps="false"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/planeConnectStatus" />
+
+        <Button
+            android:id="@+id/enableVideoLinkState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:text="Enable Video Linking"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/setDspInfoListener" />
+
+        <Button
+            android:id="@+id/disableVideoLinkState"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:text="Disable Video Linking"
+            android:visibility="visible"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="@+id/enableVideoLinkState"
+            app:layout_constraintStart_toEndOf="@+id/enableVideoLinkState"
+            app:layout_constraintTop_toTopOf="@+id/enableVideoLinkState" />
+
+        <Button
+            android:id="@+id/getVersionInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:text="Get Version Info"
+            android:textAllCaps="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/enableVideoLinkState" />
+
+        <Button
+            android:id="@+id/getDeviceVersionInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            android:text="Get Serial Number"
+            android:visibility="visible"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="@+id/getVersionInfo"
+            app:layout_constraintStart_toEndOf="@+id/getVersionInfo"
+            app:layout_constraintTop_toTopOf="@+id/getVersionInfo" />
+
+        <TextView
+            android:id="@+id/testResults"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/getVersionInfo"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra er" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

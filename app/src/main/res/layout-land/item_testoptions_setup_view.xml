@@ -11,6 +11,7 @@
         <variable name="viewButtonText" type="java.lang.String"/>
         <variable name="extraOptionText" type="java.lang.String"/>
         <variable name="showExtraSpinner" type="java.lang.Boolean"/>
+        <variable name="showExtraSpinner2" type="java.lang.Boolean"/>
         <variable name="extraEdittextHint" type="java.lang.String"/>
         <variable name="showExtraEdittext" type="java.lang.Boolean"/>
     </data>
@@ -96,6 +97,14 @@
                 tools:visibility="visible"
                 android:visibility="@{showExtraEdittext ? View.VISIBLE : View.GONE, default=gone}"/>
 
+            <Spinner
+                android:id="@+id/extraSpinner2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                tools:visibility="gone"
+                android:visibility="@{showExtraSpinner2 ? View.VISIBLE : View.GONE, default=gone}"
+                tools:entries="@array/rc_languages" />
             <Button
                 android:id="@+id/extraOption"
                 android:layout_width="wrap_content"

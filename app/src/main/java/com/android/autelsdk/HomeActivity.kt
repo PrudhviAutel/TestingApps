@@ -23,7 +23,8 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        sdkName = intent.getStringExtra("SdkName").toString()
+        //sdkName = intent.getStringExtra("SdkName").toString()
+        sdkName = "DragonFish SDK"
 
         binding.textSdkName.text = sdkName
         binding.recyclerviewListOfComponent.layoutManager = GridLayoutManager(this, 2)

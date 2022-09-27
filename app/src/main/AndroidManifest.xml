@@ -35,6 +35,11 @@
             android:screenOrientation="landscape"
             android:exported="false" />
         <activity
+            android:name=".dsp.DspActivity"
+            android:label="Dsp Activity"
+            android:screenOrientation="landscape"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity

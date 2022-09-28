@@ -25,22 +25,27 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".remoteController.RemoteControllerActivity"
-            android:label="Remote Controller"
-            android:screenOrientation="landscape"
+            android:name=".BatteryActivity"
             android:exported="false" />
+        <activity
+            android:name=".DFWayPointActivity"
+            android:exported="false" />
+        <activity
+            android:name=".remoteController.RemoteControllerActivity"
+            android:exported="false"
+            android:label="Remote Controller"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
             android:name=".flyController.FlyControllerActivity"
-            android:label="Fly Controller"
-            android:exported="false" />
-
+            android:exported="false"
+            android:label="Fly Controller" />
         <activity
             android:name="com.android.autelsdk.MainActivity2"
-            android:label="SDK Tester"
-            android:exported="true">
+            android:exported="true"
+            android:label="SDK Tester">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

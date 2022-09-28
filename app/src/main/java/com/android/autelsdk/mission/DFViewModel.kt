@@ -7,6 +7,7 @@ import com.android.autelsdk.TestApplication
 import com.android.autelsdk.rxrunnable.IOUiRunnable
 import com.android.autelsdk.util.FileUtils
 import com.autel.common.CallbackWithOneParam
+import com.autel.common.CallbackWithOneParamProgress
 import com.autel.common.battery.cruiser.CruiserBatteryInfo
 import com.autel.common.error.AutelError
 import com.autel.common.flycontroller.AutoSafeState
@@ -28,21 +29,19 @@ import com.autel.sdk.remotecontroller.AutelRemoteController
 import com.autel.sdk10.utils.BytesUtils
 import com.autel.util.log.AutelLog
 import io.reactivex.Observable
-import io.reactivex.internal.util.HalfSerializer.onNext
-import io.reactivex.plugins.RxJavaPlugins.onError
 import java.util.*
 
 class DFViewModel(val context: Context) : ViewModel() {
 
-    val flyState = FlyState.None
+    var flyState = FlyState.None
     val filePath = FileUtils.getMissionFilePath().toString() + "mission.aut"
     var autelMission: CruiserWaypointMission? = null
-     var mEvoFlyController: CruiserFlyController? = null
-     var battery: CruiserBattery? = null
-     var remoteController: AutelRemoteController? = null
-     var missionManager: MissionManager? = null
-     var isDroneCheckFinish = false
-     var isDroneOk = false
+    var mEvoFlyController: CruiserFlyController? = null
+    var battery: CruiserBattery? = null
+    var remoteController: AutelRemoteController? = null
+    var missionManager: MissionManager? = null
+    var isDroneCheckFinish = false
+    var isDroneOk = false
     var TAG = "DFWayPointActivity"
 
     enum class FlyState {
@@ -125,7 +124,7 @@ class DFViewModel(val context: Context) : ViewModel() {
         autelMission!!.finishedAction = CruiserWaypointFinishedAction.RETURN_HOME
     }
 
-    private fun getAutoCheckResult(modelType: ModelType) {
+    fun getAutoCheckResult(modelType: ModelType) {
         if (null != mEvoFlyController) {
             object : IOUiRunnable<AutoSafeState?>() {
                 var retryCount = 0
@@ -195,15 +194,58 @@ class DFViewModel(val context: Context) : ViewModel() {
                 }
             }.execute()
         }
+    }
 
-         fun autoCheck(modelType: ModelType){
-           isDroneCheckFinish = false
-           isDroneOk = false
+    fun autoCheck(modelType: ModelType) {
+        isDroneCheckFinish = false
+        isDroneOk = false
 
+        object : IOUiRunnable<Boolean?>() {
+            override fun generateObservable(): Observable<Boolean?>? {
+                return mEvoFlyController?.toRx()?.autoSafeCheck(modelType)
+            }
 
+            override fun onNext(success: Boolean) {
+                super.onNext(success)
+            }
+
+            override fun onError(e: Throwable) {
+                super.onError(e)
+            }
+        }.execute()
+    }
+
+    fun doPrepare() {
+        if (flyState != FlyState.None) {
+            Toast.makeText(context, "当前状态，不能执行", Toast.LENGTH_LONG).show()
+            return
         }
+        if (null != missionManager) {
+            missionManager!!.prepareMission(
+                autelMission,
+                filePath,
+                object : CallbackWithOneParamProgress<Boolean?> {
+                    override fun onProgress(v: Float) {
+                        AutelLog.d(TAG, " prepareMission onProgress $v")
+                    }
 
+                    override fun onSuccess(p0: Boolean?) {
+                        flyState = FlyState.Prepare
+                        AutelLog.d("prepareMission success")
+                        Toast.makeText(
+                            context,
+                            "prepare success",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
 
+                    override fun onFailure(autelError: AutelError) {
+                        AutelLog.d("prepareMission onFailure")
+                        Toast.makeText(context, "prepare failed", Toast.LENGTH_LONG)
+                            .show()
+                    }
+                })
+        }
     }
 }
 

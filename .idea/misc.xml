@@ -3,9 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/ac_base_battery.xml" value="0.15211640211640212" />
+        <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/activity_battery.xml" value="0.15211640211640212" />
+        <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/activity_gimbal.xml" value="0.15211640211640212" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/activity_remote_controller.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/item_options.xml" value="0.15211640211640212" />
+        <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/item_testoptions_setup_view.xml" value="0.15211640211640212" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout/ac_base_battery.xml" value="0.22" />
-        <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout/activity_battery.xml" value="0.1796875" />
+        <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout/activity_battery.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout/activity_dfway_point.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout/activity_remote_controller.xml" value="0.14130434782608695" />
         <entry key="..\:/ea-omega/MyApplication2/app/src/main/res/layout/activity_main.xml" value="0.27447916666666666" />

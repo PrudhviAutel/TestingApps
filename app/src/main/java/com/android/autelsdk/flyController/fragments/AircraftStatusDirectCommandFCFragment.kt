@@ -1,4 +1,4 @@
-package com.android.autelsdk.remoteController.fragments
+package com.android.autelsdk.flyController.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,8 +10,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
+import com.android.autelsdk.databinding.FragmentAircraftStatusDirectCommandFcBinding
 import com.android.autelsdk.databinding.FragmentAircraftStatusDirectCommandRcBinding
+import com.android.autelsdk.flyController.FlyControllerViewModel
 import com.android.autelsdk.remoteController.RemoteControllerViewModel
+import com.android.autelsdk.remoteController.fragments.AircraftStatusDirectCommandRCFragment
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Status
 import com.android.autelsdk.util.Utils
@@ -22,13 +25,13 @@ import com.autel.common.remotecontroller.TeachingMode
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AircraftStatusDirectCommandRCFragment : Fragment() {
+class AircraftStatusDirectCommandFCFragment : Fragment() {
 
-    private lateinit var binding: FragmentAircraftStatusDirectCommandRcBinding
-    private val viewModel: RemoteControllerViewModel by activityViewModels()
+    private lateinit var binding: FragmentAircraftStatusDirectCommandFcBinding
+    private val viewModel: FlyControllerViewModel by activityViewModels()
 
     companion object {
-        fun newInstance() = AircraftStatusDirectCommandRCFragment()
+        fun newInstance() = AircraftStatusDirectCommandFCFragment()
     }
 
 
@@ -36,7 +39,7 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_aircraft_status_direct_command_rc , container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_aircraft_status_direct_command_fc , container, false)
         return binding.root
     }
 
@@ -57,11 +60,11 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
     }
 
     private fun handleListeners() {
+        binding.goHomeTest.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
 
-        binding.enterBinding.setOnClickListener {
-            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.enterPairingTest()
+                viewModel.goHomeTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
 
                         when (msg.status) {
@@ -80,17 +83,12 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
             }
         }
 
-        binding.exitBinding.setOnClickListener {
-            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
-            viewModel.exitPairing()
-            binding.testResults.setText(Utils.getColoredText("Exit Pairing Successful", Constants.SUCCESS))
-        }
-
-        binding.disableTeachingMode.setOnClickListener {
-            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
+        binding.cancelReturn.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setTeacherStudentModeTest(TeachingMode.DISABLED)
+                viewModel.cancelReturnTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
+
                         when (msg.status) {
                             Status.SUCCESS -> {
                                 binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
@@ -107,11 +105,14 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
             }
         }
 
-        binding.enableStudentMode.setOnClickListener {
-            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
+        binding.cancelLand.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setTeacherStudentModeTest(TeachingMode.STUDENT)
+                viewModel.cancelLandTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
+                        binding.testResults.setText("No response for this")
+
                         when (msg.status) {
                             Status.SUCCESS -> {
                                 binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
@@ -128,11 +129,13 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
             }
         }
 
-        binding.enableTeachingMode.setOnClickListener {
-            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
+        binding.craftLocationasHomepoint.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setTeacherStudentModeTest(TeachingMode.TEACHER)
+                viewModel.setAircraftLocationAsHomePointTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
+
                         when (msg.status) {
                             Status.SUCCESS -> {
                                 binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
@@ -149,11 +152,13 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
             }
         }
 
-        binding.startStickCalibration.setOnClickListener {
-            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
+        binding.land.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setStickCalibrationTest(RemoteControllerStickCalibration.START)
+                viewModel.landTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
+
                         when (msg.status) {
                             Status.SUCCESS -> {
                                 binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
@@ -165,15 +170,18 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
 
                             }
                         }
+
                     })
             }
         }
 
-        binding.completeStickCalibration.setOnClickListener {
-            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
+        binding.startCalibretingCompass.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setStickCalibrationTest(RemoteControllerStickCalibration.COMPLETE)
+                viewModel.startCalibrateCompassTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
+
                         when (msg.status) {
                             Status.SUCCESS -> {
                                 binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
@@ -185,15 +193,18 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
 
                             }
                         }
+
                     })
             }
         }
 
         binding.getVersionInfo.setOnClickListener {
-            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.getVersionInfoTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
+
                         when (msg.status) {
                             Status.SUCCESS -> {
                                 binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
@@ -205,15 +216,18 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
 
                             }
                         }
+
                     })
             }
         }
 
         binding.getSerialNumber.setOnClickListener {
-            binding.testResults.setText(Utils.getColoredText("Please Wait..."))
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.getSerialNumberTest()
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
+
                         when (msg.status) {
                             Status.SUCCESS -> {
                                 binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
@@ -225,10 +239,33 @@ class AircraftStatusDirectCommandRCFragment : Fragment() {
 
                             }
                         }
+
                     })
             }
         }
 
+        binding.isAttitudeModeEnabled.setOnClickListener {
+            binding.testResults.setText(Utils.getColoredText("Please Wait...", Constants.COMMON))
+
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.isAttitudeModeEnableTest()
+                    .observeOnce(viewLifecycleOwner, Observer { msg ->
+
+                        when (msg.status) {
+                            Status.SUCCESS -> {
+                                binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                            }
+                            Status.ERROR -> {
+                                binding.testResults.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                            }
+                            else -> {
+
+                            }
+                        }
+
+                    })
+            }
+        }
     }
 
 }

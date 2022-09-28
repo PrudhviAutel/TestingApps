@@ -2,9 +2,9 @@ package com.android.autelsdk.flyController
 
 import androidx.lifecycle.MutableLiveData
 import com.android.autelsdk.util.Resource
-import com.autel.common.flycontroller.CalibrateCompassStatus
-import com.autel.common.flycontroller.FlyControllerVersionInfo
-import com.autel.common.flycontroller.LedPilotLamp
+import com.autel.common.flycontroller.*
+import com.autel.sdk.flycontroller.AutelFlyController
+import com.autel.sdk.remotecontroller.AutelRemoteController
 
 interface FlyControllerRepository {
 
@@ -33,4 +33,9 @@ interface FlyControllerRepository {
     suspend fun getLedPilotLampTest(): MutableLiveData<Resource<LedPilotLamp>>
     suspend fun setAttitudeModeEnableTest(enable: Boolean): MutableLiveData<Resource<Boolean>>
     suspend fun isAttitudeModeEnableTest(): MutableLiveData<Resource<Boolean>>
+    fun setWarningListenerTest(): MutableLiveData<Resource<ARMWarning>>
+
+     fun setFlyController(controller : AutelFlyController)
+
+    fun takeOffTest(): MutableLiveData<Resource<Pair<Boolean, FlightErrorState>>>
 }

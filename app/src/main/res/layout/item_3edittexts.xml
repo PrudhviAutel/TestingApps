@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable name="testName" type="java.lang.String"/>
+        <variable name="setButtonText" type="java.lang.String"/>
+        <variable name="viewButtonText" type="java.lang.String"/>
+        <variable name="extraOptionText" type="java.lang.String"/>
+        <variable name="setValuesOptionText" type="java.lang.String"/>
+        <variable name="showExtraSpinner" type="java.lang.Boolean"/>
+        <variable name="extraEdittextHint" type="java.lang.String"/>
+        <variable name="showExtraEdittext" type="java.lang.Boolean"/>
+        <variable name="extraEdittext1Hint" type="java.lang.String"/>
+        <variable name="showExtraEdittext1" type="java.lang.Boolean"/>
+        <variable name="extraEdittext2Hint" type="java.lang.String"/>
+        <variable name="showExtraEdittext2" type="java.lang.Boolean"/>
+        <variable name="extraEdittext3Hint" type="java.lang.String"/>
+        <variable name="showExtraEdittext3" type="java.lang.Boolean"/>
+        <variable name="extraEdittext4Hint" type="java.lang.String"/>
+        <variable name="showExtraEdittext4" type="java.lang.Boolean"/>
+        <variable name="extraEdittext5Hint" type="java.lang.String"/>
+        <variable name="showExtraEdittext5" type="java.lang.Boolean"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:animateLayoutChanges="true">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="10dp"
+            tools:text="SM_Max_Height"
+            android:textSize="16sp"
+            android:maxWidth="200dp"
+            android:text="@{testName}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/setBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Set up"
+            android:text="@{setButtonText}"
+            android:textAllCaps="false"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
+            app:layout_constraintEnd_toStartOf="@+id/viewBtn"
+            app:layout_constraintStart_toEndOf="@+id/title"
+            app:layout_constraintTop_toTopOf="@+id/title" />
+
+        <Button
+            android:id="@+id/viewBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="View"
+            android:text="@{viewButtonText}"
+            android:textAllCaps="false"
+            android:layout_marginHorizontal="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/title" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/setValuesParent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:animateLayoutChanges="true"
+            android:layout_marginVertical="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/extraOptionParent">
+
+            <EditText
+                android:id="@+id/extraEdittext1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@{extraEdittext1Hint, default=@string/app_name}"
+                android:inputType="numberDecimal"
+                android:layout_marginLeft="20dp"
+                android:paddingHorizontal="10dp"
+                android:visibility="@{showExtraEdittext1 ? View.VISIBLE : View.GONE, default=gone}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:hint="angle roll"
+                tools:visibility="visible" />
+
+            <EditText
+                android:id="@+id/extraEdittext2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@{extraEdittext2Hint, default=@string/app_name}"
+                android:inputType="numberDecimal"
+                android:layout_marginHorizontal="10dp"
+                android:paddingHorizontal="10dp"
+                android:visibility="@{showExtraEdittext2 ? View.VISIBLE : View.GONE, default=gone}"
+                app:layout_constraintEnd_toStartOf="@+id/extraEdittext3"
+                app:layout_constraintStart_toEndOf="@+id/extraEdittext1"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:hint="angle yaw"
+                tools:visibility="visible" />
+
+            <EditText
+                android:id="@+id/extraEdittext3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@{extraEdittext3Hint, default=@string/app_name}"
+                android:inputType="numberDecimal"
+                android:paddingHorizontal="10dp"
+                android:layout_marginRight="20dp"
+                android:visibility="@{showExtraEdittext3 ? View.VISIBLE : View.GONE, default=gone}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:hint="angle pitch"
+                tools:visibility="visible" />
+
+            <EditText
+                android:id="@+id/extraEdittext4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:paddingHorizontal="10dp"
+                android:hint="@{extraEdittext4Hint, default=@string/app_name}"
+                android:inputType="numberDecimal"
+                android:visibility="@{showExtraEdittext4 ? View.VISIBLE : View.GONE, default=gone}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/extraEdittext1"
+                tools:hint="angle roll"
+                tools:visibility="visible" />
+
+            <EditText
+                android:id="@+id/extraEdittext5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@{extraEdittext5Hint, default=@string/app_name}"
+                android:inputType="numberDecimal"
+                android:paddingHorizontal="10dp"
+                android:layout_marginRight="20dp"
+                android:visibility="@{showExtraEdittext5 ? View.VISIBLE : View.GONE, default=gone}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/extraEdittext3"
+                tools:hint="angle pitch"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/setValuesOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@{setValuesOptionText}"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/extraEdittext1"
+                tools:text="Set and Save Params" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/extraOptionParent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="horizontal"
+
+            android:layout_marginVertical="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title">
+
+
+
+            <Spinner
+                android:id="@+id/extraSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                tools:visibility="visible"
+                android:visibility="@{showExtraSpinner ? View.VISIBLE : View.GONE, default=gone}"
+                android:entries="@array/rc_languages" />
+
+            <EditText
+                android:id="@+id/extraEdittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:layout_marginLeft="10dp"
+                tools:hint="@string/rc_yaw_coefficient"
+                android:hint="@{extraEdittextHint, default=@string/app_name}"
+                android:inputType="numberDecimal"
+                tools:visibility="visible"
+                android:visibility="@{showExtraEdittext ? View.VISIBLE : View.GONE, default=gone}"/>
+
+            <Button
+                android:id="@+id/extraOption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_marginLeft="10dp"
+                tools:text="Set Language"
+                android:text="@{extraOptionText}"
+                android:textAllCaps="false" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/showResponseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="20dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/setValuesParent"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra er" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

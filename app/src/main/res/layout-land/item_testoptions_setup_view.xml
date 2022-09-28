@@ -12,7 +12,9 @@
         <variable name="extraOptionText" type="java.lang.String"/>
         <variable name="showExtraSpinner" type="java.lang.Boolean"/>
         <variable name="extraEdittextHint" type="java.lang.String"/>
+        <variable name="extraEdittextHint2" type="java.lang.String"/>
         <variable name="showExtraEdittext" type="java.lang.Boolean"/>
+        <variable name="showExtraEdittext2" type="java.lang.Boolean"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -95,6 +97,18 @@
                 android:inputType="numberDecimal"
                 tools:visibility="visible"
                 android:visibility="@{showExtraEdittext ? View.VISIBLE : View.GONE, default=gone}"/>
+            <EditText
+                android:id="@+id/extraEdittext2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:layout_marginLeft="10dp"
+                tools:hint="@string/rc_yaw_coefficient"
+                android:hint="@{extraEdittextHint2, default=@string/app_name}"
+                android:inputType="numberDecimal"
+                tools:visibility="visible"
+                android:visibility="@{showExtraEdittext2 ? View.VISIBLE : View.GONE, default=gone}"/>
+
 
             <Button
                 android:id="@+id/extraOption"

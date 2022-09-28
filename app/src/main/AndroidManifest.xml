@@ -32,25 +32,34 @@
             android:exported="false" />
         <activity
             android:name=".remoteController.RemoteControllerActivity"
-            android:exported="false"
             android:label="Remote Controller"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".HomeActivity"
+            android:screenOrientation="landscape"
             android:exported="false" />
         <activity
-            android:name=".flyController.FlyControllerActivity"
-            android:exported="false"
-            android:label="Fly Controller" />
+            android:name=".gimbal.GimbalActivity"
+            android:label="Gimbal Activity"
+            android:screenOrientation="landscape"
+            android:exported="false" />
         <activity
-            android:name="com.android.autelsdk.MainActivity2"
-            android:exported="true"
-            android:label="SDK Tester">
+            android:name=".HomeActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".flyController.FlyControllerActivity"
+            android:label="Fly Controller"
+            android:screenOrientation="landscape"
+            android:exported="false" />
+
+        <activity
+            android:name="com.android.autelsdk.MainActivity2"
+            android:label="SDK Tester"
+            android:exported="true">
+
         </activity>
 
         <receiver

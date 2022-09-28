@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:animateLayoutChanges="true">
+
+            <include
+                android:id="@+id/beginnerMode"
+                app:testName="@{`SW_Beginner_Mode_State`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Beginner Mode`}"
+                app:showExtraSpinner="@{true}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/maxHeight"
+                app:testName="@{`SW_Max_Height`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Height`}"
+                app:showExtraEdittext ="@{true}"
+                app:extraEdittextHint="@{`Height`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/maxRange"
+                app:testName="@{`SW_Max_Range`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Range`}"
+                app:showExtraEdittext ="@{true}"
+                app:extraEdittextHint="@{`Range`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/returnHeight"
+                app:testName="@{`SW_Return_Height`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Return Height`}"
+                app:showExtraEdittext="@{true}"
+                app:extraEdittextHint="@{`Return Height`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+                <include
+                android:id="@+id/maxHorizontalSpeed"
+                app:testName="@{`SW_Max_Horizontal_Speed`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Horizontal Speed`}"
+                app:showExtraEdittext="@{true}"
+                app:extraEdittextHint="@{`Horizontal Speed`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/attitudeModeTest"
+                app:testName="@{`SW_Enable_Attitude_Mode`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`Reset`}"
+                app:extraOptionText="@{`Set State`}"
+                app:showExtraSpinner="@{true}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/locationasHomePoint"
+                app:testName="@{`SW_Location_As_Homepoint`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`Reset`}"
+                app:extraOptionText="@{`Set Location`}"
+                app:showExtraEdittext="@{true}"
+                app:showExtraEdittext2="@{true}"
+                app:extraEdittextHint="@{`latitude`}"
+                app:extraEdittextHint2="@{`longitude`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/ledLampPilot"
+                app:testName="@{`SW_LED_Pilot_Lamp`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set State`}"
+                app:showExtraSpinner = "@{true}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/warningListener"
+                app:testName="@{`SW_Warning_Listener`}"
+                app:setButtonText="@{`Set`}"
+                app:viewButtonText="@{`Reset`}"
+                app:extraOptionText="@{`Set Warning Listener`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

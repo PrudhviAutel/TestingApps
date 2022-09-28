@@ -246,15 +246,18 @@ class FlightControlParameterReadingRCFragment : Fragment() {
         }
 
         binding.yawCoefficient.extraOption.setOnClickListener {
+            closeAllExtraOptionLayouts()
             binding.yawCoefficient.showResponseText.visibility = View.VISIBLE
             binding.yawCoefficient.showResponseText.setText("Please Wait...")
             val support = viewModel.getParameterRangeManager().yawCoefficient
             var yawCoefficient = 0.3f
             if (!TextUtils.isEmpty(binding.yawCoefficient.extraEdittext.text)) {
                 yawCoefficient = binding.yawCoefficient.extraEdittext.text.toString().toFloat()
-                if (yawCoefficient > support.valueTo || yawCoefficient < support.valueFrom)
-                    binding.yawCoefficient.showResponseText.setText(Utils.getColoredText("Please enter Yaw Coefficient from ${support.valueFrom} to ${support.valueTo}", Constants.SUCCESS))
-                return@setOnClickListener
+                if (yawCoefficient > support.valueTo || yawCoefficient < support.valueFrom) {
+                    binding.yawCoefficient.showResponseText.setText(Utils.getColoredText("Please enter Yaw Coefficient from ${support.valueFrom} to ${support.valueTo}",
+                        Constants.SUCCESS))
+                    return@setOnClickListener
+                }
             } else {
                 binding.yawCoefficient.showResponseText.setText(Utils.getColoredText("Please enter Yaw Coefficient from ${support.valueFrom} to ${support.valueTo}", Constants.FAILED))
                 return@setOnClickListener

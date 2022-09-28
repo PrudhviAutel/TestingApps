@@ -123,5 +123,8 @@
     <string name="previousReports">Previous reports</string>
     <string name="not_getting_any_response">\"Not getting any response for \"</string>
     <string name="battery">Battery</string>
+    <string name="testCaseName">Test case name</string>
+    <string name="setUp">Set up</string>
+    <string name="viewUp">View</string>
 
 </resources>

@@ -126,5 +126,6 @@
     <string name="testCaseName">Test case name</string>
     <string name="setUp">Set up</string>
     <string name="viewUp">View</string>
+    <string name="testResultToBeDisplayed"> Test Result will be displayed here</string>
 
 </resources>

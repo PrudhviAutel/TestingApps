@@ -21,6 +21,13 @@ class GeneralUtils {
             return list
         }
 
+        fun getACStatusCommandForBattery(): ArrayList<String> {
+            var list = ArrayList<String>()
+            list.add("")
+
+            return list
+        }
+
         fun getTypeOfIndividualTest() {
 
         }

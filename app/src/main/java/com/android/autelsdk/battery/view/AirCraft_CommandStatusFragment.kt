@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.autelsdk.battery.BatteryViewModel
 import com.android.autelsdk.battery.adapter.AirCraftStatusAdapter
-import com.android.autelsdk.databinding.AcManualIndividualFragmentBinding
 import com.android.autelsdk.databinding.AcStatusCommandFragmentBinding
+import com.autel.common.product.AutelProductType
 
 class AirCraft_CommandStatusFragment : Fragment() {
     lateinit var binding: AcStatusCommandFragmentBinding
@@ -31,6 +31,17 @@ class AirCraft_CommandStatusFragment : Fragment() {
 
         binding.recyclerCommandList.layoutManager = LinearLayoutManager(activity)
         binding.recyclerCommandList.adapter = adapter
+        initUi()
         return binding.root
     }
+
+    private fun initUi() {
+        if (viewModel.getCurrentProductType().value == AutelProductType.UNKNOWN) {
+            binding.planeConnectStatus.setText("The plane is not connected")
+        } else {
+            binding.planeConnectStatus.setText("Connected Plane - ${viewModel.getCurrentProductType().value?.name}")
+        }
+    }
+
+
 }

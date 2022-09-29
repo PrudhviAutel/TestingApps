@@ -11,12 +11,12 @@ import com.android.autelsdk.R
 import com.android.autelsdk.battery.BatteryViewModel
 import com.android.autelsdk.databinding.FragmentInterfaceDebuggingGimbalBinding
 
-class ManualTest_BatteryFragment : Fragment() {
+class InterfaceTest_BatteryFragment : Fragment() {
     private lateinit var binding: FragmentInterfaceDebuggingGimbalBinding
     private val viewModel: BatteryViewModel by activityViewModels()
 
     companion object {
-        fun newInstance() = ManualTest_BatteryFragment()
+        fun newInstance() = InterfaceTest_BatteryFragment()
     }
 
     override fun onCreateView(

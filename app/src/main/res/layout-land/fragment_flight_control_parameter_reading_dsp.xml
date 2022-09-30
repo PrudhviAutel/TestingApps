@@ -77,13 +77,20 @@
 
             <include
                 android:id="@+id/routeWifiConfig"
-                app:testName="@{`SW_Route_Wifi_Config`}"
+                app:testName="@{`SW-Route_Wifi_Config`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`View`}"
-                app:extraOptionText="@{`Set Route Wifi Config`}"
-                app:showExtraSpinner="@{true}"
-                layout="@layout/item_testoptions_setup_view"
+                app:setValuesOptionText="@{`Set Route Wifi Config`}"
+                app:showExtraEdittext1="@{true}"
+                app:extraEdittext1Hint="@{`wifi ssid`}"
+                app:showExtraEdittext3="@{true}"
+                app:extraEdittext3Hint="@{`password`}"
+                layout="@layout/item_3edittexts"
                 />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="80dp"/>
 
         </LinearLayout>
 

@@ -1,7 +1,9 @@
 package com.android.autelsdk.dsp.fragments
 
 import android.os.Bundle
+import android.text.InputType
 import android.text.TextUtils
+import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +23,7 @@ import com.android.autelsdk.util.Utils.observeOnce
 import com.autel.common.dsp.AppAction
 import com.autel.common.dsp.AppActionParam
 import com.autel.common.dsp.RFData
+import com.autel.common.dsp.WiFiInfo
 import com.autel.common.dsp.evo.BandMode
 import com.autel.common.dsp.evo.Bandwidth
 import com.autel.common.dsp.evo.TransferMode
@@ -37,6 +40,7 @@ class FlightControlParameterReadingDspFragment : Fragment() {
     private var fetchRFDataList = false
     private var fetchRFDataListMessage :String? = null
     private val booleanList = arrayOf(true,false)
+    private lateinit var wiFiInfo : WiFiInfo
 
     companion object {
         fun newInstance() = FlightControlParameterReadingDspFragment()
@@ -67,7 +71,10 @@ class FlightControlParameterReadingDspFragment : Fragment() {
 
     private fun initUi() {
         binding.bandwidthInfo.viewBtn.visibility = View.GONE
-        binding.routeWifiConfig.viewBtn.visibility = View.GONE
+        binding.routeWifiConfig.extraEdittext1.inputType = InputType.TYPE_TEXT_VARIATION_PERSON_NAME
+        binding.routeWifiConfig.extraEdittext3.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+        binding.routeWifiConfig.extraEdittext3.transformationMethod = PasswordTransformationMethod.getInstance()
+
     }
 
     private fun handleListeners() {
@@ -104,7 +111,7 @@ class FlightControlParameterReadingDspFragment : Fragment() {
 
         binding.routeWifiConfig.setBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.routeWifiConfig.extraOptionParent.visibility = View.VISIBLE
+            binding.routeWifiConfig.setValuesParent.visibility = View.VISIBLE
         }
 
         binding.rfData.extraOption.setOnClickListener {
@@ -222,26 +229,44 @@ class FlightControlParameterReadingDspFragment : Fragment() {
             }
         }
 
-        binding.routeWifiConfig.extraOption.setOnClickListener {
+        binding.routeWifiConfig.setValuesOption.setOnClickListener {
             binding.routeWifiConfig.showResponseText.visibility = View.VISIBLE
             binding.routeWifiConfig.showResponseText.setText("Please Wait...")
-            //val wifiInfo = WifiInfo.values()[binding.routeWifiConfig.extraSpinner.selectedItemPosition]
-//            lifecycleScope.launch(Dispatchers.Main) {
-//                viewModel.setRouteWifiConfigTest(wifiInfo)
-//                    .observeOnce(viewLifecycleOwner, Observer { msg ->
-//                        when (msg.status) {
-//                            Status.SUCCESS -> {
-//                                binding.routeWifiConfig.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-//                            }
-//                            Status.ERROR -> {
-//                                binding.routeWifiConfig.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-//                            }
-//                            else -> {
-//
-//                            }
-//                        }
-//                    })
-//            }
+            binding.routeWifiConfig.extraEdittext2.visibility = View.GONE
+            var ssid = ""; var password = "";
+
+
+            if (TextUtils.isEmpty(binding.routeWifiConfig.extraEdittext1.text)) {
+                binding.routeWifiConfig.showResponseText.setText(Utils.getColoredText("Please enter Wifi SSID", Constants.FAILED))
+                return@setOnClickListener
+            } else if(TextUtils.isEmpty(binding.routeWifiConfig.extraEdittext3.text)) {
+                binding.routeWifiConfig.showResponseText.setText(Utils.getColoredText("Please enter Wifi Password", Constants.FAILED))
+                return@setOnClickListener
+            } else {
+                ssid = binding.routeWifiConfig.extraEdittext1.text.toString().trim()
+                password = binding.routeWifiConfig.extraEdittext3.text.toString().trim()
+                if (password.length < 8) {
+                    binding.routeWifiConfig.showResponseText.setText(Utils.getColoredText("Invalid Password. Password too short.", Constants.SUCCESS))
+                    return@setOnClickListener
+                }
+            }
+            wiFiInfo = WiFiInfo(ssid, password)
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.setRouteWifiConfigTest(wiFiInfo)
+                    .observeOnce(viewLifecycleOwner, Observer { msg ->
+                        when (msg.status) {
+                            Status.SUCCESS -> {
+                                binding.routeWifiConfig.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                            }
+                            Status.ERROR -> {
+                                binding.routeWifiConfig.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                            }
+                            else -> {
+                                binding.routeWifiConfig.showResponseText.setText("No Response From Server")
+                            }
+                        }
+                    })
+            }
         }
 
         binding.rfData.viewBtn.setOnClickListener {
@@ -335,6 +360,17 @@ class FlightControlParameterReadingDspFragment : Fragment() {
             }
         }
 
+        binding.routeWifiConfig.viewBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.routeWifiConfig.showResponseText.visibility = View.VISIBLE
+
+            if (::wiFiInfo.isInitialized) {
+                binding.routeWifiConfig.showResponseText.setText(Utils.getColoredText("Wifi Info : ${wiFiInfo}",Constants.SUCCESS))
+            } else {
+                binding.routeWifiConfig.showResponseText.setText(Utils.getColoredText("Route Wifi not set.",Constants.FAILED))
+            }
+        }
+
     }
 
     private fun closeAllExtraOptionLayouts() {
@@ -344,7 +380,7 @@ class FlightControlParameterReadingDspFragment : Fragment() {
         binding.bandwidthInfo.extraOptionParent.visibility = View.GONE
         binding.transferMode.extraOptionParent.visibility = View.GONE
         binding.baseStationState.extraOptionParent.visibility = View.GONE
-        binding.routeWifiConfig.extraOptionParent.visibility = View.GONE
+        binding.routeWifiConfig.setValuesParent.visibility = View.GONE
 
         // We should hide both extraOptionLayout and Response text
         binding.rfData.showResponseText.visibility = View.GONE
@@ -443,5 +479,7 @@ class FlightControlParameterReadingDspFragment : Fragment() {
         }
         return rfFreqList.toList().toTypedArray()
     }
+
+
 
 }

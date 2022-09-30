@@ -37,7 +37,7 @@ class DspRepositoryImpl() : DspRepository {
 
             override fun onSuccess(data: List<RFData>) {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nRF Data List = ${data}",
+                    "\nRF Data List : ${data}",
                     methodName = "getRFDataList"
                 );
                 getRFDataListTestResult.postValue(Resource.Companion.success(data, successMessage))
@@ -57,7 +57,7 @@ class DspRepositoryImpl() : DspRepository {
 
             override fun onSuccess(data: RFData) {
                 val successMessage = Utils.getSuccessShowText(
-                    "\nRF Data List = ${data}",
+                    "\nRF Data : ${data}",
                     methodName = "getCurrentRFData"
                 );
                 getCurrentRFDataTestResult.postValue(Resource.Companion.success(data, successMessage))
@@ -110,7 +110,7 @@ class DspRepositoryImpl() : DspRepository {
         var setSynMsgBroadcastTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         cruiserDspController.setSynMsgBroadcast(appAction, appActionParam)
         val successMessage = Utils.getSuccessShowText(
-            "on App action = ${appAction},\n\n App Action param = ${appActionParam}",
+            "on App action : ${appAction},\n\n App Action param : ${appActionParam}",
             methodName = "setSynMsgBroadcast"
         )
         setSynMsgBroadcastTestResult.postValue(Resource.Companion.success(successMessage, successMessage))
@@ -128,7 +128,7 @@ class DspRepositoryImpl() : DspRepository {
 
             override fun onSuccess(appAction: AppAction, appActionParam: AppActionParam) {
                 val successMessage = Utils.getSuccessShowText(
-                    "App action = ${appAction},\n\nApp Action param = ${appActionParam}",
+                    "App action : ${appAction},\n\nApp Action param : ${appActionParam}",
                     methodName = "setSynMsgBroadcastListener"
                 );
                 val data = Pair(appAction, appActionParam)
@@ -149,7 +149,7 @@ class DspRepositoryImpl() : DspRepository {
 
             override fun onSuccess(info: EvoDspInfo?) {
                 val successMessage = Utils.getSuccessShowText(
-                    "\non EvoDspInfo = ${info}",
+                    "\non EvoDspInfo : ${info}",
                     methodName = "setDspInfoListener"
                 );
                 setDspInfoListenerTestResult.postValue(Resource.Companion.success(info, successMessage))
@@ -293,14 +293,14 @@ class DspRepositoryImpl() : DspRepository {
         var setRouteWifiConfigTestResult: MutableLiveData<Resource<String>> = MutableLiveData()
         cruiserDspController.setRouteWifConfig(wiFiInfo, object : CallbackWithNoParam {
             override fun onFailure(rcError: AutelError) {
-                val errorMessage = Utils.getFailureShowText("\nReason - ${rcError.description}",
+                val errorMessage = Utils.getFailureShowText("on Wifi Info : ${wiFiInfo}\nReason - ${rcError.description}",
                     methodName = "setRouteWifConfig");
                 setRouteWifiConfigTestResult.postValue(Resource.Companion.error(errorMessage, null))
             }
 
             override fun onSuccess() {
                 val successMessage = Utils.getSuccessShowText(
-                    "\non Wifi Info = ${wiFiInfo}",
+                    "\non Wifi Info : ${wiFiInfo}",
                     methodName = "setRouteWifConfig"
                 );
                 setRouteWifiConfigTestResult.postValue(Resource.Companion.success(successMessage, successMessage))

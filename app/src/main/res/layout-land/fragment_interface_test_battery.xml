@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:animateLayoutChanges="true">
+
+            <include
+                android:id="@+id/chooseBattery"
+                app:testName="@{`Battery`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Battery`}"
+                app:showExtraSpinner="@{true}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <Button
+                android:id="@+id/connectDevice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
+                android:text="Connect Device If Not Connected"
+                android:textAllCaps="false"/>
+
+            <TextView
+                android:id="@+id/showResponseText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="20dp"
+                tools:visibility="visible"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pharetra er" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

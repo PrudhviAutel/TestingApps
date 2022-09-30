@@ -119,7 +119,7 @@ class FlightControlParameterReadingDspFragment : Fragment() {
             binding.rfData.showResponseText.visibility = View.VISIBLE
             binding.rfData.showResponseText.setText("Please Wait...")
             val rfData = rfDataList.get(binding.rfData.extraSpinner.selectedItemPosition)
-            var maxRetryCount : Int = 3
+            var maxRetryCount = 3
             if (!TextUtils.isEmpty(binding.rfData.extraEdittext.text))
                 maxRetryCount = binding.rfData.extraEdittext.text.toString().toInt()
             lifecycleScope.launch(Dispatchers.Main) {
@@ -211,7 +211,7 @@ class FlightControlParameterReadingDspFragment : Fragment() {
         binding.baseStationState.extraOption.setOnClickListener {
             binding.baseStationState.showResponseText.visibility = View.VISIBLE
             binding.baseStationState.showResponseText.setText("Please Wait...")
-            var baseStationState = booleanList[binding.baseStationState.extraSpinner.selectedItemPosition]
+            val baseStationState = booleanList[binding.baseStationState.extraSpinner.selectedItemPosition]
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setBaseStationEnableTest(baseStationState)
                     .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -234,7 +234,8 @@ class FlightControlParameterReadingDspFragment : Fragment() {
             binding.routeWifiConfig.showResponseText.visibility = View.VISIBLE
             binding.routeWifiConfig.showResponseText.setText("Please Wait...")
             binding.routeWifiConfig.extraEdittext2.visibility = View.GONE
-            var ssid = ""; var password = "";
+            val ssid : String
+            val password: String
 
 
             if (TextUtils.isEmpty(binding.routeWifiConfig.extraEdittext1.text)) {
@@ -274,7 +275,7 @@ class FlightControlParameterReadingDspFragment : Fragment() {
             closeAllExtraOptionLayouts()
             binding.rfData.showResponseText.visibility = View.VISIBLE
             binding.rfData.showResponseText.setText("Please Wait...")
-            var maxRetryCount : Int = 3
+            var maxRetryCount = 3
             if (!TextUtils.isEmpty(binding.rfData.extraEdittext.text))
                 maxRetryCount = binding.rfData.extraEdittext.text.toString().toInt()
             lifecycleScope.launch(Dispatchers.Main) {

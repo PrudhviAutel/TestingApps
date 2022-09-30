@@ -71,6 +71,7 @@ class FlightControlParameterReadingDspFragment : Fragment() {
 
     private fun initUi() {
         binding.bandwidthInfo.viewBtn.visibility = View.GONE
+        binding.routeWifiConfig.viewBtn.visibility = View.GONE
         binding.routeWifiConfig.extraEdittext1.inputType = InputType.TYPE_TEXT_VARIATION_PERSON_NAME
         binding.routeWifiConfig.extraEdittext3.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
         binding.routeWifiConfig.extraEdittext3.transformationMethod = PasswordTransformationMethod.getInstance()

@@ -8,24 +8,18 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.FragmentDebugLogControlDspBinding
-import com.android.autelsdk.databinding.FragmentDebugLogControlGimbalBinding
 import com.android.autelsdk.dsp.DspViewModel
-import com.android.autelsdk.gimbal.GimbalViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Status
 import com.android.autelsdk.util.Utils
-import com.android.autelsdk.util.Utils.observeOnce
 import com.autel.common.dsp.AppAction
 import com.autel.common.dsp.AppActionParam
 import com.autel.common.dsp.RFData
 import com.autel.common.dsp.evo.BandMode
 import com.autel.common.dsp.evo.Bandwidth
 import com.autel.common.dsp.evo.TransferMode
-import com.autel.common.gimbal.GimbalAxisType
-import com.autel.common.gimbal.GimbalWorkMode
 import kotlinx.coroutines.runBlocking
 
 class DebugLogDspFragment : Fragment() {

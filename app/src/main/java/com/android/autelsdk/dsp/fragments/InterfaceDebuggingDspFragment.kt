@@ -11,19 +11,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.FragmentInterfaceDebuggingDspBinding
-import com.android.autelsdk.databinding.FragmentInterfaceDebuggingGimbalBinding
 import com.android.autelsdk.dsp.DspViewModel
 import com.android.autelsdk.event.ProductConnectEvent
-import com.android.autelsdk.gimbal.GimbalViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Utils
 import com.autel.internal.dsp.cruiser.CruiserDspImpl
-import com.autel.internal.gimbal.cruiser.CruiserGimbalImpl
-import com.autel.sdk.Autel
 import com.autel.sdk.dsp.AutelDsp
 import com.autel.sdk.dsp.CruiserDsp
-import com.autel.sdk.gimbal.AutelGimbal
-import com.autel.sdk.gimbal.CruiserGimbal
 import org.greenrobot.eventbus.EventBus
 
 class InterfaceDebuggingDspFragment : Fragment() {

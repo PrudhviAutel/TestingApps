@@ -11,9 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.FragmentAircraftStatusDirectCommandDspBinding
-import com.android.autelsdk.databinding.FragmentAircraftStatusDirectCommandGimbalBinding
 import com.android.autelsdk.dsp.DspViewModel
-import com.android.autelsdk.gimbal.GimbalViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Status
 import com.android.autelsdk.util.Utils

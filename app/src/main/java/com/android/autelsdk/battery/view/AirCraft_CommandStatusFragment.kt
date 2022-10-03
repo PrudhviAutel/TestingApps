@@ -11,6 +11,8 @@ import com.android.autelsdk.battery.BatteryActivity
 import com.android.autelsdk.battery.BatteryViewModel
 import com.android.autelsdk.battery.adapter.AirCraftStatusAdapter
 import com.android.autelsdk.databinding.AcStatusCommandFragmentBinding
+import com.autel.common.CallbackWithOneParam
+import com.autel.common.error.AutelError
 import com.autel.common.product.AutelProductType
 
 class AirCraft_CommandStatusFragment : Fragment() {
@@ -44,4 +46,16 @@ class AirCraft_CommandStatusFragment : Fragment() {
         }
     }
 
+
+    private fun getSerialNumberTest() {
+        mController!!.getSerialNumber(object : CallbackWithOneParam<String> {
+            override fun onSuccess(data: String) {
+                //logOut("getSerialNumber  $data")
+            }
+
+            override fun onFailure(error: AutelError) {
+                //logOut("getSerialNumber  error : " + error.description)
+            }
+        })
+    }
 }

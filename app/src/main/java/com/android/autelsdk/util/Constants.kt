@@ -35,4 +35,7 @@ object Constants {
     //Gimbal Names
     const val CruiserGimbal = "Cruiser Gimbal"
 
+    //Gimbal Names
+    const val CruiserBattery = "Cruiser Battery"
+
 }

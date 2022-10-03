@@ -19,6 +19,7 @@ import com.autel.sdk.Autel
 import com.autel.sdk.ProductConnectListener
 import com.autel.sdk.battery.AutelBattery
 import com.autel.sdk.product.BaseProduct
+import com.autonavi.base.ae.gmap.GLEngineIDController.getController
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -52,6 +53,7 @@ class DFBatteryActivity : BaseActivity<AutelBattery>() {
         handleListeners()
         deselectAllTabs()
 
+        viewModel.setController(mController)
     }
 
     private fun handleListeners() {

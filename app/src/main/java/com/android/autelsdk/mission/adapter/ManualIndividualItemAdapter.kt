@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.android.autelsdk.battery.data.ACDataModel
 import com.android.autelsdk.databinding.AdManualIndividualItemBinding
 import com.android.autelsdk.databinding.ModuleItemBinding
 import com.android.autelsdk.util.Constants
@@ -12,7 +13,7 @@ import com.android.autelsdk.util.GeneralUtils
 import com.example.myapplicationdragonfish.adapter.ModuleViewHolder
 
 class ManualIndividualItemAdapter : RecyclerView.Adapter<ManualIndividualViewHolder>() {
-    val moduleList = ArrayList<String>()
+    val moduleList = ArrayList<ACDataModel>()
     lateinit var context: Context
 
     init {
@@ -28,7 +29,7 @@ class ManualIndividualItemAdapter : RecyclerView.Adapter<ManualIndividualViewHol
 
     override fun onBindViewHolder(holder: ManualIndividualViewHolder, position: Int) {
         val item = moduleList[position]
-        holder.binding.title.text = item
+        holder.binding.title.text = item.name
 
         holder.binding.setBtn.setOnClickListener(View.OnClickListener {
             // populate view according to the function

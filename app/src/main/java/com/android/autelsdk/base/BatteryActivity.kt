@@ -15,6 +15,7 @@ import com.android.autelsdk.R
 import com.autel.common.CallbackWithOneParam
 import com.autel.common.error.AutelError
 import com.autel.common.CallbackWithNoParam
+import org.apache.poi.hssf.record.formula.functions.T
 
 open class BatteryActivity : BaseActivity<AutelBattery?>() {
     private var lowBatteryNotifyThreshold: EditText? = null
@@ -221,4 +222,5 @@ open class BatteryActivity : BaseActivity<AutelBattery?>() {
             })
         }
     }
+
 }

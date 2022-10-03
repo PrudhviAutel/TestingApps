@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.autelsdk.battery.BatteryActivity
 import com.android.autelsdk.battery.BatteryViewModel
 import com.android.autelsdk.battery.adapter.AirCraftStatusAdapter
 import com.android.autelsdk.databinding.AcStatusCommandFragmentBinding
@@ -42,6 +43,5 @@ class AirCraft_CommandStatusFragment : Fragment() {
             binding.planeConnectStatus.setText("Connected Plane - ${viewModel.getCurrentProductType().value?.name}")
         }
     }
-
 
 }

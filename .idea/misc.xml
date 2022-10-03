@@ -3,19 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/ac_base_battery.xml" value="0.15211640211640212" />
+        <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/ac_base_battery.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/ac_manual_individual_fragment.xml" value="0.15123456790123457" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/ac_status_command_fragment.xml" value="0.15123456790123457" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/activity_battery.xml" value="0.15211640211640212" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/activity_gimbal.xml" value="0.15211640211640212" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/activity_remote_controller.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/ad_manual_individual_item.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/fragment_aircraft_status_direct_command_fc.xml" value="0.22" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/fragment_aircraft_status_direct_command_gimbal.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/fragment_aircraft_status_direct_command_rc.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/fragment_flight_control_parameter_reading_gimbal.xml" value="0.15211640211640212" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/fragment_interface_debugging_gimbal.xml" value="0.15211640211640212" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/item_options.xml" value="0.15211640211640212" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/item_testoptions_setup_view.xml" value="0.15211640211640212" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/single_textitem.xml" value="0.15123456790123457" />
+        <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/test_single_button_layout.xml" value="0.15123456790123457" />
+        <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout-land/test_single_edittext_layout.xml" value="0.15123456790123457" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout/ac_base_battery.xml" value="0.22" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout/activity_battery.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/rahul/AndroidStudioProjects/TestingApps/app/src/main/res/layout/activity_dfway_point.xml" value="0.16666666666666666" />

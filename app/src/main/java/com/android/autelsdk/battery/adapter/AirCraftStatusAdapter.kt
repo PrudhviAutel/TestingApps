@@ -2,17 +2,26 @@ package com.android.autelsdk.battery.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
+import com.android.autelsdk.battery.BatteryViewModel
+import com.android.autelsdk.battery.data.ACDataModel
 import com.android.autelsdk.databinding.SingleTextitemBinding
 import com.android.autelsdk.util.GeneralUtils
 
 class AirCraftStatusAdapter : RecyclerView.Adapter<AirCraftStatusViewHolder>() {
-    val moduleList = ArrayList<String>()
+    val moduleList = ArrayList<ACDataModel>()
     lateinit var context: Context
+    lateinit var viewModel: BatteryViewModel
 
     init {
-        moduleList.addAll(GeneralUtils.getACStatusCommandForBattery())
+        moduleList.addAll(GeneralUtils.getBatteryAirCraftStatusCommandList())
+    }
+
+    fun setViewModel(batteryViewModel: ViewModel) {
+        viewModel = batteryViewModel as BatteryViewModel
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AirCraftStatusViewHolder {
@@ -24,7 +33,27 @@ class AirCraftStatusAdapter : RecyclerView.Adapter<AirCraftStatusViewHolder>() {
 
     override fun onBindViewHolder(holder: AirCraftStatusViewHolder, position: Int) {
         val item = moduleList[position]
-        holder.binding.getButton.text = item
+        holder.binding.getButton.text = item.name
+
+        holder.binding.getButton.setOnClickListener(View.OnClickListener {
+            when (item.type) {
+                "getDischargeCount" -> {
+                    viewModel.getDischargeCount()
+                }
+                "getVersion" -> {
+                    viewModel.getVersion()
+                }
+                "getSerialNumber" -> {
+                    viewModel.getSerialNumber()
+                }
+                "getFullChargeCapacity" -> {
+                    viewModel.getFullChargeCapacity()
+                }
+                "getCellVoltageRange" -> {
+                    viewModel.getCellVoltageRange()
+                }
+            }
+        })
     }
 
     override fun getItemCount(): Int {

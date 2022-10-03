@@ -18,6 +18,7 @@ import com.android.autelsdk.util.GeneralUtils
 class ManualIndividual_BatteryFragment : Fragment() {
     lateinit var binding: AcManualIndividualFragmentBinding
     lateinit var viewModel: BatteryViewModel
+    val adapter = ManualIndividualItemAdapter()
 
     companion object {
         fun newInstance() = ManualIndividual_BatteryFragment()
@@ -33,9 +34,10 @@ class ManualIndividual_BatteryFragment : Fragment() {
         return binding.root
     }
 
-    val adapter = ManualIndividualItemAdapter()
-    fun initData() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.individualRecyclerView.layoutManager = LinearLayoutManager(activity)
         binding.individualRecyclerView.adapter = adapter
     }
+
 }

@@ -34,7 +34,12 @@ class InterfaceDebuggingBatteryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_interface_test_battery , container, false)
+        binding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.fragment_interface_test_battery,
+            container,
+            false
+        )
         return binding.root
     }
 
@@ -50,7 +55,13 @@ class InterfaceDebuggingBatteryFragment : Fragment() {
         binding.chooseBattery.viewBtn.setOnClickListener {
             binding.chooseBattery.showResponseText.visibility = View.VISIBLE
             binding.chooseBattery.extraOptionParent.visibility = View.GONE
-            binding.chooseBattery.showResponseText.setText("Currently set to ${getCurrentBatteryControllerByName(viewModel.getController<CruiserBattery>())}")
+            binding.chooseBattery.showResponseText.setText(
+                "Currently set to ${
+                    getCurrentBatteryControllerByName(
+                        viewModel.mController
+                    )
+                }"
+            )
         }
 
         binding.chooseBattery.setBtn.setOnClickListener {
@@ -58,12 +69,19 @@ class InterfaceDebuggingBatteryFragment : Fragment() {
             binding.showResponseText.visibility = View.GONE
             binding.chooseBattery.extraOptionParent.visibility = View.VISIBLE
         }
-        
+
         binding.chooseBattery.extraOption.setOnClickListener {
-            val controller = setCurrentBatteryControllerByName(binding.chooseBattery.extraSpinner.selectedItem.toString())
+            val controller =
+                setCurrentBatteryControllerByName(binding.chooseBattery.extraSpinner.selectedItem.toString())
             viewModel.setController(controller)
             binding.chooseBattery.showResponseText.visibility = View.VISIBLE
-            binding.chooseBattery.showResponseText.setText("Currently set to ${getCurrentBatteryControllerByName(viewModel.getController<CruiserBattery>())}")
+            binding.chooseBattery.showResponseText.setText(
+                "Currently set to ${
+                    getCurrentBatteryControllerByName(
+                        viewModel.mController
+                    )
+                }"
+            )
         }
 
         binding.connectDevice.setOnClickListener {
@@ -73,19 +91,29 @@ class InterfaceDebuggingBatteryFragment : Fragment() {
             EventBus.getDefault().post(ProductConnectEvent())
         }
 
-        viewModel.getCurrentProduct().observe(viewLifecycleOwner, Observer { product ->
+        viewModel.currentProduct.observe(viewLifecycleOwner, Observer { product ->
             binding.showResponseText.visibility = View.VISIBLE
             if (product == null) {
-                binding.showResponseText.setText(Utils.getColoredText("Product is Not Connected", Constants.FAILED))
+                binding.showResponseText.setText(
+                    Utils.getColoredText(
+                        "Product is Not Connected",
+                        Constants.FAILED
+                    )
+                )
             } else {
-                binding.showResponseText.setText(Utils.getColoredText("Product Connected Successfully. Type = ${product.type.name}", Constants.SUCCESS))
+                binding.showResponseText.setText(
+                    Utils.getColoredText(
+                        "Product Connected Successfully. Type = ${product.type.name}",
+                        Constants.SUCCESS
+                    )
+                )
             }
         })
 
     }
 
-    private fun <T> getCurrentBatteryControllerByName(controller : T) : String {
-        when(controller) {
+    private fun <T> getCurrentBatteryControllerByName(controller: T): String {
+        when (controller) {
             is CruiserBattery -> {
                 return Constants.CruiserBattery
             }
@@ -93,13 +121,13 @@ class InterfaceDebuggingBatteryFragment : Fragment() {
         return ""
     }
 
-    private fun setCurrentBatteryControllerByName(name : String) : AutelBattery {
-        when(name) {
+    private fun setCurrentBatteryControllerByName(name: String): AutelBattery {
+        when (name) {
             Constants.CruiserBattery -> {
                 return CruiserBatteryImpl()
             }
         }
-        return viewModel.getController<CruiserBattery>()
+        return viewModel?.mController!!
     }
 
     private fun setSpinnerItems() {
@@ -112,9 +140,11 @@ class InterfaceDebuggingBatteryFragment : Fragment() {
         )
         binding.chooseBattery.extraSpinner.adapter = spinnerAdapter
 
-        val index = batteryControllers?.indexOf(getCurrentBatteryControllerByName(viewModel.getController<CruiserBattery>()))
+        val index =
+            batteryControllers?.indexOf(getCurrentBatteryControllerByName(viewModel.mController))
 
-        index?.let { index
+        index?.let {
+            index
             binding.chooseBattery.extraSpinner.setSelection(index)
         }
     }

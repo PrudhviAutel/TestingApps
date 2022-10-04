@@ -19,7 +19,7 @@ import com.autel.internal.flycontroller.cruiser.CruiserFlyControllerImpl
 import com.autel.sdk.flycontroller.AutelFlyController
 import org.greenrobot.eventbus.EventBus
 
-class InterfaceDebuggingFCFragment : Fragment() {
+class InterfaceDebuggingCodecFragment : Fragment() {
 
     private lateinit var binding: FragmentInterfaceDebuggingFcBinding
 

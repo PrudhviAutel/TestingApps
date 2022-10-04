@@ -55,6 +55,12 @@
             android:exported="false" />
 
         <activity
+            android:name=".codec.CodecActivity"
+            android:label="Codec"
+            android:screenOrientation="landscape"
+            android:exported="false" />
+
+        <activity
             android:name="com.android.autelsdk.MainActivity2"
             android:label="SDK Tester"
             android:exported="true">

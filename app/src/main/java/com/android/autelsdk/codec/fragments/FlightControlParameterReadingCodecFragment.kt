@@ -23,7 +23,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class FlightControlParameterReadingFCFragment : Fragment() {
+class FlightControlParameterReadingCodecFragment : Fragment() {
 
     private lateinit var binding: FragmentFlightControlParameterReadingFcBinding
     private val viewModel : FlyControllerViewModel by activityViewModels()

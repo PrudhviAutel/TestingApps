@@ -9,20 +9,12 @@ import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.replace
 import androidx.lifecycle.Observer
 import com.android.autelsdk.BaseActivity
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.ActivityFlyControllerBinding
 import com.android.autelsdk.event.ProductConnectEvent
-import com.android.autelsdk.flyController.fragments.AircraftStatusDirectCommandFCFragment
-import com.android.autelsdk.flyController.fragments.DebugLogFCFragment
-import com.android.autelsdk.flyController.fragments.FlightControlParameterReadingFCFragment
-import com.android.autelsdk.flyController.fragments.InterfaceDebuggingFCFragment
-import com.android.autelsdk.remoteController.fragments.AircraftStatusDirectCommandRCFragment
-import com.android.autelsdk.remoteController.fragments.DebugLogRCFragment
-import com.android.autelsdk.remoteController.fragments.FlightControlParameterReadingRCFragment
-import com.android.autelsdk.remoteController.fragments.InterfaceDebuggingRCFragment
+import com.android.autelsdk.flyController.fragments.*
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.ExcelWorkbook
 import com.android.autelsdk.util.Status
@@ -31,7 +23,6 @@ import com.autel.common.flycontroller.LedPilotLamp
 import com.autel.sdk.flycontroller.AutelFlyController
 import com.autel.sdk.product.BaseProduct
 import kotlinx.coroutines.runBlocking
-import org.apache.poi.ss.usermodel.Workbook
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -61,7 +52,7 @@ class FlyControllerActivity : BaseActivity<AutelFlyController>() {
         runTests()
         binding.interfaceDebugAfc.optionParent.setBackgroundColor(ContextCompat.getColor(this@FlyControllerActivity, R.color.blue))
         supportFragmentManager.beginTransaction()
-            .replace(binding.container.id, InterfaceDebuggingFCFragment())
+            .replace(binding.container.id, InterfaceDebuggingCodecFragment())
             .commitNow()
 //
 //        binding.flightControl.optionParent.setBackgroundColor(ContextCompat.getColor(this@FlyControllerActivity,R.color.blue))

@@ -400,9 +400,9 @@ class FlyControllerRepositoryImpl : FlyControllerRepository {
 //    takeOffTestResult.postValue(Resource.Companion.error(errorMessage, null))
 //    }
 //
-//    override fun onSuccess(calibrateCompassStatus : CalibrateCompassStatus) {
+//    override fun onSuccess(p0: Pair<Boolean, FlightErrorState>?) {
 //    val successMessage = "";
-//    takeOffTestResult.postValue(Resource.Companion.success(calibrateCompassStatus))
+//    takeOffTestResult.postValue(Resource.Companion.success(p0))
 //    }
 //    })
 //    return takeOffTestResult

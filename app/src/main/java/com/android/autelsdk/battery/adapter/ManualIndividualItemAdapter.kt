@@ -50,6 +50,12 @@ class ManualIndividualItemAdapter() : RecyclerView.Adapter<ManualIndividualViewH
         holder.binding.textViewDisplayResult.visibility = View.GONE
     }
 
+    fun hideOtherFun(holder: ManualIndividualViewHolder, position: Int) {
+        for (item in moduleList.indices)
+            if (item != position)
+                holder.binding.editTextView.visibility = View.GONE
+    }
+
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ManualIndividualViewHolder, position: Int) {
         val item = moduleList[position]
@@ -61,7 +67,6 @@ class ManualIndividualItemAdapter() : RecyclerView.Adapter<ManualIndividualViewH
         }
         holder.binding.setBtn.setOnClickListener {
             // populate view according to the function
-            hideOtherLayout(holder)
             when (item.type) {
                 "setBatteryRealTimeDataListener" -> {
                     setLoadingResult(holder)
@@ -76,7 +81,6 @@ class ManualIndividualItemAdapter() : RecyclerView.Adapter<ManualIndividualViewH
                         holder.binding.editTextView.visibility = View.VISIBLE
                         (editText as EditText).inputType = InputType.TYPE_CLASS_NUMBER
                         editText.setHint(context.resources.getString(R.string.hintSetLowBatteryNotifyThresholdEdt))
-
                         button.setOnClickListener {
                             setLoadingResult(holder)
                             displayResult(
@@ -98,7 +102,6 @@ class ManualIndividualItemAdapter() : RecyclerView.Adapter<ManualIndividualViewH
                         holder.binding.editTextView.visibility = View.VISIBLE
                         (editText as EditText).inputType = InputType.TYPE_CLASS_NUMBER
                         editText.setHint(context.resources.getString(R.string.hintSetCriticalBatteryNotifyThresholdEdt))
-
                         button.setOnClickListener {
                             setLoadingResult(holder)
                             displayResult(
@@ -119,7 +122,6 @@ class ManualIndividualItemAdapter() : RecyclerView.Adapter<ManualIndividualViewH
                         holder.binding.editTextView.visibility = View.VISIBLE
                         (editText as EditText).inputType = InputType.TYPE_CLASS_NUMBER
                         editText.setHint(context.resources.getString(R.string.hintSetDischargeDayEdt))
-
                         button.setOnClickListener {
                             setLoadingResult(holder)
                             displayResult(
@@ -136,7 +138,6 @@ class ManualIndividualItemAdapter() : RecyclerView.Adapter<ManualIndividualViewH
 
         holder.binding.viewBtn.setOnClickListener {
             // call get value function here
-            hideOtherLayout(holder)
             when (item.type) {
                 "setBatteryRealTimeDataListener" -> {
                     setLoadingResult(holder)

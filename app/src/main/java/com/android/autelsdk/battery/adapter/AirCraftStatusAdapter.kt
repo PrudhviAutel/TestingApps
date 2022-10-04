@@ -50,7 +50,7 @@ class AirCraftStatusAdapter : RecyclerView.Adapter<AirCraftStatusViewHolder>() {
                     viewModel?.isLoading?.postValue(true)
                     viewModel?.getDischargeCount()?.observeOnce(activity) {
                         if (it != null)
-                            viewModel?.result?.postValue(it)
+                            viewModel?.result?.postValue(HarnessResult(it.value,true))
                         else {
                             viewModel?.result?.postValue(HarnessResult("Error in result", false))
                         }

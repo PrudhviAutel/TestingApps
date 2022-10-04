@@ -57,7 +57,7 @@ class BatteryViewModel : ViewModel() {
                 result.postValue(
                     HarnessResult(
                         "getDischargeDay()  error :  " + error.description,
-                        true
+                        false
                     )
                 )
             }

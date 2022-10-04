@@ -6,22 +6,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
+import com.android.autelsdk.BaseActivity
 import com.android.autelsdk.battery.BatteryViewModel
 import com.android.autelsdk.battery.data.ACDataModel
+import com.android.autelsdk.battery.data.HarnessResult
 import com.android.autelsdk.databinding.SingleTextitemBinding
 import com.android.autelsdk.util.GeneralUtils
+import com.android.autelsdk.util.Utils.observeOnce
+import com.autel.sdk.battery.AutelBattery
 
 class AirCraftStatusAdapter : RecyclerView.Adapter<AirCraftStatusViewHolder>() {
     val moduleList = ArrayList<ACDataModel>()
     lateinit var context: Context
-    lateinit var viewModel: BatteryViewModel
+    var viewModel: BatteryViewModel? = null
 
     init {
         moduleList.addAll(GeneralUtils.getBatteryAirCraftStatusCommandList())
     }
 
-    fun setViewModel(batteryViewModel: ViewModel) {
+    fun setViewModels(batteryViewModel: ViewModel) {
         viewModel = batteryViewModel as BatteryViewModel
+    }
+
+    lateinit var activity: BaseActivity<AutelBattery>
+    fun setContext(activity: BaseActivity<AutelBattery>) {
+        this.activity = activity
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AirCraftStatusViewHolder {
@@ -38,19 +47,54 @@ class AirCraftStatusAdapter : RecyclerView.Adapter<AirCraftStatusViewHolder>() {
         holder.binding.getButton.setOnClickListener(View.OnClickListener {
             when (item.type) {
                 "getDischargeCount" -> {
-                    viewModel.getDischargeCount()
+                    viewModel?.isLoading?.postValue(true)
+                    viewModel?.getDischargeCount()?.observeOnce(activity) {
+                        if (it != null)
+                            viewModel?.result?.postValue(it)
+                        else {
+                            viewModel?.result?.postValue(HarnessResult("Error in result", false))
+                        }
+                    }
                 }
                 "getVersion" -> {
-                    viewModel.getVersion()
+                    viewModel?.isLoading?.postValue(true)
+                    viewModel?.getVersion()?.observeOnce(activity) {
+                        if (it != null)
+                            viewModel?.result?.postValue(it)
+                        else {
+                            viewModel?.result?.postValue(HarnessResult("Error in result", false))
+                        }
+                    }
                 }
                 "getSerialNumber" -> {
-                    viewModel.getSerialNumber()
+                    viewModel?.isLoading?.postValue(true)
+                    viewModel?.getSerialNumber()?.observeOnce(activity) {
+                        if (it != null)
+                            viewModel?.result?.postValue(it)
+                        else {
+                            viewModel?.result?.postValue(HarnessResult("Error in result", false))
+                        }
+                    }
                 }
                 "getFullChargeCapacity" -> {
-                    viewModel.getFullChargeCapacity()
+                    viewModel?.isLoading?.postValue(true)
+                    viewModel?.getFullChargeCapacity()?.observeOnce(activity) {
+                        if (it != null)
+                            viewModel?.result?.postValue(it)
+                        else {
+                            viewModel?.result?.postValue(HarnessResult("Error in result", false))
+                        }
+                    }
                 }
                 "getCellVoltageRange" -> {
-                    viewModel.getCellVoltageRange()
+                    viewModel?.isLoading?.postValue(true)
+                    viewModel?.getCellVoltageRange()?.observeOnce(activity) {
+                        if (it != null)
+                            viewModel?.result?.postValue(it)
+                        else {
+                            viewModel?.result?.postValue(HarnessResult("Error in result", false))
+                        }
+                    }
                 }
             }
         })

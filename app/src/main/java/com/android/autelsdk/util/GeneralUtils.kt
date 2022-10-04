@@ -9,42 +9,42 @@ class GeneralUtils {
             var list = ArrayList<ACDataModel>()
             list.add(
                 ACDataModel(
-                    "setBatteryRealTimeDataListener",
+                    "BatteryRealTimeDataListener",
                     "setBatteryRealTimeDataListener"
                 )
             )
-            list.add(
+            /*list.add(
                 ACDataModel(
                     "getBatteryRealTimeDataListener",
                     "getBatteryRealTimeDataListener"
                 )
-            )
+            )*/
             list.add(
                 ACDataModel(
-                    "setLowBatteryNotifyThresholdEdt",
+                    "LowBatteryNotifyThresholdEdt",
                     "setLowBatteryNotifyThresholdEdt"
                 )
             )
-            list.add(
+            /*list.add(
                 ACDataModel(
                     "getLowBatteryNotifyThresholdEdt",
                     "getLowBatteryNotifyThresholdEdt"
                 )
-            )
+            )*/
             list.add(
                 ACDataModel(
-                    "setCriticalBatteryNotifyThresholdEdt",
+                    "CriticalBatteryNotifyThresholdEdt",
                     "setCriticalBatteryNotifyThresholdEdt"
                 )
             )
-            list.add(
+            /*list.add(
                 ACDataModel(
                     "getCriticalBatteryNotifyThresholdEdt",
                     "getCriticalBatteryNotifyThresholdEdt"
                 )
-            )
-            list.add(ACDataModel("setDischargeDayEdt", "setDischargeDayEdt"))
-            list.add(ACDataModel("getDischargeDayEdt", "getDischargeDayEdt"))
+            )*/
+            list.add(ACDataModel("DischargeDayEdt", "setDischargeDayEdt"))
+          /*  list.add(ACDataModel("getDischargeDayEdt", "getDischargeDayEdt"))*/
             return list
         }
 

@@ -4,15 +4,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.android.autelsdk.battery.data.ACDataModel
 import com.android.autelsdk.databinding.SingleTextitemBinding
 import com.android.autelsdk.util.GeneralUtils
 
 class AirCraftStatusAdapter : RecyclerView.Adapter<AirCraftStatusViewHolder>() {
-    val moduleList = ArrayList<String>()
+    val moduleList = ArrayList<ACDataModel>()
     lateinit var context: Context
 
     init {
-        moduleList.addAll(GeneralUtils.getACStatusCommandForBattery())
+        moduleList.addAll(GeneralUtils.getBatteryAirCraftStatusCommandList())
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AirCraftStatusViewHolder {
@@ -24,7 +25,7 @@ class AirCraftStatusAdapter : RecyclerView.Adapter<AirCraftStatusViewHolder>() {
 
     override fun onBindViewHolder(holder: AirCraftStatusViewHolder, position: Int) {
         val item = moduleList[position]
-        holder.binding.getButton.text = item
+        holder.binding.getButton.text = item.name
     }
 
     override fun getItemCount(): Int {

@@ -1,5 +1,6 @@
 package com.android.autelsdk.battery.view
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,13 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android.autelsdk.BaseActivity
 import com.android.autelsdk.battery.BatteryActivity
 import com.android.autelsdk.battery.BatteryViewModel
 import com.android.autelsdk.battery.adapter.AirCraftStatusAdapter
+import com.android.autelsdk.battery.adapter.ManualIndividualViewHolder
 import com.android.autelsdk.databinding.AcStatusCommandFragmentBinding
+import com.android.autelsdk.util.Utils.observeOnce
 import com.autel.common.CallbackWithOneParam
 import com.autel.common.error.AutelError
 import com.autel.common.product.AutelProductType
+import com.autel.sdk.battery.AutelBattery
 
 class AirCraft_CommandStatusFragment : Fragment() {
     lateinit var binding: AcStatusCommandFragmentBinding
@@ -33,9 +38,42 @@ class AirCraft_CommandStatusFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(BatteryViewModel::class.java)
 
         binding.recyclerCommandList.layoutManager = LinearLayoutManager(activity)
+        adapter.setContext(activity as BaseActivity<AutelBattery>)
+        adapter.setViewModels(viewModel)
         binding.recyclerCommandList.adapter = adapter
         initUi()
+
+        viewModel.result.observe(viewLifecycleOwner) {
+            if (it.status) {
+                setSuccessResult(it.value)
+            } else {
+                setFailureResult(it.value)
+            }
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            setLoadingResult()
+        }
         return binding.root
+    }
+
+    fun setSuccessResult(value: String) {
+        binding.testResults.text = value
+        binding.testResults.setTextColor(Color.parseColor("#00ff00"))
+        binding.testResults.visibility = View.VISIBLE
+    }
+
+    fun setFailureResult(value: String) {
+        binding.testResults.text = value
+        binding.testResults.setTextColor(Color.parseColor("#ff0000"))
+        binding.testResults.visibility = View.VISIBLE
+    }
+
+    fun setLoadingResult() {
+        var value = "Please wait..."
+        binding.testResults.text = value
+        binding.testResults.setTextColor(Color.parseColor("#000000"))
+        binding.testResults.visibility = View.VISIBLE
     }
 
     private fun initUi() {
@@ -44,18 +82,5 @@ class AirCraft_CommandStatusFragment : Fragment() {
         } else {
             binding.planeConnectStatus.setText("Connected Plane - ${viewModel.getCurrentProductType().value?.name}")
         }
-    }
-
-
-    private fun getSerialNumberTest() {
-        mController!!.getSerialNumber(object : CallbackWithOneParam<String> {
-            override fun onSuccess(data: String) {
-                //logOut("getSerialNumber  $data")
-            }
-
-            override fun onFailure(error: AutelError) {
-                //logOut("getSerialNumber  error : " + error.description)
-            }
-        })
     }
 }

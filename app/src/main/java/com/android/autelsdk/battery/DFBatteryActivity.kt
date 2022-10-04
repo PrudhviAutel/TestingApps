@@ -18,7 +18,9 @@ import com.autel.common.product.AutelProductType
 import com.autel.sdk.Autel
 import com.autel.sdk.ProductConnectListener
 import com.autel.sdk.battery.AutelBattery
+import com.autel.sdk.battery.CruiserBattery
 import com.autel.sdk.product.BaseProduct
+import com.autel.sdk.product.CruiserAircraft
 import com.autonavi.base.ae.gmap.GLEngineIDController.getController
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -31,6 +33,7 @@ class DFBatteryActivity : BaseActivity<AutelBattery>() {
     lateinit var viewModel: BatteryViewModel
 
     override fun initController(product: BaseProduct?): AutelBattery {
+        viewModel.setController(product!!.battery)
         return product!!.battery
     }
 
@@ -52,8 +55,6 @@ class DFBatteryActivity : BaseActivity<AutelBattery>() {
         initUi()
         handleListeners()
         deselectAllTabs()
-
-        viewModel.setController(mController)
     }
 
     private fun handleListeners() {

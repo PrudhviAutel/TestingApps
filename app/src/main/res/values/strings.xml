@@ -127,7 +127,7 @@
     <string name="setUp">Set up</string>
     <string name="viewUp">View</string>
     <string name="testResultToBeDisplayed"> Test Result will be displayed here</string>
-    <string name="hintSetLowBatteryNotifyThresholdEdt">low battery notify</string>
-    <string name="hintSetCriticalBatteryNotifyThresholdEdt">"critical battery notify"</string>
-    <string name="hintSetDischargeDayEdt">"discharge day"</string>
+    <string name="hintSetLowBatteryNotifyThresholdEdt">Low battery notify</string>
+    <string name="hintSetCriticalBatteryNotifyThresholdEdt">"Critical battery notify"</string>
+    <string name="hintSetDischargeDayEdt">"Discharge day"</string>
 </resources>

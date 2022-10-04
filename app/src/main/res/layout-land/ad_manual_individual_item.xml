@@ -45,13 +45,13 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/editTextView"
+        android:id="@+id/editTextViewRelative"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/common_16dp">
 
         <include
-            android:id="@+id/editTextLayout"
+            android:id="@+id/editTextLayouts"
             layout="@layout/test_single_edittext_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,27 +47,29 @@ class ManualIndividualItemAdapter() : RecyclerView.Adapter<ManualIndividualViewH
 
     fun hideOtherLayout(holder: ManualIndividualViewHolder) {
         //val view: View = holder.binding.editTextLayout.editTextLayout
-        holder.binding.editTextView.visibility = View.GONE
+        holder.binding.editTextViewRelative.visibility = View.GONE
         holder.binding.textViewDisplayResult.visibility = View.GONE
     }
 
     fun hideOtherFun(holder: ManualIndividualViewHolder, position: Int) {
         for (item in moduleList.indices)
             if (item != position)
-                holder.binding.editTextView.visibility = View.GONE
+                holder.binding.editTextViewRelative.visibility = View.GONE
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ManualIndividualViewHolder, position: Int) {
         val item = moduleList[position]
         holder.binding.title.text = item.name
+        val editText: View = holder.binding.editTextLayouts.editText
+        val button: View = holder.binding.buttonLayout.button
         hideOtherLayout(holder)
         if (item.type.equals("setBatteryRealTimeDataListener")) {
             holder.binding.setBtn.text = "Set"
             holder.binding.viewBtn.text = "Reset"
         }
         holder.binding.setBtn.setOnClickListener {
-            // populate view according to the function
+
             when (item.type) {
                 "setBatteryRealTimeDataListener" -> {
                     setLoadingResult(holder)
@@ -74,63 +77,33 @@ class ManualIndividualItemAdapter() : RecyclerView.Adapter<ManualIndividualViewH
                     displayResult(holder, result)
                 }
                 "setLowBatteryNotifyThresholdEdt" -> {
-                    val editText: View = holder.binding.editTextLayout.editText
-                    val button: View = holder.binding.buttonLayout.button
-
-                    if (holder.binding.editTextView.visibility != View.VISIBLE) {
-                        holder.binding.editTextView.visibility = View.VISIBLE
-                        (editText as EditText).inputType = InputType.TYPE_CLASS_NUMBER
-                        editText.setHint(context.resources.getString(R.string.hintSetLowBatteryNotifyThresholdEdt))
-                        button.setOnClickListener {
-                            setLoadingResult(holder)
-                            displayResult(
-                                holder,
-                                viewModel?.setLowBatteryNotifyThresholdEdt(editText.text.toString())
-                            )
-                        }
-                    } else {
-                        holder.binding.editTextView.visibility = View.GONE
+                    setEditLayout(holder, editText, item)
+                    button.setOnClickListener {
+                        setLoadingResult(holder)
+                        displayResult(
+                            holder,
+                            viewModel?.setLowBatteryNotifyThresholdEdt((editText as EditText).text.toString())
+                        )
                     }
                 }
                 "setCriticalBatteryNotifyThresholdEdt" -> {
-                    //populate corresponding view
-                    // viewModel.setCriticalBatteryNotifyThresholdEdt()
-                    val editText: View = holder.binding.editTextLayout.editText
-                    val button: View = holder.binding.buttonLayout.button
-
-                    if (holder.binding.editTextView.visibility != View.VISIBLE) {
-                        holder.binding.editTextView.visibility = View.VISIBLE
-                        (editText as EditText).inputType = InputType.TYPE_CLASS_NUMBER
-                        editText.setHint(context.resources.getString(R.string.hintSetCriticalBatteryNotifyThresholdEdt))
-                        button.setOnClickListener {
-                            setLoadingResult(holder)
-                            displayResult(
-                                holder,
-                                viewModel?.setCriticalBatteryNotifyThresholdEdt(editText.text.toString())
-                            )
-                        }
-                    } else {
-                        holder.binding.editTextView.visibility = View.GONE
+                    setEditLayout(holder, editText, item)
+                    button.setOnClickListener {
+                        setLoadingResult(holder)
+                        displayResult(
+                            holder,
+                            viewModel?.setCriticalBatteryNotifyThresholdEdt((editText as EditText).text.toString())
+                        )
                     }
                 }
                 "setDischargeDayEdt" -> {
-                    //populate corresponding view
-                    //  viewModel.setDischargeDayEdt()
-                    val editText: View = holder.binding.editTextLayout.editText
-                    val button: View = holder.binding.buttonLayout.button
-                    if (holder.binding.editTextView.visibility != View.VISIBLE) {
-                        holder.binding.editTextView.visibility = View.VISIBLE
-                        (editText as EditText).inputType = InputType.TYPE_CLASS_NUMBER
-                        editText.setHint(context.resources.getString(R.string.hintSetDischargeDayEdt))
-                        button.setOnClickListener {
-                            setLoadingResult(holder)
-                            displayResult(
-                                holder,
-                                viewModel?.setDischargeDayEdt(editText.text.toString())
-                            )
-                        }
-                    } else {
-                        holder.binding.editTextView.visibility = View.GONE
+                    setEditLayout(holder, editText, item)
+                    button.setOnClickListener {
+                        setLoadingResult(holder)
+                        displayResult(
+                            holder,
+                            viewModel?.setDischargeDayEdt((editText as EditText).text.toString())
+                        )
                     }
                 }
             }
@@ -164,6 +137,60 @@ class ManualIndividualItemAdapter() : RecyclerView.Adapter<ManualIndividualViewH
         return moduleList.size
     }
 
+    private fun hideByType(
+        selectedItem: String,
+        holder: ManualIndividualViewHolder
+    ) {
+        for (i in 0 until (moduleList.size - 1))
+            if (moduleList[i].type == selectedItem) {
+                Log.e("Selected module " + moduleList[i].type, " don't do anything")
+                /* if (holder.binding.editTextViewRelative.visibility != View.VISIBLE)
+                     holder.binding.editTextViewRelative.visibility = View.VISIBLE
+                 else
+                     holder.binding.editTextViewRelative.visibility = View.GONE*/
+            } else {
+                Log.e("Selected module " + moduleList[i].type, " not hide ")
+                holder.binding.editTextViewRelative.visibility = View.GONE
+            }
+    }
+
+    private fun setEditLayout(
+        holder: ManualIndividualViewHolder,
+        editText: View,
+        data: ACDataModel
+    ) {
+        when (data.type) {
+            "setLowBatteryNotifyThresholdEdt" -> {
+                if (holder.binding.editTextViewRelative.visibility != View.VISIBLE) {
+                    holder.binding.editTextViewRelative.visibility = View.VISIBLE
+                    (editText as EditText).inputType = InputType.TYPE_CLASS_NUMBER
+                    editText.hint =
+                        context.resources.getString(R.string.hintSetLowBatteryNotifyThresholdEdt)
+                } else {
+                    holder.binding.editTextViewRelative.visibility = View.GONE
+                }
+            }
+            "setCriticalBatteryNotifyThresholdEdt" -> {
+                if (holder.binding.editTextViewRelative.visibility != View.VISIBLE) {
+                    holder.binding.editTextViewRelative.visibility = View.VISIBLE
+                    (editText as EditText).inputType = InputType.TYPE_CLASS_NUMBER
+                    editText.hint =
+                        context.resources.getString(R.string.hintSetCriticalBatteryNotifyThresholdEdt)
+                } else {
+                    holder.binding.editTextViewRelative.visibility = View.GONE
+                }
+            }
+            "setDischargeDayEdt" -> {
+                if (holder.binding.editTextViewRelative.visibility != View.VISIBLE) {
+                    holder.binding.editTextViewRelative.visibility = View.VISIBLE
+                    (editText as EditText).inputType = InputType.TYPE_CLASS_NUMBER
+                    editText.hint = context.resources.getString(R.string.hintSetDischargeDayEdt)
+                } else {
+                    holder.binding.editTextViewRelative.visibility = View.GONE
+                }
+            }
+        }
+    }
 
     private fun displayResult(
         holder: ManualIndividualViewHolder,

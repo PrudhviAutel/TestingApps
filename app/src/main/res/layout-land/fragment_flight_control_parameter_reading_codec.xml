@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingDefaultResource">
+
+    <data>
+
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:animateLayoutChanges="true">
+
+            <include
+                android:id="@+id/startDecode"
+                app:testName="@{`SW_Start_Decode`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Values`}"
+                app:showExtraSpinner="@{true}"
+                app:showExtraEdittext6 ="@{true}"
+                app:extraEdittext6Hint="@{`Texture`}"
+                app:showExtraEdittext7 ="@{true}"
+                app:extraEdittext7Hint="@{`Width`}"
+                app:showExtraEdittext8 ="@{true}"
+                app:extraEdittext8Hint="@{`Height`}"
+                layout="@layout/item_3edittexts_spinner"
+                />
+
+            <include
+                android:id="@+id/setOverExposure"
+                app:testName="@{`SW_Set_Over_Exposure`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Values`}"
+                app:showExtraSpinner="@{`true`}"
+                app:showExtraEdittext ="@{true}"
+                app:extraEdittextHint="@{`ResId`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+            <include
+                android:id="@+id/surfaceSizeChanged"
+                app:testName="@{`SW_Surface_Size_Changed`}"
+                app:setButtonText="@{`Set up`}"
+                app:viewButtonText="@{`View`}"
+                app:extraOptionText="@{`Set Values`}"
+                app:showExtraEdittext ="@{true}"
+                app:extraEdittextHint="@{`Surface Width`}"
+                app:showExtraEdittext2 ="@{true}"
+                app:extraEdittextHint2="@{`Surface Height`}"
+                layout="@layout/item_testoptions_setup_view"
+                />
+
+
+
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

@@ -1,5 +1,6 @@
 package com.android.autelsdk.flyController.fragments
 
+import android.graphics.SurfaceTexture
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -12,21 +13,21 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
-import com.android.autelsdk.databinding.FragmentFlightControlParameterReadingFcBinding
-import com.android.autelsdk.flyController.FlyControllerViewModel
+import com.android.autelsdk.codec.CodecViewModel
+import com.android.autelsdk.databinding.FragmentFlightControlParameterReadingCodecBinding
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Status
 import com.android.autelsdk.util.Utils
 import com.android.autelsdk.util.Utils.observeOnce
-import com.autel.common.flycontroller.LedPilotLamp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 
 class FlightControlParameterReadingCodecFragment : Fragment() {
 
-    private lateinit var binding: FragmentFlightControlParameterReadingFcBinding
-    private val viewModel : FlyControllerViewModel by activityViewModels()
+    private lateinit var binding: FragmentFlightControlParameterReadingCodecBinding
+    private val viewModel : CodecViewModel by activityViewModels()
 
     companion object {
         fun newInstance() = FlightControlParameterReadingCodecFragment()
@@ -34,14 +35,14 @@ class FlightControlParameterReadingCodecFragment : Fragment() {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(
-            inflater,
-            R.layout.fragment_flight_control_parameter_reading_fc,
-            container,
-            false
+                inflater,
+                R.layout.fragment_flight_control_parameter_reading_codec,
+                container,
+                false
         )
         return binding.root
     }
@@ -54,161 +55,111 @@ class FlightControlParameterReadingCodecFragment : Fragment() {
     }
 
     private fun handleListeners() {
-        binding.beginnerMode.setBtn.setOnClickListener {
+        binding.startDecode.setBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.beginnerMode.extraOptionParent.visibility = View.VISIBLE
+            binding.startDecode.extraOptionParent.visibility = View.VISIBLE
         }
 
-        binding.maxHeight.setBtn.setOnClickListener {
+        binding.setOverExposure.setBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.maxHeight.extraOptionParent.visibility = View.VISIBLE
+            binding.setOverExposure.extraOptionParent.visibility = View.VISIBLE
         }
 
-        binding.maxRange.setBtn.setOnClickListener {
+        binding.surfaceSizeChanged.setBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.maxRange.extraOptionParent.visibility = View.VISIBLE
-        }
-
-        binding.returnHeight.setBtn.setOnClickListener {
-            closeAllExtraOptionLayouts()
-            binding.returnHeight.extraOptionParent.visibility = View.VISIBLE
-        }
-
-        binding.maxHorizontalSpeed.setBtn.setOnClickListener {
-            closeAllExtraOptionLayouts()
-            binding.maxHorizontalSpeed.extraOptionParent.visibility = View.VISIBLE
-        }
-
-        binding.ledLampPilot.setBtn.setOnClickListener {
-            closeAllExtraOptionLayouts()
-            binding.ledLampPilot.extraOptionParent.visibility = View.VISIBLE
-        }
-
-        binding.attitudeModeTest.setBtn.setOnClickListener{
-            closeAllExtraOptionLayouts()
-            binding.attitudeModeTest.extraOptionParent.visibility = View.VISIBLE
-        }
-
-        binding.locationasHomePoint.setBtn.setOnClickListener{
-            closeAllExtraOptionLayouts()
-            binding.locationasHomePoint.extraOptionParent.visibility = View.VISIBLE
-        }
-
-        binding.warningListener.setBtn.setOnClickListener {
-            closeAllExtraOptionLayouts()
-            binding.warningListener.showResponseText.visibility = View.VISIBLE
-            binding.warningListener.showResponseText.setText("Please Wait...")
-            lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setWarningListenerTest().observeOnce(viewLifecycleOwner) { msg ->
-                    when (msg.status) {
-                        Status.SUCCESS -> {
-                            binding.warningListener.showResponseText.setText(
-                                Utils.getColoredText(
-                                    msg.message.toString(),
-                                    Constants.SUCCESS
-                                )
-                            )
-                        }
-                        Status.ERROR -> {
-                            binding.warningListener.showResponseText.setText(
-                                Utils.getColoredText(
-                                    msg.message.toString(),
-                                    Constants.FAILED
-                                )
-                            )
-                        }
-                        else -> {
-
-                        }
-                    }
-                }
-            }
+            binding.surfaceSizeChanged.extraOptionParent.visibility = View.VISIBLE
         }
 
 
 
-        binding.beginnerMode.extraOption.setOnClickListener {
-            binding.beginnerMode.showResponseText.visibility = View.VISIBLE
-            binding.beginnerMode.showResponseText.setText("Please Wait...")
+        binding.startDecode.extraOption.setOnClickListener {
+            binding.startDecode.showResponseText.visibility = View.VISIBLE
+            binding.startDecode.showResponseText.setText("Please Wait...")
 
             val state =
-                if (0 == binding.beginnerMode.extraSpinner.selectedItemPosition)
-                    true
-                else
-                    false
+                    if (0 == binding.startDecode.spinnerEdittextsOption.selectedItemPosition)
+                        true
+                    else
+                        false
+            val surfacetexture = SurfaceTexture(Integer.getInteger(binding.startDecode.extraEdittext.text.toString()))
+            val surfacewidth = Integer.getInteger(binding.startDecode.extraEdittext2.text.toString())
+            val surfaceheight =Integer.getInteger(binding.startDecode.extraEdittext3.text.toString())
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setBeginnerModeStateTest(state)
-                    .observeOnce(viewLifecycleOwner, Observer { msg ->
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.beginnerMode.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                            }
-                            Status.ERROR -> {
-                                binding.beginnerMode.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                            }
-                            else -> {
+                viewModel.startDecode(surfacetexture,surfacewidth,surfaceheight,state)
+                        .observeOnce(viewLifecycleOwner, Observer { msg ->
+                            when (msg.status) {
+                                Status.SUCCESS -> {
+                                    binding.startDecode.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                                }
+                                Status.ERROR -> {
+                                    binding.startDecode.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                                }
+                                else -> {
 
+                                }
                             }
-                        }
-                    })
+                        })
             }
         }
 
-        binding.attitudeModeTest.extraOption.setOnClickListener {
-            binding.attitudeModeTest.showResponseText.visibility = View.VISIBLE
-            binding.attitudeModeTest.showResponseText.setText("Please Wait...")
+        binding.setOverExposure.extraOption.setOnClickListener {
+            binding.setOverExposure.showResponseText.visibility = View.VISIBLE
+            binding.setOverExposure.showResponseText.setText("Please Wait...")
 
             val state =
-                if (0 == binding.attitudeModeTest.extraSpinner.selectedItemPosition)
-                    true
-                else
-                    false
+                    if (0 == binding.setOverExposure.extraSpinner.selectedItemPosition)
+                        true
+                    else
+                        false
+            val value = Integer.getInteger(binding.setOverExposure.extraEdittext.text.toString())
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setAttitudeModeEnableTest(state)
-                    .observeOnce(viewLifecycleOwner, Observer { msg ->
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.attitudeModeTest.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                            }
-                            Status.ERROR -> {
-                                binding.attitudeModeTest.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                            }
-                            else -> {
+                viewModel.setOverExposure(state,value)
+                        .observeOnce(viewLifecycleOwner, Observer { msg ->
+                            when (msg.status) {
+                                Status.SUCCESS -> {
+                                    binding.setOverExposure.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                                }
+                                Status.ERROR -> {
+                                    binding.setOverExposure.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                                }
+                                else -> {
 
+                                }
                             }
-                        }
-                    })
+                        })
             }
         }
 
-        binding.maxHeight.extraOption.setOnClickListener {
-            binding.maxHeight.showResponseText.visibility = View.VISIBLE
-            binding.maxHeight.showResponseText.setText("Please Wait...")
-            var value : Double = 0.0
-            if(TextUtils.isEmpty(binding.maxHeight.extraEdittext.text)) {
-                binding.maxHeight.showResponseText.setText("Please enter height")
+        binding.surfaceSizeChanged.extraOption.setOnClickListener {
+            binding.surfaceSizeChanged.showResponseText.visibility = View.VISIBLE
+            binding.surfaceSizeChanged.showResponseText.setText("Please Wait...")
+            var surfacewidth by Delegates.notNull<Int>()
+            var surfaceHeight by Delegates.notNull<Int>()
+            if(TextUtils.isEmpty(binding.surfaceSizeChanged.extraEdittext.text)) {
+                binding.surfaceSizeChanged.showResponseText.setText("Please enter values")
                 return@setOnClickListener
             } else {
-                value = binding.maxHeight.extraEdittext.text.toString().toDouble()
+                surfacewidth = Integer.getInteger(binding.surfaceSizeChanged.extraEdittext.text.toString())
+                surfaceHeight = Integer.getInteger(binding.surfaceSizeChanged.extraEdittext2.text.toString())
             }
 
             //value = Integer.parseInt(binding.rfPower.extraEdittext.text.toString()).toDouble()
 
             lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setMaxHeightTest(value)
-                    .observeOnce(viewLifecycleOwner, Observer { msg ->
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.maxHeight.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                            }
-                            Status.ERROR -> {
-                                binding.maxHeight.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                            }
-                            else -> {
+                viewModel.surfaceSizeChanged(surfacewidth,surfaceHeight)
+                        .observeOnce(viewLifecycleOwner, Observer { msg ->
+                            when (msg.status) {
+                                Status.SUCCESS -> {
+                                    binding.surfaceSizeChanged.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
+                                }
+                                Status.ERROR -> {
+                                    binding.surfaceSizeChanged.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
+                                }
+                                else -> {
 
+                                }
                             }
-                        }
-                    })
+                        })
             }
 
 
@@ -216,388 +167,41 @@ class FlightControlParameterReadingCodecFragment : Fragment() {
 
         }
 
-        binding.maxRange.extraOption.setOnClickListener {
-            binding.maxRange.showResponseText.visibility = View.VISIBLE
-            binding.maxRange.showResponseText.setText("Please Wait...")
-
-            var value : Double
-            if(TextUtils.isEmpty(binding.maxRange.extraEdittext.text)) {
-                binding.maxRange.showResponseText.setText("Please enter range")
-                return@setOnClickListener
-            } else {
-                value = binding.maxRange.extraEdittext.text.toString().toDouble()
-            }
-                lifecycleScope.launch(Dispatchers.Main) {
-                    viewModel.setMaxRangeTest(value)
-                        .observeOnce(viewLifecycleOwner, Observer { msg ->
-                            when (msg.status) {
-                                Status.SUCCESS -> {
-                                    binding.maxRange.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                                }
-                                Status.ERROR -> {
-                                    binding.maxRange.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                                }
-                                else -> {
-
-                                }
-                            }
-                        })
-                }
-
-            }
-
-
-            binding.returnHeight.extraOption.setOnClickListener {
-                binding.returnHeight.showResponseText.visibility = View.VISIBLE
-                binding.returnHeight.showResponseText.setText("Please Wait...")
-                var value : Double
-                if(TextUtils.isEmpty(binding.returnHeight.extraEdittext.text)) {
-                    binding.returnHeight.showResponseText.setText("Please enter height")
-                    return@setOnClickListener
-                } else {
-                    value = binding.returnHeight.extraEdittext.text.toString().toDouble()
-                }
-                    lifecycleScope.launch(Dispatchers.Main) {
-                        viewModel.setReturnHeightTest(value)
-                            .observeOnce(viewLifecycleOwner, Observer { msg ->
-                                when (msg.status) {
-                                    Status.SUCCESS -> {
-                                        binding.returnHeight.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                                    }
-                                    Status.ERROR -> {
-                                        binding.returnHeight.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                                    }
-                                    else -> {
-
-                                    }
-                                }
-                            })
-                    }
-
-                }
-
-        binding.locationasHomePoint.extraOption.setOnClickListener {
-            binding.locationasHomePoint.showResponseText.visibility = View.VISIBLE
-            binding.locationasHomePoint.showResponseText.setText("Please Wait...")
-            val lat : Double
-            val lon : Double
-            if(TextUtils.isEmpty(binding.locationasHomePoint.extraEdittext.text)) {
-                binding.locationasHomePoint.showResponseText.setText("Please enter Both values")
-                return@setOnClickListener
-            }
-            if(TextUtils.isEmpty(binding.locationasHomePoint.extraEdittext2.text)) {
-                binding.locationasHomePoint.showResponseText.setText("Please enter Both values")
-                return@setOnClickListener
-            } else {
-                lat = binding.locationasHomePoint.extraEdittext.text.toString().toDouble()
-                lon = binding.locationasHomePoint.extraEdittext2.text.toString().toDouble()
-            }
-                lifecycleScope.launch(Dispatchers.Main) {
-                    viewModel.setLocationAsHomePointTest(lat,lon)
-                        .observeOnce(viewLifecycleOwner, Observer { msg ->
-                            when (msg.status) {
-                                Status.SUCCESS -> {
-                                    binding.locationasHomePoint.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                                }
-                                Status.ERROR -> {
-                                    binding.locationasHomePoint.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                                }
-                                else -> {
-
-                                }
-                            }
-                        })
-                }
-
-            }
-
-
-        binding.maxHorizontalSpeed.extraOption.setOnClickListener {
-            binding.maxHorizontalSpeed.showResponseText.visibility = View.VISIBLE
-            binding.maxHorizontalSpeed.showResponseText.setText("Please Wait...")
-            var value : Double
-            if(TextUtils.isEmpty(binding.maxHorizontalSpeed.extraEdittext.text)) {
-                binding.maxHorizontalSpeed.showResponseText.setText("Please enter value")
-                return@setOnClickListener
-            } else {
-                value = binding.maxHorizontalSpeed.extraEdittext.text.toString().toDouble()
-            }
-                lifecycleScope.launch(Dispatchers.Main) {
-                    viewModel.setMaxHorizontalSpeedTest(value)
-                        .observeOnce(viewLifecycleOwner, Observer { msg ->
-                            when (msg.status) {
-                                Status.SUCCESS -> {
-                                    binding.maxHorizontalSpeed.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                                }
-                                Status.ERROR -> {
-                                    binding.maxHorizontalSpeed.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                                }
-                                else -> {
-
-                                }
-                            }
-                        })
-                }
-
-            }
 
 
 
-            binding.beginnerMode.viewBtn.setOnClickListener {
-                closeAllExtraOptionLayouts()
-                binding.beginnerMode.showResponseText.visibility = View.VISIBLE
-                binding.beginnerMode.showResponseText.setText("Please Wait...")
-                lifecycleScope.launch(Dispatchers.Main) {
-                    viewModel.getBeginnerModeStateTest().observeOnce(viewLifecycleOwner) { msg ->
 
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.beginnerMode.showResponseText.setText(
-                                    Utils.getColoredText(
-                                        msg.message.toString(),
-                                        Constants.SUCCESS
-                                    )
-                                )
-                            }
-                            Status.ERROR -> {
-                                binding.beginnerMode.showResponseText.setText(
-                                    Utils.getColoredText(
-                                        msg.message.toString(),
-                                        Constants.FAILED
-                                    )
-                                )
-                            }
-                            else -> {
-
-                            }
-                        }
-                    }
-                }
-            }
-
-        binding.ledLampPilot.extraOption.setOnClickListener {
-
-            binding.ledLampPilot.showResponseText.visibility = View.VISIBLE
-            binding.ledLampPilot.showResponseText.setText("Please Wait...")
-            lateinit var state : LedPilotLamp
-
-            when (binding.ledLampPilot.extraSpinner.selectedItemPosition) {
-                    0 -> state = LedPilotLamp.ALL_OFF
-                    1 -> state = LedPilotLamp.BACK_ONLY
-                    2 -> state = LedPilotLamp.FRONT_ONLY
-                    3 -> state = LedPilotLamp.ALL_ON
-                }
-
-            lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.setLedPilotLampTest(state)
-
-                    .observeOnce(viewLifecycleOwner, Observer { msg ->
-
-                        when (msg.status) {
-
-                            Status.SUCCESS -> {
-                                binding.ledLampPilot.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.SUCCESS))
-                            }
-                            Status.ERROR -> {
-                                binding.ledLampPilot.showResponseText.setText(Utils.getColoredText(msg.message.toString(), Constants.FAILED))
-                            }
-                            else -> {
-
-                            }
-                        }
-                    })
-            }
-        }
-
-            binding.maxHeight.viewBtn.setOnClickListener {
-                closeAllExtraOptionLayouts()
-                binding.maxHeight.showResponseText.visibility = View.VISIBLE
-                binding.maxHeight.showResponseText.setText("Please Wait...")
-                lifecycleScope.launch(Dispatchers.Main) {
-                    viewModel.getMaxHeightTest().observeOnce(viewLifecycleOwner) { msg ->
-
-
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.maxHeight.showResponseText.setText(
-                                    Utils.getColoredText(
-                                        msg.message.toString(),
-                                        Constants.SUCCESS
-                                    )
-                                )
-                            }
-                            Status.ERROR -> {
-                                binding.maxHeight.showResponseText.setText(
-                                    Utils.getColoredText(
-                                        msg.message.toString(),
-                                        Constants.FAILED
-                                    )
-                                )
-                            }
-                            else -> {
-
-                            }
-                        }
-                    }
-                }
-            }
-
-
-        binding.maxHeight.viewBtn.setOnClickListener {
+        binding.startDecode.viewBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.maxHeight.showResponseText.visibility = View.VISIBLE
-            binding.maxHeight.showResponseText.setText("Please Wait...")
-            lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.getMaxHeightTest().observeOnce(viewLifecycleOwner) { msg ->
+            binding.startDecode.showResponseText.visibility = View.VISIBLE
+            binding.startDecode.showResponseText.setText("Please Wait...")
+            var state by Delegates.notNull<Boolean>()
+            val surfacetexture = SurfaceTexture(0)
+            val surfacewidth = 3
+            val surfaceHeight = 4
+            when (binding.setOverExposure.extraSpinner.selectedItemPosition) {
+                0 -> state = true
+                1 -> state = false
 
+            }
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.startDecode(surfacetexture,surfacewidth,surfaceHeight,state).observeOnce(viewLifecycleOwner) { msg ->
 
                     when (msg.status) {
                         Status.SUCCESS -> {
-                            binding.maxHeight.showResponseText.setText(
-                                Utils.getColoredText(
-                                    msg.message.toString(),
-                                    Constants.SUCCESS
-                                )
+                            binding.startDecode.showResponseText.setText(
+                                    Utils.getColoredText(
+                                            msg.message.toString(),
+                                            Constants.SUCCESS
+                                    )
                             )
                         }
                         Status.ERROR -> {
-                            binding.maxHeight.showResponseText.setText(
-                                Utils.getColoredText(
-                                    msg.message.toString(),
-                                    Constants.FAILED
-                                )
-                            )
-                        }
-                        else -> {
-
-                        }
-                    }
-                }
-            }
-        }
-
-            binding.maxRange.viewBtn.setOnClickListener {
-                closeAllExtraOptionLayouts()
-                binding.maxRange.showResponseText.visibility = View.VISIBLE
-                binding.maxRange.showResponseText.setText("Please Wait...")
-                lifecycleScope.launch(Dispatchers.Main) {
-                    viewModel.getMaxRangeTest().observeOnce(viewLifecycleOwner) { msg ->
-
-
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.maxRange.showResponseText.setText(
+                            binding.startDecode.showResponseText.setText(
                                     Utils.getColoredText(
-                                        msg.message.toString(),
-                                        Constants.SUCCESS
+                                            msg.message.toString(),
+                                            Constants.FAILED
                                     )
-                                )
-                            }
-                            Status.ERROR -> {
-                                binding.maxRange.showResponseText.setText(
-                                    Utils.getColoredText(
-                                        msg.message.toString(),
-                                        Constants.FAILED
-                                    )
-                                )
-                            }
-                            else -> {
-
-                            }
-                        }
-                    }
-                }
-            }
-
-            binding.returnHeight.viewBtn.setOnClickListener {
-                closeAllExtraOptionLayouts()
-                binding.returnHeight.showResponseText.visibility = View.VISIBLE
-                binding.returnHeight.showResponseText.setText("Please Wait...")
-                lifecycleScope.launch(Dispatchers.Main) {
-                    viewModel.getReturnHeightTest().observeOnce(viewLifecycleOwner) { msg ->
-
-
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.returnHeight.showResponseText.setText(
-                                    Utils.getColoredText(
-                                        msg.message.toString(),
-                                        Constants.SUCCESS
-                                    )
-                                )
-                            }
-                            Status.ERROR -> {
-                                binding.returnHeight.showResponseText.setText(
-                                    Utils.getColoredText(
-                                        msg.message.toString(),
-                                        Constants.FAILED
-                                    )
-                                )
-                            }
-                            else -> {
-
-                            }
-                        }
-                    }
-                }
-            }
-
-            binding.maxHorizontalSpeed.viewBtn.setOnClickListener {
-                closeAllExtraOptionLayouts()
-                binding.maxHorizontalSpeed.showResponseText.visibility = View.VISIBLE
-                binding.maxHorizontalSpeed.showResponseText.setText("Please Wait...")
-                lifecycleScope.launch(Dispatchers.Main) {
-                    viewModel.getMaxHorizontalSpeedTest().observeOnce(viewLifecycleOwner) { msg ->
-
-
-                        when (msg.status) {
-                            Status.SUCCESS -> {
-                                binding.maxHorizontalSpeed.showResponseText.setText(
-                                    Utils.getColoredText(
-                                        msg.message.toString(),
-                                        Constants.SUCCESS
-                                    )
-                                )
-                            }
-                            Status.ERROR -> {
-                                binding.maxHorizontalSpeed.showResponseText.setText(
-                                    Utils.getColoredText(
-                                        msg.message.toString(),
-                                        Constants.FAILED
-                                    )
-                                )
-                            }
-                            else -> {
-
-                            }
-                        }
-                    }
-                }
-            }
-
-        binding.ledLampPilot.viewBtn.setOnClickListener {
-            closeAllExtraOptionLayouts()
-            binding.ledLampPilot.showResponseText.visibility = View.VISIBLE
-            binding.ledLampPilot.showResponseText.setText("Please Wait...")
-            lifecycleScope.launch(Dispatchers.Main) {
-                viewModel.getLedPilotLampTest().observeOnce(viewLifecycleOwner) { msg ->
-
-
-                    when (msg.status) {
-                        Status.SUCCESS -> {
-                            binding.ledLampPilot.showResponseText.setText(
-                                Utils.getColoredText(
-                                    msg.message.toString(),
-                                    Constants.SUCCESS
-                                )
-                            )
-                        }
-                        Status.ERROR -> {
-                            binding.ledLampPilot.showResponseText.setText(
-                                Utils.getColoredText(
-                                    msg.message.toString(),
-                                    Constants.FAILED
-                                )
                             )
                         }
                         else -> {
@@ -610,114 +214,139 @@ class FlightControlParameterReadingCodecFragment : Fragment() {
 
 
 
-            binding.warningListener.viewBtn.setOnClickListener {
-                closeAllExtraOptionLayouts()
+        binding.surfaceSizeChanged.viewBtn.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.surfaceSizeChanged.showResponseText.visibility = View.VISIBLE
+            binding.surfaceSizeChanged.showResponseText.setText("Please Wait...")
+            val surfacewidth = 4
+            val surfaceheight = 5
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.surfaceSizeChanged(surfacewidth,surfaceheight).observeOnce(viewLifecycleOwner) { msg ->
 
-                binding.warningListener.showResponseText.visibility = View.VISIBLE
-                binding.warningListener.showResponseText.setText("Please Wait...")
 
-                viewModel.setWarningListenerTest()
-                binding.warningListener.showResponseText.setText(
-                    Utils.getColoredText(
-                        "Warning Listener set to null",
-                        Constants.SUCCESS
-                    )
-                )
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.surfaceSizeChanged.showResponseText.setText(
+                                    Utils.getColoredText(
+                                            msg.message.toString(),
+                                            Constants.SUCCESS
+                                    )
+                            )
+                        }
+                        Status.ERROR -> {
+                            binding.surfaceSizeChanged.showResponseText.setText(
+                                    Utils.getColoredText(
+                                            msg.message.toString(),
+                                            Constants.FAILED
+                                    )
+                            )
+                        }
+                        else -> {
+
+                        }
+                    }
+                }
             }
+        }
 
-        binding.locationasHomePoint.viewBtn.setOnClickListener {
+
+
+
+        binding.setOverExposure.viewBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
+            binding.setOverExposure.showResponseText.visibility = View.VISIBLE
+            binding.setOverExposure.showResponseText.setText("Please Wait...")
+            var state by Delegates.notNull<Boolean>()
+            val value = 3
+            when (binding.setOverExposure.extraSpinner.selectedItemPosition) {
+                0 -> state = true
+                1 -> state = false
 
-            binding.locationasHomePoint.showResponseText.visibility = View.VISIBLE
-            binding.locationasHomePoint.showResponseText.setText("Please Wait...")
+            }
+            lifecycleScope.launch(Dispatchers.Main) {
+                viewModel.setOverExposure(state,value).observeOnce(viewLifecycleOwner) { msg ->
 
-            viewModel.setWarningListenerTest()
-            binding.locationasHomePoint.showResponseText.setText(
-                Utils.getColoredText(
-                    "Location for Homepoint set to null",
-                    Constants.SUCCESS
-                )
-            )
+
+                    when (msg.status) {
+                        Status.SUCCESS -> {
+                            binding.setOverExposure.showResponseText.setText(
+                                    Utils.getColoredText(
+                                            msg.message.toString(),
+                                            Constants.SUCCESS
+                                    )
+                            )
+                        }
+                        Status.ERROR -> {
+                            binding.setOverExposure.showResponseText.setText(
+                                    Utils.getColoredText(
+                                            msg.message.toString(),
+                                            Constants.FAILED
+                                    )
+                            )
+                        }
+                        else -> {
+
+                        }
+                    }
+                }
+            }
         }
 
-        binding.attitudeModeTest.viewBtn.setOnClickListener {
-            closeAllExtraOptionLayouts()
-
-            binding.attitudeModeTest.showResponseText.visibility = View.VISIBLE
-            binding.attitudeModeTest.showResponseText.setText("Please Wait...")
-
-            viewModel.setWarningListenerTest()
-            binding.attitudeModeTest.showResponseText.setText(
-                Utils.getColoredText(
-                    "Attitude Mode reset to null",
-                    Constants.SUCCESS
-                )
-            )
-        }
 
 
-        }
-
-        private fun closeAllExtraOptionLayouts() {
-
-            binding.beginnerMode.extraOptionParent.visibility = View.GONE
-            binding.maxHeight.extraOptionParent.visibility = View.GONE
-            binding.maxRange.extraOptionParent.visibility = View.GONE
-            binding.returnHeight.extraOptionParent.visibility = View.GONE
-            binding.maxHorizontalSpeed.extraOptionParent.visibility = View.GONE
-            binding.attitudeModeTest.extraOptionParent.visibility=View.GONE
-            binding.locationasHomePoint.extraOptionParent.visibility=View.GONE
-            binding.ledLampPilot.extraOptionParent.visibility=View.GONE
-
-            // We should hide both extraOptionLayout and Response text
-            binding.beginnerMode.showResponseText.visibility = View.GONE
-            binding.maxHeight.showResponseText.visibility = View.GONE
-            binding.maxRange.showResponseText.visibility = View.GONE
-            binding.returnHeight.showResponseText.visibility = View.GONE
-            binding.maxHorizontalSpeed.showResponseText.visibility = View.GONE
-            binding.ledLampPilot.showResponseText.visibility = View.GONE
-            binding.warningListener.showResponseText.visibility = View.GONE
-            binding.attitudeModeTest.showResponseText.visibility = View.GONE
-            binding.locationasHomePoint.showResponseText.visibility = View.GONE
-            binding.ledLampPilot.showResponseText.visibility = View.GONE
 
 
-        }
+    }
 
-        private fun setSpinnerItems() {
+    private fun closeAllExtraOptionLayouts() {
 
-            var spinnerAdapter = ArrayAdapter.createFromResource(
+        binding.startDecode.extraOptionParent.visibility = View.GONE
+        binding.setOverExposure.extraOptionParent.visibility = View.GONE
+        binding.surfaceSizeChanged.extraOptionParent.visibility = View.GONE
+        binding.setOverExposure.extraOptionParent.visibility=View.GONE
+
+        // We should hide both extraOptionLayout and Response text
+        binding.startDecode.showResponseText.visibility = View.GONE
+        binding.surfaceSizeChanged.showResponseText.visibility = View.GONE
+        binding.setOverExposure.showResponseText.visibility = View.GONE
+
+
+    }
+
+    private fun setSpinnerItems() {
+
+        var spinnerAdapter = ArrayAdapter.createFromResource(
                 requireActivity().baseContext,
                 R.array.rc_Boolean,
                 android.R.layout.simple_spinner_item
-            )
-            binding.beginnerMode.extraSpinner.adapter = spinnerAdapter
-            spinnerAdapter = ArrayAdapter.createFromResource(
+        )
+        binding.setOverExposure.extraSpinner.adapter = spinnerAdapter
+        spinnerAdapter = ArrayAdapter.createFromResource(
                 requireActivity().baseContext,
                 R.array.rc_rfs,
                 android.R.layout.simple_spinner_item
-            )
+        )
 //            binding.maxHeight.extraSpinner.adapter = spinnerAdapter
 //            spinnerAdapter = ArrayAdapter.createFromResource(
 //                requireActivity().baseContext,
 //                R.array.rc_length_unit,
 //                android.R.layout.simple_spinner_item
 //            )
-//            binding.ledLampPilot.extraSpinner.adapter = spinnerAdapter
+//            binding.setOverExposure.extraSpinner.adapter = spinnerAdapter
 
-            spinnerAdapter = ArrayAdapter.createFromResource(
-                requireActivity().baseContext,
-                R.array.rc_led_pilot_lamp,
-                android.R.layout.simple_spinner_item
-            )
-            binding.ledLampPilot.extraSpinner.adapter = spinnerAdapter
-            spinnerAdapter = ArrayAdapter.createFromResource(
+        spinnerAdapter = ArrayAdapter.createFromResource(
                 requireActivity().baseContext,
                 R.array.rc_Boolean,
                 android.R.layout.simple_spinner_item
-            )
-            binding.attitudeModeTest.extraSpinner.adapter = spinnerAdapter
-        }
-
-
+        )
+        binding.setOverExposure.extraSpinner.adapter = spinnerAdapter
+        spinnerAdapter = ArrayAdapter.createFromResource(
+                requireActivity().baseContext,
+                R.array.rc_Boolean,
+                android.R.layout.simple_spinner_item
+        )
+        binding.startDecode.spinnerEdittextsOption.adapter = spinnerAdapter
     }
+
+
+}

@@ -130,4 +130,8 @@
     <string name="hintSetLowBatteryNotifyThresholdEdt">Low battery notify</string>
     <string name="hintSetCriticalBatteryNotifyThresholdEdt">"Critical battery notify"</string>
     <string name="hintSetDischargeDayEdt">"Discharge day"</string>
+    <string name="BatteryRealTimeDataListener">BatteryRealTimeDataListener</string>
+    <string name="LowBatteryNotifyThresholdEdt">LowBatteryNotifyThreshold</string>
+    <string name="CriticalBatteryNotifyThresholdEdt">CriticalBatteryNotifyThreshold</string>
+    <string name="DischargeDayEdt">DischargeDay</string>
 </resources>

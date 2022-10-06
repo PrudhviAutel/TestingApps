@@ -12,8 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
 import com.android.autelsdk.codec.CodecViewModel
 import com.android.autelsdk.databinding.FragmentAircraftStatusDirectCommandCodecBinding
-import com.android.autelsdk.databinding.FragmentAircraftStatusDirectCommandFcBinding
-import com.android.autelsdk.flyController.FlyControllerViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Status
 import com.android.autelsdk.util.Utils

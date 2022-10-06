@@ -1,26 +1,22 @@
 package com.android.autelsdk.codec
 
-import android.content.Context
 import android.graphics.SurfaceTexture
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.android.autelsdk.MainActivity2
 import com.android.autelsdk.util.Resource
 import com.android.autelsdk.util.Utils
 import com.autel.common.video.OnRenderFrameInfoListener
 import com.autel.internal.video.AutelCodec_Ranger
 import com.autel.internal.video.core.decoder2.CodecManager
-import com.autel.internal.video.widget.AutelCodecView2
 import com.autel.sdk.video.AutelCodec
-import com.autel.sdk.widget.AutelCodecView
 
 class CodecRepositoryImpl : CodecRepository {
-    val mcontroller : AutelCodec = AutelCodec_Ranger()
+    var mController : AutelCodec = AutelCodec_Ranger()
     val codecManager = CodecManager.getInstance()
 
     override fun isOverExposureEnabled(): MutableLiveData<Resource<Boolean>> {
         var isOverExposureEnabledResult: MutableLiveData<Resource<Boolean>> = MutableLiveData()
-        val successMessage = Utils.getSuccessShowText("state = ${codecManager.isOverExposureEnabled}", methodName = "isOverExposureEnabled")
+        val successMessage = "Over Exposure is ${if(codecManager.isOverExposureEnabled) "Enabled" else "Disabled"}"
         isOverExposureEnabledResult.postValue(Resource.Companion.success(codecManager.isOverExposureEnabled, successMessage))
         return isOverExposureEnabledResult
     }
@@ -49,7 +45,7 @@ class CodecRepositoryImpl : CodecRepository {
                 setOnRenderFrameInfoListenerResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
             override fun onRenderFrameSizeChanged(width: Int, height: Int) {
-                successMessage = Utils.getSuccessShowText("For Render Frame Size Width = ${width} , Height = ${height}", methodName = "onRenderFrameSizeChanged")
+                successMessage = Utils.getSuccessShowText("For Render Frame Size Width = ${width}  , Height = ${height} , Unit = Pixels ", methodName = "onRenderFrameSizeChanged")
                 setOnRenderFrameInfoListenerResult.postValue(Resource.Companion.success(successMessage, successMessage))
             }
 
@@ -89,7 +85,7 @@ class CodecRepositoryImpl : CodecRepository {
 
     override fun setOverExposure(enabled: Boolean, resId: Int) : MutableLiveData<Resource<String>> {
         var setOverExposureResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        val successMessage = Utils.getSuccessShowText("For Over Exposure enabled = ${enabled}, resId=${resId}", methodName = "setOverExposure")
+        val successMessage = Utils.getSuccessShowText("For Over Exposure Status = ${enabled}, resId=${resId}", methodName = "setOverExposure")
         setOverExposureResult.postValue(Resource.Companion.success(successMessage, successMessage))
         return setOverExposureResult
     }
@@ -99,6 +95,10 @@ class CodecRepositoryImpl : CodecRepository {
         val successMessage = Utils.getSuccessShowText("For Surface Size Changed surfaceWidth = ${surfaceWidth}, surfaceHeight=${surfaceHeight}", methodName = "surfaceSizeChanged")
         surfaceSizeChangedResult.postValue(Resource.Companion.success(successMessage, successMessage))
         return surfaceSizeChangedResult
+    }
+
+    override fun setCodec(controller: AutelCodec) {
+        mController = controller
     }
 
 

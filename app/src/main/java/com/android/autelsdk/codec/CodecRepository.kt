@@ -3,7 +3,7 @@ package com.android.autelsdk.codec
 import android.graphics.SurfaceTexture
 import androidx.lifecycle.MutableLiveData
 import com.android.autelsdk.util.Resource
-import com.autel.common.video.OnRenderFrameInfoListener
+import com.autel.sdk.video.AutelCodec
 
 interface CodecRepository {
     fun isOverExposureEnabled(): MutableLiveData<Resource<Boolean>>
@@ -20,4 +20,5 @@ interface CodecRepository {
     fun setOverExposure(enabled: Boolean, resId: Int) :MutableLiveData<Resource<String>>
     fun surfaceSizeChanged(surfaceWidth: Int, surfaceHeight: Int) :MutableLiveData<Resource<String>>
     fun stopCodec(): MutableLiveData<Resource<String>>
+    fun setCodec(controller : AutelCodec)
 }

@@ -1,10 +1,8 @@
 package com.android.autelsdk.flyController.fragments
 
 import android.graphics.SurfaceTexture
-import android.opengl.GLSurfaceView
 import android.os.Bundle
 import android.text.Spannable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,13 +15,10 @@ import com.android.autelsdk.R
 import com.android.autelsdk.codec.CodecViewModel
 import com.android.autelsdk.databinding.FragmentDebugLogControlFcBinding
 import com.android.autelsdk.event.ProductConnectEvent
-import com.android.autelsdk.flyController.FlyControllerViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Status
 import com.android.autelsdk.util.Utils
 import com.android.autelsdk.util.Utils.observeOnce
-import com.autel.common.flycontroller.LedPilotLamp
-import kotlinx.coroutines.runBlocking
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -41,6 +36,7 @@ class DebugLogCodecFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_debug_log_control_fc , container, false)
+        binding.tvHeadingnameArc.setText("Codec")
         return binding.root
     }
 

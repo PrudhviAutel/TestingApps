@@ -1,29 +1,18 @@
 package com.android.autelsdk.codec
 
 import android.os.Bundle
-import android.text.Spannable
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.android.autelsdk.BaseActivity
 import com.android.autelsdk.R
+import com.android.autelsdk.codec.fragments.FlightControlParameterReadingCodecFragment
 import com.android.autelsdk.databinding.ActivityCodecBinding
-import com.android.autelsdk.databinding.ActivityFlyControllerBinding
-import com.android.autelsdk.event.ProductConnectEvent
-import com.android.autelsdk.flyController.FlyControllerViewModel
-import com.android.autelsdk.flyController.fragments.*
-import com.android.autelsdk.util.Constants
-import com.android.autelsdk.util.Status
-import com.android.autelsdk.util.Utils
-import com.android.autelsdk.util.Utils.observeOnce
-import com.autel.common.flycontroller.LedPilotLamp
+import com.android.autelsdk.flyController.fragments.AircraftStatusDirectCommandCodecFragment
+import com.android.autelsdk.flyController.fragments.DebugLogCodecFragment
+import com.android.autelsdk.flyController.fragments.InterfaceDebuggingCodecFragment
 import com.autel.sdk.product.BaseProduct
 import com.autel.sdk.video.AutelCodec
-import kotlinx.coroutines.runBlocking
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
-import java.util.Observer
 
 class CodecActivity : BaseActivity<AutelCodec>() {
     lateinit var binding: ActivityCodecBinding

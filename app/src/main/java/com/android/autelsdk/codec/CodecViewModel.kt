@@ -3,15 +3,19 @@ package com.android.autelsdk.codec
 import android.graphics.SurfaceTexture
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.android.autelsdk.flyController.FlyControllerRepository
-import com.android.autelsdk.flyController.FlyControllerRepositoryImpl
 import com.android.autelsdk.util.Resource
 import com.autel.common.product.AutelProductType
-import com.autel.common.video.OnRenderFrameInfoListener
+import com.autel.internal.video.AutelCodec_Ranger
+import com.autel.sdk.product.BaseProduct
+import com.autel.sdk.video.AutelCodec
 
 class CodecViewModel : ViewModel() {
     val codecRepository: CodecRepository = CodecRepositoryImpl()
     private var currentProductType: MutableLiveData<AutelProductType> = MutableLiveData(AutelProductType.UNKNOWN)
+    private var mController: AutelCodec = AutelCodec_Ranger()
+    private var currentProduct: MutableLiveData<BaseProduct?> = MutableLiveData()
+
+
 
 
     fun isOverExposureEnabled(): MutableLiveData<Resource<Boolean>> {
@@ -52,6 +56,19 @@ class CodecViewModel : ViewModel() {
 
     fun stopCodec() : MutableLiveData<Resource<String>>{
         return codecRepository.stopCodec()
+    }
+
+    fun getCodec() : AutelCodec {
+        return mController
+    }
+
+    fun setCodec(controller : AutelCodec) {
+        mController = controller
+        codecRepository.setCodec(mController)
+    }
+
+    fun getCurrentProduct(): MutableLiveData<BaseProduct?> {
+        return currentProduct
     }
 
 

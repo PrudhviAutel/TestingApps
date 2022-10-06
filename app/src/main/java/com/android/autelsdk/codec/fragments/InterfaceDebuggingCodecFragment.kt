@@ -10,30 +10,30 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.android.autelsdk.R
-import com.android.autelsdk.databinding.FragmentInterfaceDebuggingFcBinding
+import com.android.autelsdk.codec.CodecViewModel
+import com.android.autelsdk.databinding.FragmentInterfaceDebuggingCodecBinding
 import com.android.autelsdk.event.ProductConnectEvent
-import com.android.autelsdk.flyController.FlyControllerViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Utils
-import com.autel.internal.flycontroller.cruiser.CruiserFlyControllerImpl
-import com.autel.sdk.flycontroller.AutelFlyController
+import com.autel.internal.video.AutelCodec_Ranger
+import com.autel.sdk.video.AutelCodec
 import org.greenrobot.eventbus.EventBus
 
 class InterfaceDebuggingCodecFragment : Fragment() {
 
-    private lateinit var binding: FragmentInterfaceDebuggingFcBinding
+    private lateinit var binding: FragmentInterfaceDebuggingCodecBinding
 
     companion object {
         fun newInstance() = InterfaceDebuggingCodecFragment()
     }
 
-    private val viewModel: FlyControllerViewModel by activityViewModels()
+    private val viewModel: CodecViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_interface_debugging_fc , container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_interface_debugging_codec , container, false)
         return binding.root
     }
 
@@ -49,56 +49,56 @@ class InterfaceDebuggingCodecFragment : Fragment() {
 
         var spinnerAdapter = ArrayAdapter.createFromResource(
             requireActivity().baseContext,
-            R.array.fly_controllers,
+            R.array.codec,
             android.R.layout.simple_spinner_item
         )
-        binding.chooseFlyController.extraSpinner.adapter = spinnerAdapter
+        binding.ChooseCodec.extraSpinner.adapter = spinnerAdapter
 
-        val index = context?.resources?.getStringArray(R.array.fly_controllers)?.indexOf(getCurrentFlyControllerByName(viewModel.getFlyController()))
+        val index = context?.resources?.getStringArray(R.array.codec)?.indexOf(getCurrentCodec(viewModel.getCodec()))
 
         index?.let { index
-            binding.chooseFlyController.extraSpinner.setSelection(index)
+            binding.ChooseCodec.extraSpinner.setSelection(index)
         }
     }
 
-    private fun getCurrentFlyControllerByName(controller : AutelFlyController) : String {
+    private fun getCurrentCodec(controller : AutelCodec) : String {
         when(controller) {
-            is CruiserFlyControllerImpl -> {
-                return Constants.CruiserFlyController
+            is AutelCodec_Ranger -> {
+                return Constants.AutelCodec_Ranger
             }
         }
         return ""
     }
 
-    private fun setCurrentRemoteControllerByName(name : String) : AutelFlyController {
+    private fun setCurrentCodecByName(name : String) : AutelCodec {
         when(name) {
-            Constants.CruiserFlyController -> {
-                return CruiserFlyControllerImpl()
+            Constants.AutelCodec_Ranger -> {
+                return AutelCodec_Ranger()
             }
         }
-        return viewModel.getFlyController()
+        return viewModel.getCodec()
     }
 
     private fun handleListeners() {
 
-        binding.chooseFlyController.viewBtn.setOnClickListener {
-            binding.chooseFlyController.showResponseText.visibility = View.VISIBLE
-            binding.chooseFlyController.extraOptionParent.visibility = View.GONE
-            binding.chooseFlyController.showResponseText.setText("Currently set to ${getCurrentFlyControllerByName(viewModel.getFlyController())}")
+        binding.ChooseCodec.viewBtn.setOnClickListener {
+            binding.ChooseCodec.showResponseText.visibility = View.VISIBLE
+            binding.ChooseCodec.extraOptionParent.visibility = View.GONE
+            binding.ChooseCodec.showResponseText.setText("Currently set to ${getCurrentCodec(viewModel.getCodec())}")
         }
 
-        binding.chooseFlyController.setBtn.setOnClickListener {
-            binding.chooseFlyController.showResponseText.visibility = View.GONE
+        binding.ChooseCodec.setBtn.setOnClickListener {
+            binding.ChooseCodec.showResponseText.visibility = View.GONE
             binding.showResponseText.visibility = View.GONE
-            binding.chooseFlyController.extraOptionParent.visibility = View.VISIBLE
+            binding.ChooseCodec.extraOptionParent.visibility = View.VISIBLE
         }
 
-        binding.chooseFlyController.extraOption.setOnClickListener {
-            val controller = setCurrentRemoteControllerByName(binding.chooseFlyController.extraSpinner.selectedItem.toString())
-            viewModel.setFlyController(controller)
-            binding.chooseFlyController.showResponseText.visibility = View.VISIBLE
-            binding.chooseFlyController.extraOptionParent.visibility = View.GONE
-            binding.chooseFlyController.showResponseText.setText("Currently set to " + binding.chooseFlyController.extraSpinner.selectedItem.toString())
+        binding.ChooseCodec.extraOption.setOnClickListener {
+            val controller = setCurrentCodecByName(binding.ChooseCodec.extraSpinner.selectedItem.toString())
+            viewModel.setCodec(controller)
+            binding.ChooseCodec.showResponseText.visibility = View.VISIBLE
+            binding.ChooseCodec.extraOptionParent.visibility = View.GONE
+            binding.ChooseCodec.showResponseText.setText("Currently set to " + binding.ChooseCodec.extraSpinner.selectedItem.toString())
         }
 
         binding.connectDevice.setOnClickListener {

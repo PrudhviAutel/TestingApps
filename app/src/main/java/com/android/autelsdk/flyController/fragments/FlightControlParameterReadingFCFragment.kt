@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
+import com.android.autelsdk.codec.fragments.FlightControlParameterReadingCodecFragment
 import com.android.autelsdk.databinding.FragmentFlightControlParameterReadingFcBinding
 import com.android.autelsdk.flyController.FlyControllerViewModel
 import com.android.autelsdk.util.Constants

@@ -22,11 +22,11 @@
             android:animateLayoutChanges="true">
 
             <include
-                android:id="@+id/chooseFlyController"
-                app:testName="@{`Fly Controller`}"
+                android:id="@+id/ChooseCodec"
+                app:testName="@{`Autel Codec`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`View`}"
-                app:extraOptionText="@{`Set Fly Controller`}"
+                app:extraOptionText="@{`Set Codec`}"
                 app:showExtraSpinner="@{true}"
                 layout="@layout/item_testoptions_setup_view"
                 />

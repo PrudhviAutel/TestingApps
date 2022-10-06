@@ -26,7 +26,8 @@
                 app:testName="@{`SW_Start_Decode`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`View`}"
-                app:extraOptionText="@{`Set Values`}"
+                app:spinnerEdittextValuesOptionText ="@{`Set Values`}"
+                app:spinnerTitle="@{`Use Open GL`}"
                 app:showExtraSpinner="@{true}"
                 app:showExtraEdittext6 ="@{true}"
                 app:extraEdittext6Hint="@{`Texture`}"
@@ -39,11 +40,11 @@
 
             <include
                 android:id="@+id/setOverExposure"
-                app:testName="@{`SW_Set_Over_Exposure`}"
+                app:testName="@{`SW_Over_Exposure`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`View`}"
-                app:extraOptionText="@{`Set Values`}"
-                app:showExtraSpinner="@{`true`}"
+                app:extraOptionText="@{`Set Over Exposure Status`}"
+                app:showExtraSpinner="@{true}"
                 app:showExtraEdittext ="@{true}"
                 app:extraEdittextHint="@{`ResId`}"
                 layout="@layout/item_testoptions_setup_view"
@@ -51,7 +52,7 @@
 
             <include
                 android:id="@+id/surfaceSizeChanged"
-                app:testName="@{`SW_Surface_Size_Changed`}"
+                app:testName="@{`SW_Surface_Size`}"
                 app:setButtonText="@{`Set up`}"
                 app:viewButtonText="@{`View`}"
                 app:extraOptionText="@{`Set Values`}"

@@ -1,4 +1,4 @@
-package com.android.autelsdk.flyController.fragments
+package com.android.autelsdk.codec.fragments
 
 import android.graphics.SurfaceTexture
 import android.os.Bundle
@@ -49,15 +49,21 @@ class FlightControlParameterReadingCodecFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initUi()
         setSpinnerItems()
         handleListeners()
+    }
+
+    private fun initUi() {
+        binding.startDecode.viewBtn.visibility = View.GONE
+        binding.setOverExposure.viewBtn.visibility = View.GONE
+        binding.surfaceSizeChanged.viewBtn.visibility = View.GONE
     }
 
     private fun handleListeners() {
         binding.startDecode.setBtn.setOnClickListener {
             closeAllExtraOptionLayouts()
-            binding.startDecode.extraOptionParent.visibility = View.VISIBLE
+            binding.startDecode.spinnerEditTextsParent.visibility = View.VISIBLE
         }
 
         binding.setOverExposure.setBtn.setOnClickListener {
@@ -72,18 +78,31 @@ class FlightControlParameterReadingCodecFragment : Fragment() {
 
 
 
-        binding.startDecode.extraOption.setOnClickListener {
+        binding.startDecode.saveButton.setOnClickListener {
+            closeAllExtraOptionLayouts()
+            binding.startDecode.spinnerEditTextsParent.visibility = View.VISIBLE
             binding.startDecode.showResponseText.visibility = View.VISIBLE
             binding.startDecode.showResponseText.setText("Please Wait...")
+
+            var surfacetexture  by Delegates.notNull<SurfaceTexture>()
+            var surfacewidth by Delegates.notNull<Int>()
+            var surfaceheight by Delegates.notNull<Int>()
 
             val state =
                     if (0 == binding.startDecode.spinnerEdittextsOption.selectedItemPosition)
                         true
                     else
                         false
-            val surfacetexture = SurfaceTexture(Integer.getInteger(binding.startDecode.extraEdittext.text.toString()))
-            val surfacewidth = Integer.getInteger(binding.startDecode.extraEdittext2.text.toString())
-            val surfaceheight =Integer.getInteger(binding.startDecode.extraEdittext3.text.toString())
+            if(TextUtils.isEmpty(binding.startDecode.extraEdittext7.text) || TextUtils.isEmpty(binding.startDecode.extraEdittext6.text) || TextUtils.isEmpty(binding.startDecode.extraEdittext8.text)) {
+                binding.startDecode.showResponseText.setText("Please enter values")
+                return@setOnClickListener
+            } else {
+                binding.startDecode.showResponseText.setText("Please Wait...")
+                 surfacetexture = SurfaceTexture(binding.startDecode.extraEdittext6.text.toString().toInt())
+                 surfacewidth = binding.startDecode.extraEdittext7.text.toString().toInt()
+                 surfaceheight =binding.startDecode.extraEdittext8.text.toString().toInt()
+            }
+
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.startDecode(surfacetexture,surfacewidth,surfaceheight,state)
                         .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -105,13 +124,20 @@ class FlightControlParameterReadingCodecFragment : Fragment() {
         binding.setOverExposure.extraOption.setOnClickListener {
             binding.setOverExposure.showResponseText.visibility = View.VISIBLE
             binding.setOverExposure.showResponseText.setText("Please Wait...")
-
+            var value by Delegates.notNull<Int>()
             val state =
                     if (0 == binding.setOverExposure.extraSpinner.selectedItemPosition)
                         true
                     else
                         false
-            val value = Integer.getInteger(binding.setOverExposure.extraEdittext.text.toString())
+            if(TextUtils.isEmpty(binding.setOverExposure.extraEdittext.text)) {
+                binding.setOverExposure.showResponseText.setText("Please enter values")
+                return@setOnClickListener
+            } else {
+                binding.startDecode.showResponseText.setText("Please Wait...")
+                value = binding.setOverExposure.extraEdittext.text.toString().toInt()
+            }
+
             lifecycleScope.launch(Dispatchers.Main) {
                 viewModel.setOverExposure(state,value)
                         .observeOnce(viewLifecycleOwner, Observer { msg ->
@@ -135,12 +161,13 @@ class FlightControlParameterReadingCodecFragment : Fragment() {
             binding.surfaceSizeChanged.showResponseText.setText("Please Wait...")
             var surfacewidth by Delegates.notNull<Int>()
             var surfaceHeight by Delegates.notNull<Int>()
-            if(TextUtils.isEmpty(binding.surfaceSizeChanged.extraEdittext.text)) {
+            if(TextUtils.isEmpty(binding.surfaceSizeChanged.extraEdittext.text) || TextUtils.isEmpty(binding.surfaceSizeChanged.extraEdittext2.text)) {
                 binding.surfaceSizeChanged.showResponseText.setText("Please enter values")
                 return@setOnClickListener
             } else {
-                surfacewidth = Integer.getInteger(binding.surfaceSizeChanged.extraEdittext.text.toString())
-                surfaceHeight = Integer.getInteger(binding.surfaceSizeChanged.extraEdittext2.text.toString())
+                binding.startDecode.showResponseText.setText("Please Wait...")
+                surfacewidth = binding.surfaceSizeChanged.extraEdittext.text.toString().toInt()
+                surfaceHeight = binding.surfaceSizeChanged.extraEdittext2.text.toString().toInt()
             }
 
             //value = Integer.parseInt(binding.rfPower.extraEdittext.text.toString()).toDouble()
@@ -300,10 +327,10 @@ class FlightControlParameterReadingCodecFragment : Fragment() {
 
     private fun closeAllExtraOptionLayouts() {
 
-        binding.startDecode.extraOptionParent.visibility = View.GONE
+        binding.startDecode.spinnerEditTextsParent.visibility = View.GONE
         binding.setOverExposure.extraOptionParent.visibility = View.GONE
         binding.surfaceSizeChanged.extraOptionParent.visibility = View.GONE
-        binding.setOverExposure.extraOptionParent.visibility=View.GONE
+        //binding.setOverExposure.extraOptionParent.visibility=View.GONE
 
         // We should hide both extraOptionLayout and Response text
         binding.startDecode.showResponseText.visibility = View.GONE
@@ -321,18 +348,6 @@ class FlightControlParameterReadingCodecFragment : Fragment() {
                 android.R.layout.simple_spinner_item
         )
         binding.setOverExposure.extraSpinner.adapter = spinnerAdapter
-        spinnerAdapter = ArrayAdapter.createFromResource(
-                requireActivity().baseContext,
-                R.array.rc_rfs,
-                android.R.layout.simple_spinner_item
-        )
-//            binding.maxHeight.extraSpinner.adapter = spinnerAdapter
-//            spinnerAdapter = ArrayAdapter.createFromResource(
-//                requireActivity().baseContext,
-//                R.array.rc_length_unit,
-//                android.R.layout.simple_spinner_item
-//            )
-//            binding.setOverExposure.extraSpinner.adapter = spinnerAdapter
 
         spinnerAdapter = ArrayAdapter.createFromResource(
                 requireActivity().baseContext,

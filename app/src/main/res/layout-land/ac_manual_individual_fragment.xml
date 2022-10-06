@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/common_16dp"
+    tools:ignore="MissingDefaultResource">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/individualRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/titleBatteryRealTimeDataListener"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_toStartOf="@+id/setBtnBatteryRealTimeDataListener"
+                        android:maxWidth="200dp"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="10dp"
+                        android:text="@string/BatteryRealTimeDataListener"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/setBtnBatteryRealTimeDataListener"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_toStartOf="@+id/viewBtnBatteryRealTimeDataListener"
+                        android:text="Set"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/viewBtnBatteryRealTimeDataListener"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginHorizontal="10dp"
+                        android:text="Reset"
+                        android:textAllCaps="false" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textViewDisplayResultBatteryRealTimeDataListener"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="4dp"
+                    android:text="Result"
+                    android:textColor="@color/black"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/titleLowBatteryNotifyThresholdEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_toStartOf="@+id/setBtnLowBatteryNotifyThresholdEdt"
+                        android:maxWidth="200dp"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="10dp"
+                        android:text="@string/LowBatteryNotifyThresholdEdt"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/setBtnLowBatteryNotifyThresholdEdt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_toStartOf="@+id/viewBtnLowBatteryNotifyThresholdEdt"
+                        android:text="@string/setUp"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/viewBtnLowBatteryNotifyThresholdEdt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginHorizontal="10dp"
+                        android:text="@string/viewUp"
+                        android:textAllCaps="false" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/inputLayoutLowBatteryNotifyThresholdEdt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_16dp"
+                    android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/editTextLowBatteryNotifyThresholdEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_toStartOf="@+id/buttonSetLowBatteryNotifyThresholdEdt"
+                        android:hint="@string/hintSetLowBatteryNotifyThresholdEdt"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        tools:ignore="MissingConstraints" />
+
+                    <Button
+                        android:id="@+id/buttonSetLowBatteryNotifyThresholdEdt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:text="Set"
+                        android:textAllCaps="false" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textViewDisplayResultLowBatteryNotifyThresholdEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="4dp"
+                    android:text="Result"
+                    android:textColor="@color/black"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/titleCriticalBatteryNotifyThresholdEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_toStartOf="@+id/setBtnCriticalBatteryNotifyThresholdEdt"
+                        android:maxWidth="200dp"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="10dp"
+                        android:text="@string/CriticalBatteryNotifyThresholdEdt"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/setBtnCriticalBatteryNotifyThresholdEdt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_toStartOf="@+id/viewBtnCriticalBatteryNotifyThresholdEdt"
+                        android:text="@string/setUp"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/viewBtnCriticalBatteryNotifyThresholdEdt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginHorizontal="10dp"
+                        android:text="@string/viewUp"
+                        android:textAllCaps="false" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/inputLayoutCriticalBatteryNotifyThresholdEdt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_16dp"
+                    android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/editTextCriticalBatteryNotifyThresholdEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_toStartOf="@+id/buttonSetCriticalBatteryNotifyThresholdEdt"
+                        android:hint="@string/hintSetCriticalBatteryNotifyThresholdEdt"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        tools:ignore="MissingConstraints" />
+
+                    <Button
+                        android:id="@+id/buttonSetCriticalBatteryNotifyThresholdEdt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:text="Set"
+                        android:textAllCaps="false" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textViewDisplayResultCriticalBatteryNotifyThresholdEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="4dp"
+                    android:text="Result"
+                    android:textColor="@color/black"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/titleDischargeDayEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_toStartOf="@+id/setBtnDischargeDayEdt"
+                        android:maxWidth="200dp"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="10dp"
+                        android:text="@string/DischargeDayEdt"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/setBtnDischargeDayEdt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_toStartOf="@+id/viewBtnDischargeDayEdt"
+                        android:text="@string/setUp"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/viewBtnDischargeDayEdt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginHorizontal="10dp"
+                        android:text="@string/viewUp"
+                        android:textAllCaps="false" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/inputLayoutDischargeDayEdt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/common_16dp"
+                    android:visibility="gone">
+
+                    <EditText
+                        android:id="@+id/editTextDischargeDayEdt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_toStartOf="@+id/buttonSetDischargeDayEdt"
+                        android:hint="@string/hintSetDischargeDayEdt"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        tools:ignore="MissingConstraints" />
+
+                    <Button
+                        android:id="@+id/buttonSetDischargeDayEdt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:text="Set"
+                        android:textAllCaps="false" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/textViewDisplayDischargeDayEdt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:padding="4dp"
+                    android:text="Result"
+                    android:textColor="@color/black"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -25,15 +25,22 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".remoteController.RemoteControllerActivity"
-            android:label="Remote Controller"
+            android:name=".battery.DFBatteryActivity"
             android:screenOrientation="landscape"
             android:exported="false" />
         <activity
-            android:name=".gimbal.GimbalActivity"
-            android:label="Gimbal Activity"
-            android:screenOrientation="landscape"
+            android:name=".mission.DFWayPointActivity"
             android:exported="false" />
+        <activity
+            android:name=".remoteController.RemoteControllerActivity"
+            android:exported="false"
+            android:label="Remote Controller"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".gimbal.GimbalActivity"
+            android:exported="false"
+            android:label="Gimbal Activity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".dsp.DspActivity"
             android:label="Dsp Activity"
@@ -41,7 +48,7 @@
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,9 +57,9 @@
         </activity>
         <activity
             android:name=".flyController.FlyControllerActivity"
+            android:exported="false"
             android:label="Fly Controller"
-            android:screenOrientation="landscape"
-            android:exported="false" />
+            android:screenOrientation="landscape" />
 
         <activity
             android:name=".codec.CodecActivity"
@@ -62,8 +69,8 @@
 
         <activity
             android:name="com.android.autelsdk.MainActivity2"
-            android:label="SDK Tester"
-            android:exported="true">
+            android:exported="true"
+            android:label="SDK Tester">
 
         </activity>
 

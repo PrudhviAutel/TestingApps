@@ -17,8 +17,11 @@ import com.android.autelsdk.event.ProductConnectEvent
 import com.android.autelsdk.remoteController.RemoteControllerViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Utils
+import com.autel.internal.album.Album10
+import com.autel.internal.album.Album20
 import com.autel.internal.remotecontroller.RemoteController10
 import com.autel.internal.remotecontroller.RemoteController20
+import com.autel.sdk.album.AutelAlbum
 import com.autel.sdk.remotecontroller.AutelRemoteController
 import org.greenrobot.eventbus.EventBus
 
@@ -49,23 +52,23 @@ class InterfaceDebuggingAlbumFragment : Fragment() {
 
     private fun handleListeners() {
 
-        binding.chooseRemoteController.viewBtn.setOnClickListener {
-            binding.chooseRemoteController.showResponseText.visibility = View.VISIBLE
-            binding.chooseRemoteController.extraOptionParent.visibility = View.GONE
-            binding.chooseRemoteController.showResponseText.setText("Currently set to ${getCurrentRemoteControllerByName(viewModel.getRemoteController())}")
+        binding.chooseAlbum.viewBtn.setOnClickListener {
+            binding.chooseAlbum.showResponseText.visibility = View.VISIBLE
+            binding.chooseAlbum.extraOptionParent.visibility = View.GONE
+            binding.chooseAlbum.showResponseText.setText("Currently set to ${getCurrentAlbumControllerByName(viewModel.getController())}")
         }
 
-        binding.chooseRemoteController.setBtn.setOnClickListener {
-            binding.chooseRemoteController.showResponseText.visibility = View.GONE
+        binding.chooseAlbum.setBtn.setOnClickListener {
+            binding.chooseAlbum.showResponseText.visibility = View.GONE
             binding.showResponseText.visibility = View.GONE
-            binding.chooseRemoteController.extraOptionParent.visibility = View.VISIBLE
+            binding.chooseAlbum.extraOptionParent.visibility = View.VISIBLE
         }
         
-        binding.chooseRemoteController.extraOption.setOnClickListener {
-            val controller = setCurrentRemoteControllerByName(binding.chooseRemoteController.extraSpinner.selectedItem.toString())
-            viewModel.setRemoteController(controller)
-            binding.chooseRemoteController.showResponseText.visibility = View.VISIBLE
-            binding.chooseRemoteController.showResponseText.setText("Currently set to ${getCurrentRemoteControllerByName(viewModel.getRemoteController())}")
+        binding.chooseAlbum.extraOption.setOnClickListener {
+            val controller = setCurrentAlbumControllerByName(binding.chooseAlbum.extraSpinner.selectedItem.toString())
+            viewModel.setController(controller)
+            binding.chooseAlbum.showResponseText.visibility = View.VISIBLE
+            binding.chooseAlbum.showResponseText.setText("Currently set to ${getCurrentAlbumControllerByName(viewModel.getController())}")
         }
 
         binding.connectDevice.setOnClickListener {
@@ -86,43 +89,43 @@ class InterfaceDebuggingAlbumFragment : Fragment() {
 
     }
 
-    private fun getCurrentRemoteControllerByName(controller : AutelRemoteController) : String {
+    private fun getCurrentAlbumControllerByName(controller : AutelAlbum) : String {
         when(controller) {
-            is RemoteController10 -> {
-                return Constants.RemoteController10
+            is Album10 -> {
+                return Constants.Album10
             }
-            is RemoteController20 -> {
-                return Constants.RemoteController20
+            is Album20 -> {
+                return Constants.Album20
             }
         }
         return ""
     }
 
-    private fun setCurrentRemoteControllerByName(name : String) : AutelRemoteController {
+    private fun setCurrentAlbumControllerByName(name : String) : AutelAlbum {
         when(name) {
-            Constants.RemoteController10 -> {
-                return RemoteController10()
+            Constants.Album10 -> {
+                return Album10()
             }
-            Constants.RemoteController20 -> {
-                return RemoteController20()
+            Constants.Album20 -> {
+                return Album20()
             }
         }
-        return viewModel.getRemoteController()
+        return viewModel.getController()
     }
 
     private fun setSpinnerItems() {
 
         var spinnerAdapter = ArrayAdapter.createFromResource(
             requireActivity().baseContext,
-            R.array.remote_controllers,
+            R.array.album_controllers,
             android.R.layout.simple_spinner_item
         )
-        binding.chooseRemoteController.extraSpinner.adapter = spinnerAdapter
+        binding.chooseAlbum.extraSpinner.adapter = spinnerAdapter
 
-        val index = context?.resources?.getStringArray(R.array.remote_controllers)?.indexOf(getCurrentRemoteControllerByName(viewModel.getRemoteController()))
+        val index = context?.resources?.getStringArray(R.array.album_controllers)?.indexOf(getCurrentAlbumControllerByName(viewModel.getController()))
 
         index?.let { index
-            binding.chooseRemoteController.extraSpinner.setSelection(index)
+            binding.chooseAlbum.extraSpinner.setSelection(index)
         }
     }
 

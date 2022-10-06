@@ -38,4 +38,8 @@ object Constants {
     //Dsp Names
     const val CruiserDsp = "Cruiser Dsp"
 
+    //Album Controller Names
+    const val Album10 = "Album 10"
+    const val Album20 = "Album 20"
+
 }

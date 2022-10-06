@@ -11,6 +11,7 @@ import com.android.autelsdk.TestApplication
 import com.android.autelsdk.album.fragments.AircraftStatusDirectCommandAlbumFragment
 import com.android.autelsdk.album.fragments.DebugLogAlbumFragment
 import com.android.autelsdk.album.fragments.FlightControlParameterReadingAlbumFragment
+import com.android.autelsdk.album.fragments.InterfaceDebuggingAlbumFragment
 import com.android.autelsdk.databinding.ActivityAlbumBinding
 import com.android.autelsdk.event.ProductConnectEvent
 import com.autel.common.product.AutelProductType
@@ -113,7 +114,7 @@ class AlbumActivity : BaseActivity<AutelAlbum>() {
             override fun productConnected(product: BaseProduct) {
                 Log.v("productType", "product " + product.type)
                 currentType = product.type
-                hasInitProductListener.compareAndSInterfaceDebuggingRCFragmentet(false, true)
+                hasInitProductListener.compareAndSet(false, true)
                 val previous: BaseProduct = (getApplicationContext() as TestApplication).getCurrentProduct()
                 (getApplicationContext() as TestApplication).setCurrentProduct(product)
                 viewModel.setCurrentProduct(product)

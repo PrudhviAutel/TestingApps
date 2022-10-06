@@ -14,6 +14,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
+import com.android.autelsdk.album.AlbumViewModel
+import com.android.autelsdk.databinding.FragmentFlightControlParameterReadingAlbumBinding
 import com.android.autelsdk.databinding.FragmentFlightControlParameterReadingDspBinding
 import com.android.autelsdk.dsp.DspViewModel
 import com.android.autelsdk.util.Constants
@@ -34,7 +36,7 @@ import kotlinx.coroutines.runBlocking
 
 class FlightControlParameterReadingAlbumFragment : Fragment() {
 
-    private lateinit var binding: FragmentFlightControlParameterReadingDspBinding
+    private lateinit var binding: FragmentFlightControlParameterReadingAlbumBinding
     private val viewModel : DspViewModel by activityViewModels()
     private var rfDataList : List<RFData> = ArrayList()
     private var fetchRFDataList = false
@@ -53,7 +55,7 @@ class FlightControlParameterReadingAlbumFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_flight_control_parameter_reading_dsp,
+            R.layout.fragment_flight_control_parameter_reading_album,
             container,
             false
         )

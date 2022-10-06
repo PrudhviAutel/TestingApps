@@ -34,6 +34,7 @@ class AlbumViewModel() : ViewModel() {
     private var currentProduct: MutableLiveData<BaseProduct?> = MutableLiveData()
     private var currentProductType: MutableLiveData<AutelProductType> = MutableLiveData(AutelProductType.UNKNOWN)
     private val albumRepository: AlbumRepository = AlbumRepositoryImpl()
+    private val mediaList : MutableLiveData<ArrayList<MediaInfo>> = MutableLiveData()
 
     fun setCurrentProduct(product : BaseProduct?) {
         setCurrentProductType(product?.type)
@@ -110,6 +111,34 @@ class AlbumViewModel() : ViewModel() {
 
     suspend fun getFMCVideoResolutionFromHttpHeader(media: MediaInfo) : MutableLiveData<Resource<VideoResolutionAndFps>> {
         return albumRepository.getFMCVideoResolutionFromHttpHeader(media)
+    }
+
+    fun setMediaListToList(mediaList: ArrayList<MediaInfo>) {
+        this.mediaList.postValue(mediaList)
+    }
+
+    fun addMediaListToList(mediaList: ArrayList<MediaInfo>) {
+        var list: ArrayList<MediaInfo> = ArrayList(this.mediaList.value)
+        list.addAll(mediaList)
+        this.mediaList.postValue(list)
+    }
+
+    fun addMediaToList(media: MediaInfo) {
+        var list: ArrayList<MediaInfo> = ArrayList(this.mediaList.value)
+        list.add(media)
+        this.mediaList.postValue(list)
+    }
+
+    fun deleteMediaFromList(media: MediaInfo) {
+        var list: ArrayList<MediaInfo> = ArrayList(this.mediaList.value)
+        list.remove(media)
+        this.mediaList.postValue(list)
+    }
+
+    fun deleteMediaListFromList(mediaList: ArrayList<MediaInfo>) {
+        var list: ArrayList<MediaInfo> = ArrayList(this.mediaList.value)
+        list.removeAll(mediaList)
+        this.mediaList.postValue(list)
     }
 
 

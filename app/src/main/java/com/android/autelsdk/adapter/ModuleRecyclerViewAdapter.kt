@@ -72,7 +72,7 @@ class ModuleRecyclerViewAdapter : RecyclerView.Adapter<ModuleViewHolder>() {
                     context.startActivity(Intent(context, DFBatteryActivity::class.java))
                 }
                 Constants.Mission -> {
-                    context.startActivity(Intent(context, DFWayPointActivity::class.java))
+                    //context.startActivity(Intent(context, DFWayPointActivity::class.java))
                 }
             }
         })

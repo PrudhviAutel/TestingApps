@@ -37,7 +37,7 @@ object Utils {
     fun getColoredText (text : String, status : String = Constants.NORMAL) : Spannable {
         var color : Int
         if (status == Constants.SUCCESS) {
-            color = Color.BLUE
+            color = Color.GREEN
 
         } else if (status == Constants.FAILED) {
             color = Color.RED

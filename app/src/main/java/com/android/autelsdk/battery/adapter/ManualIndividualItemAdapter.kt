@@ -21,7 +21,7 @@ import com.android.autelsdk.util.GeneralUtils
 import com.autel.sdk.battery.AutelBattery
 
 class ManualIndividualItemAdapter() : RecyclerView.Adapter<ManualIndividualViewHolder>() {
-    val moduleList = ArrayList<ACDataModel>()
+    private val moduleList = ArrayList<ACDataModel>()
     lateinit var context: Context
     var viewModel: BatteryViewModel? = null
 

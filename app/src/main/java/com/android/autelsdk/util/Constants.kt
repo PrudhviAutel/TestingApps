@@ -32,6 +32,9 @@ object Constants {
     const val AutelFlyController20 = "Autel FlyController 20"
     const val CruiserFlyController = "Cruiser Fly Controller"
 
+    //Codec Controller names
+    const val AutelCodec_Ranger = "AutelCodec_Ranger"
+
     //Gimbal Names
     const val CruiserGimbal = "Cruiser Gimbal"
 
@@ -41,5 +44,8 @@ object Constants {
     //Album Controller Names
     const val Album10 = "Album 10"
     const val Album20 = "Album 20"
+
+    //Gimbal Names
+    const val CruiserBattery = "Cruiser Battery"
 
 }

@@ -11,14 +11,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.FragmentDebugLogControlFcBinding
-import com.android.autelsdk.databinding.FragmentDebugLogControlRcBinding
 import com.android.autelsdk.flyController.FlyControllerViewModel
-import com.android.autelsdk.remoteController.RemoteControllerViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Status
 import com.android.autelsdk.util.Utils
 import com.autel.common.flycontroller.LedPilotLamp
-import com.autel.common.remotecontroller.*
 
 class DebugLogFCFragment : Fragment() {
 
@@ -26,7 +23,7 @@ class DebugLogFCFragment : Fragment() {
     private val viewModel : FlyControllerViewModel by activityViewModels()
 
     companion object {
-        fun newInstance() = DebugLogFCFragment()
+        fun newInstance() = DebugLogCodecFragment()
     }
 
     override fun onCreateView(

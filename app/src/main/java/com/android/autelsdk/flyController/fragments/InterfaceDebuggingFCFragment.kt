@@ -11,18 +11,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.android.autelsdk.R
 import com.android.autelsdk.databinding.FragmentInterfaceDebuggingFcBinding
-import com.android.autelsdk.databinding.FragmentInterfaceDebuggingRcBinding
 import com.android.autelsdk.event.ProductConnectEvent
 import com.android.autelsdk.flyController.FlyControllerViewModel
-import com.android.autelsdk.remoteController.RemoteControllerViewModel
 import com.android.autelsdk.util.Constants
 import com.android.autelsdk.util.Utils
-import com.autel.internal.flycontroller.AutelFlyController20
 import com.autel.internal.flycontroller.cruiser.CruiserFlyControllerImpl
-import com.autel.internal.remotecontroller.RemoteController10
-import com.autel.internal.remotecontroller.RemoteController20
 import com.autel.sdk.flycontroller.AutelFlyController
-import com.autel.sdk.remotecontroller.AutelRemoteController
 import org.greenrobot.eventbus.EventBus
 
 class InterfaceDebuggingFCFragment : Fragment() {
@@ -30,7 +24,7 @@ class InterfaceDebuggingFCFragment : Fragment() {
     private lateinit var binding: FragmentInterfaceDebuggingFcBinding
 
     companion object {
-        fun newInstance() = InterfaceDebuggingFCFragment()
+        fun newInstance() = InterfaceDebuggingCodecFragment()
     }
 
     private val viewModel: FlyControllerViewModel by activityViewModels()

@@ -6,11 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.android.autelsdk.battery.DFBatteryActivity
+import com.android.autelsdk.codec.CodecActivity
 import com.android.autelsdk.databinding.ModuleItemBinding
 import com.android.autelsdk.dsp.DspActivity
 import com.android.autelsdk.flyController.FlyControllerActivity
 import com.android.autelsdk.flyController.FlyControllerRepositoryImpl
 import com.android.autelsdk.gimbal.GimbalActivity
+import com.android.autelsdk.mission.DFWayPointActivity
 import com.android.autelsdk.remoteController.RemoteControllerActivity
 import com.android.autelsdk.util.Constants
 
@@ -20,7 +23,7 @@ class ModuleRecyclerViewAdapter : RecyclerView.Adapter<ModuleViewHolder>() {
 
 
     val moduleList = ArrayList<String>()
-    lateinit var context : Context
+    lateinit var context: Context
 
     init {
         moduleList.add(Constants.RemoteController)
@@ -61,6 +64,15 @@ class ModuleRecyclerViewAdapter : RecyclerView.Adapter<ModuleViewHolder>() {
                 }
                 Constants.Dsp -> {
                     context.startActivity(Intent(context, DspActivity::class.java))
+                }
+                Constants.Codec -> {
+                    context.startActivity(Intent(context, CodecActivity::class.java))
+                }
+                Constants.Battery -> {
+                    context.startActivity(Intent(context, DFBatteryActivity::class.java))
+                }
+                Constants.Mission -> {
+                    //context.startActivity(Intent(context, DFWayPointActivity::class.java))
                 }
             }
         })

@@ -113,6 +113,10 @@
         <item> Cruiser Fly Controller</item>
     </string-array>
 
+    <string-array name="codec">
+        <item> AutelCodec_Ranger</item>
+    </string-array>
+
     <string-array name="rc_Boolean">
         <item>True</item>
         <item>False</item>

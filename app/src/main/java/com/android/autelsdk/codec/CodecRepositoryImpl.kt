@@ -71,7 +71,7 @@ class CodecRepositoryImpl : CodecRepository {
         useOpenGL: Boolean
     ) : MutableLiveData<Resource<String>>{
         var startDecodeResult: MutableLiveData<Resource<String>> = MutableLiveData()
-        val successMessage = Utils.getSuccessShowText("For Start Decode surfaceTexture = ${surfaceTexture} , msurfaceWidth = ${mSurfaceWidth}, msurfaceHeight = ${mSurfaceHeight} useOpenGL = ${useOpenGL}", methodName = "startDecodeResult")
+        val successMessage = Utils.getSuccessShowText("For Start Decode Surface Width = ${mSurfaceWidth}, Surface Height = ${mSurfaceHeight} useOpenGL = ${useOpenGL}", methodName = "startDecodeResult")
         startDecodeResult.postValue(Resource.Companion.success(successMessage, successMessage))
         return startDecodeResult
     }
@@ -92,7 +92,7 @@ class CodecRepositoryImpl : CodecRepository {
 
     override fun surfaceSizeChanged(surfaceWidth: Int, surfaceHeight: Int) : MutableLiveData<Resource<String>> {
         var surfaceSizeChangedResult : MutableLiveData<Resource<String>> = MutableLiveData()
-        val successMessage = Utils.getSuccessShowText("For Surface Size Changed surfaceWidth = ${surfaceWidth}, surfaceHeight=${surfaceHeight}", methodName = "surfaceSizeChanged")
+        val successMessage = Utils.getSuccessShowText("For Surface Size Changed Surface Width = ${surfaceWidth}, Surface Height=${surfaceHeight}", methodName = "surfaceSizeChanged")
         surfaceSizeChangedResult.postValue(Resource.Companion.success(successMessage, successMessage))
         return surfaceSizeChangedResult
     }

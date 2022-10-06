@@ -30,11 +30,11 @@
                 app:spinnerTitle="@{`Use Open GL`}"
                 app:showExtraSpinner="@{true}"
                 app:showExtraEdittext6 ="@{true}"
-                app:extraEdittext6Hint="@{`Texture`}"
+                app:extraEdittext6Hint="@{`Surface Texture`}"
                 app:showExtraEdittext7 ="@{true}"
-                app:extraEdittext7Hint="@{`Width`}"
+                app:extraEdittext7Hint="@{`Surface Width`}"
                 app:showExtraEdittext8 ="@{true}"
-                app:extraEdittext8Hint="@{`Height`}"
+                app:extraEdittext8Hint="@{`Surface Height`}"
                 layout="@layout/item_3edittexts_spinner"
                 />
 

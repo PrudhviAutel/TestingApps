@@ -1,4 +1,4 @@
-package com.android.autelsdk.remoteController
+package com.android.autelsdk.dsp
 
 import android.os.Bundle
 import android.util.Log
@@ -8,17 +8,18 @@ import androidx.databinding.DataBindingUtil
 import com.android.autelsdk.BaseActivity
 import com.android.autelsdk.R
 import com.android.autelsdk.TestApplication
-import com.android.autelsdk.databinding.ActivityRemoteControllerBinding
+import com.android.autelsdk.databinding.ActivityDspBinding
+import com.android.autelsdk.dsp.fragments.FlightControlParameterReadingDspFragment
 import com.android.autelsdk.event.ProductConnectEvent
-import com.android.autelsdk.remoteController.fragments.AircraftStatusDirectCommandRCFragment
-import com.android.autelsdk.remoteController.fragments.DebugLogRCFragment
-import com.android.autelsdk.remoteController.fragments.FlightControlParameterReadingRCFragment
-import com.android.autelsdk.remoteController.fragments.InterfaceDebuggingRCFragment
+import com.android.autelsdk.dsp.fragments.AircraftStatusDirectCommandDspFragment
+import com.android.autelsdk.dsp.fragments.DebugLogDspFragment
+import com.android.autelsdk.dsp.fragments.InterfaceDebuggingDspFragment
 import com.autel.common.product.AutelProductType
 import com.autel.sdk.Autel
 import com.autel.sdk.ProductConnectListener
+import com.autel.sdk.dsp.AutelDsp
 import com.autel.sdk.product.BaseProduct
-import com.autel.sdk.remotecontroller.AutelRemoteController
+import com.autel.sdk.product.CruiserAircraft
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -26,13 +27,13 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 
 // On Activity Start First getCustomViewResId() is called and then onCreate() --- nothing else on Activity Creation
-class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
-    val TAG = RemoteControllerActivity::class.java.simpleName
+class DspActivity : BaseActivity<AutelDsp>() {
+    val TAG = DspActivity::class.java.simpleName
     var hasInitProductListener = AtomicBoolean(false)
     private var currentType = AutelProductType.UNKNOWN
 
-    private val viewModel: RemoteControllerViewModel by viewModels()
-    private lateinit var binding: ActivityRemoteControllerBinding
+    private val viewModel: DspViewModel by viewModels()
+    private lateinit var binding: ActivityDspBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,9 +45,9 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
         handleListeners()
         deselectAllTabs()
 
-        binding.interfaceDebug.optionParent.setBackgroundColor(ContextCompat.getColor(this@RemoteControllerActivity, R.color.blue))
+        binding.interfaceDebug.optionParent.setBackgroundColor(ContextCompat.getColor(this@DspActivity, R.color.blue))
         supportFragmentManager.beginTransaction()
-            .replace(binding.container.id, InterfaceDebuggingRCFragment())
+            .replace(binding.container.id, InterfaceDebuggingDspFragment())
             .commitNow()
 
     }
@@ -55,54 +56,53 @@ class RemoteControllerActivity : BaseActivity<AutelRemoteController>() {
 
         binding.interfaceDebug.root.setOnClickListener { v->
             deselectAllTabs()
-            binding.interfaceDebug.optionParent.setBackgroundColor(ContextCompat.getColor(this@RemoteControllerActivity, R.color.blue))
+            binding.interfaceDebug.optionParent.setBackgroundColor(ContextCompat.getColor(this@DspActivity, R.color.blue))
             supportFragmentManager.beginTransaction()
-                .replace(binding.container.id, InterfaceDebuggingRCFragment())
+                .replace(binding.container.id, InterfaceDebuggingDspFragment())
                 .commitNow()
         }
 
         binding.aircraftStatus.root.setOnClickListener { v->
             deselectAllTabs()
-            binding.aircraftStatus.optionParent.setBackgroundColor(ContextCompat.getColor(this@RemoteControllerActivity, R.color.blue))
+            binding.aircraftStatus.optionParent.setBackgroundColor(ContextCompat.getColor(this@DspActivity, R.color.blue))
             supportFragmentManager.beginTransaction()
-                .replace(binding.container.id, AircraftStatusDirectCommandRCFragment())
+                .replace(binding.container.id, AircraftStatusDirectCommandDspFragment())
                 .commitNow()
         }
 
         binding.flightControl.root.setOnClickListener { v->
             deselectAllTabs()
-            binding.flightControl.optionParent.setBackgroundColor(ContextCompat.getColor(this@RemoteControllerActivity, R.color.blue))
+            binding.flightControl.optionParent.setBackgroundColor(ContextCompat.getColor(this@DspActivity, R.color.blue))
             supportFragmentManager.beginTransaction()
-                .replace(binding.container.id, FlightControlParameterReadingRCFragment())
+                .replace(binding.container.id, FlightControlParameterReadingDspFragment())
                 .commitNow()
         }
 
         binding.debugLog.root.setOnClickListener { v->
             deselectAllTabs()
-            binding.debugLog.optionParent.setBackgroundColor(ContextCompat.getColor(this@RemoteControllerActivity, R.color.blue))
+            binding.debugLog.optionParent.setBackgroundColor(ContextCompat.getColor(this@DspActivity, R.color.blue))
             supportFragmentManager.beginTransaction()
-                .replace(binding.container.id, DebugLogRCFragment())
+                .replace(binding.container.id, DebugLogDspFragment())
                 .commitNow()
         }
 
     }
 
     private fun deselectAllTabs() {
-        binding.interfaceDebug.optionParent.setBackgroundColor(ContextCompat.getColor(this@RemoteControllerActivity, R.color.white))
-        binding.aircraftStatus.optionParent.setBackgroundColor(ContextCompat.getColor(this@RemoteControllerActivity, R.color.white))
-        binding.flightControl.optionParent.setBackgroundColor(ContextCompat.getColor(this@RemoteControllerActivity, R.color.white))
-        binding.debugLog.optionParent.setBackgroundColor(ContextCompat.getColor(this@RemoteControllerActivity, R.color.white))
+        binding.interfaceDebug.optionParent.setBackgroundColor(ContextCompat.getColor(this@DspActivity, R.color.white))
+        binding.aircraftStatus.optionParent.setBackgroundColor(ContextCompat.getColor(this@DspActivity, R.color.white))
+        binding.flightControl.optionParent.setBackgroundColor(ContextCompat.getColor(this@DspActivity, R.color.white))
+        binding.debugLog.optionParent.setBackgroundColor(ContextCompat.getColor(this@DspActivity, R.color.white))
     }
 
-    override fun initController(product: BaseProduct?): AutelRemoteController? {
-        if (product != null)
-            return product.remoteController
-
-        return null
+    override fun initController(product: BaseProduct?): AutelDsp? {
+        val cruiserDspController = (product as CruiserAircraft).dsp
+        viewModel.setController(cruiserDspController)
+        return product.dsp
     }
 
     override fun getCustomViewResId(): Int {
-        return R.layout.activity_remote_controller
+        return R.layout.activity_dsp
     }
 
     override fun initUi() {

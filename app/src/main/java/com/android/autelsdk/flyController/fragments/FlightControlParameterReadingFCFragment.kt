@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.android.autelsdk.R
+import com.android.autelsdk.codec.fragments.FlightControlParameterReadingCodecFragment
 import com.android.autelsdk.databinding.FragmentFlightControlParameterReadingFcBinding
 import com.android.autelsdk.flyController.FlyControllerViewModel
 import com.android.autelsdk.util.Constants
@@ -19,7 +20,6 @@ import com.android.autelsdk.util.Status
 import com.android.autelsdk.util.Utils
 import com.android.autelsdk.util.Utils.observeOnce
 import com.autel.common.flycontroller.LedPilotLamp
-import com.autel.common.remotecontroller.RemoteControllerParameterUnit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -30,7 +30,7 @@ class FlightControlParameterReadingFCFragment : Fragment() {
     private val viewModel : FlyControllerViewModel by activityViewModels()
 
     companion object {
-        fun newInstance() = FlightControlParameterReadingFCFragment()
+        fun newInstance() = FlightControlParameterReadingCodecFragment()
     }
 
 

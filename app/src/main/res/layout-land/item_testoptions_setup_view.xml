@@ -11,6 +11,7 @@
         <variable name="viewButtonText" type="java.lang.String"/>
         <variable name="extraOptionText" type="java.lang.String"/>
         <variable name="showExtraSpinner" type="java.lang.Boolean"/>
+        <variable name="showExtraSpinner2" type="java.lang.Boolean"/>
         <variable name="extraEdittextHint" type="java.lang.String"/>
         <variable name="extraEdittextHint2" type="java.lang.String"/>
         <variable name="showExtraEdittext" type="java.lang.Boolean"/>
@@ -69,22 +70,43 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:orientation="horizontal"
-
             android:layout_marginVertical="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title">
 
-
-
-            <Spinner
-                android:id="@+id/extraSpinner"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                tools:visibility="visible"
-                android:visibility="@{showExtraSpinner ? View.VISIBLE : View.GONE, default=gone}"
-                android:entries="@array/rc_languages" />
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/extraSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingHorizontal="10dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_marginLeft="10dp"
+                    tools:visibility="visible"
+                    android:visibility="@{showExtraSpinner ? View.VISIBLE : View.GONE, default=gone}"
+                    android:entries="@array/rc_languages" />
+
+                <Spinner
+                    android:id="@+id/extraSpinner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="5dp"
+                    android:paddingHorizontal="10dp"
+                    android:layout_marginLeft="10dp"
+                    tools:visibility="visible"
+                    android:visibility="@{showExtraSpinner2 ? View.VISIBLE : View.GONE, default=gone}"
+                    tools:entries="@array/rc_languages" />
+
+            </LinearLayout>
+
+
 
             <EditText
                 android:id="@+id/extraEdittext"
@@ -97,6 +119,7 @@
                 android:inputType="numberDecimal"
                 tools:visibility="visible"
                 android:visibility="@{showExtraEdittext ? View.VISIBLE : View.GONE, default=gone}"/>
+
             <EditText
                 android:id="@+id/extraEdittext2"
                 android:layout_width="wrap_content"

@@ -43,6 +43,11 @@
             android:label="Gimbal Activity"
             android:screenOrientation="landscape" />
         <activity
+            android:name=".dsp.DspActivity"
+            android:label="Dsp Activity"
+            android:screenOrientation="landscape"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
@@ -56,6 +61,12 @@
             android:exported="false"
             android:label="Fly Controller"
             android:screenOrientation="landscape" />
+
+        <activity
+            android:name=".codec.CodecActivity"
+            android:label="Codec"
+            android:screenOrientation="landscape"
+            android:exported="false" />
 
         <activity
             android:name="com.android.autelsdk.MainActivity2"

@@ -42,6 +42,15 @@ class DFBatteryActivity : BaseActivity<AutelBattery>() {
     }
 
     override fun initUi() {
+        binding.interfaceDebug.optionParent.setBackgroundColor(
+                ContextCompat.getColor(
+                        this@DFBatteryActivity,
+                        R.color.blue
+                )
+        )
+        supportFragmentManager.beginTransaction()
+                .replace(binding.container.id, InterfaceTest_BatteryFragment())
+                .commitNow()
         handleListeners()
     }
 
@@ -52,9 +61,10 @@ class DFBatteryActivity : BaseActivity<AutelBattery>() {
         viewModel = ViewModelProvider(this)[BatteryViewModel::class.java]
 
 
+        deselectAllTabs()
         initUi()
         handleListeners()
-        deselectAllTabs()
+
     }
 
     private fun handleListeners() {

@@ -43,9 +43,6 @@ class ManualIndividual_BatteryFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.individualRecyclerView.layoutManager = LinearLayoutManager(activity)
-        //  adapter.setContext(activity as BaseActivity<AutelBattery>)
-        // adapter.setViewModels(viewModel)
-        // binding.individualRecyclerView.adapter = adapter
         initView()
     }
 

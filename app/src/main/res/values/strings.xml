@@ -134,4 +134,12 @@
     <string name="LowBatteryNotifyThresholdEdt">LowBatteryNotifyThreshold</string>
     <string name="CriticalBatteryNotifyThresholdEdt">CriticalBatteryNotifyThreshold</string>
     <string name="DischargeDayEdt">DischargeDay</string>
+
+    <string name="setMissionManager">Mission Manager</string>
+    <string name="missionManagerListener">Mission Manager Listener</string>
+    <string name="setBattery">Battery Manager</string>
+    <string name="batteryStateListener">Battery State Listener</string>
+    <string name="setFlyController">Fly Controller</string>
+    <string name="setRemoteController">Remote Controller</string>
+
 </resources>

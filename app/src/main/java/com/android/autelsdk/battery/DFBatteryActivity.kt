@@ -49,7 +49,7 @@ class DFBatteryActivity : BaseActivity<AutelBattery>() {
         super.onCreate(savedInstanceState)
         EventBus.getDefault().register(this)
         binding = DataBindingUtil.setContentView(this, customViewResId)
-        viewModel = ViewModelProvider(this).get(BatteryViewModel::class.java)
+        viewModel = ViewModelProvider(this)[BatteryViewModel::class.java]
 
 
         initUi()

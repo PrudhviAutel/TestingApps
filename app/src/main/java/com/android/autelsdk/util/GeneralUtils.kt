@@ -44,19 +44,32 @@ class GeneralUtils {
                 )
             )*/
             list.add(ACDataModel("DischargeDayEdt", "setDischargeDayEdt"))
-          /*  list.add(ACDataModel("getDischargeDayEdt", "getDischargeDayEdt"))*/
+            /*  list.add(ACDataModel("getDischargeDayEdt", "getDischargeDayEdt"))*/
             return list
         }
 
         fun getBatteryAirCraftStatusCommandList(): ArrayList<ACDataModel> {
             var list = ArrayList<ACDataModel>()
-            val acDataModel = ACDataModel("1", "1")
-
             list.add(ACDataModel("getDischargeCount", "getDischargeCount"))
             list.add(ACDataModel("getVersion", "getVersion"))
             list.add(ACDataModel("getSerialNumber", "getSerialNumber"))
             list.add(ACDataModel("getFullChargeCapacity", "getFullChargeCapacity"))
             list.add(ACDataModel("getCellVoltageRange", "getCellVoltageRange"))
+            return list
+        }
+
+        fun getMissionAirCraftStatusCommandList(): ArrayList<ACDataModel> {
+            var list = ArrayList<ACDataModel>()
+            list.add(ACDataModel("Write Mission Test Data", "writeMissionTestData"))
+            list.add(ACDataModel("Test Way Point", "testWayPoint"))
+            list.add(ACDataModel("Test Map", "testMap"))
+            list.add(ACDataModel("Auto Check","autoCheck"))
+            list.add(ACDataModel("Prepare","prepare"))
+            list.add(ACDataModel("Start","start"))
+            list.add(ACDataModel("Pause","pause"))
+            list.add(ACDataModel("Continue","continue"))
+            list.add(ACDataModel("Cancel","cancel"))
+            list.add(ACDataModel("Download","download"))
             return list
         }
 

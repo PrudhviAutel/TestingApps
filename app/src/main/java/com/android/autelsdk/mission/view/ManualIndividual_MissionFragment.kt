@@ -10,9 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.autelsdk.battery.BatteryViewModel
 import com.android.autelsdk.battery.adapter.ManualIndividualItemAdapter
 import com.android.autelsdk.databinding.AcManualIndividualFragmentBinding
+import com.android.autelsdk.databinding.AcManualIndividualMissionFragmentBinding
 
 class ManualIndividual_MissionFragment : Fragment() {
-    lateinit var binding: AcManualIndividualFragmentBinding
+    lateinit var binding: AcManualIndividualMissionFragmentBinding
     lateinit var viewModel: BatteryViewModel
 
     companion object {
@@ -24,14 +25,13 @@ class ManualIndividual_MissionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = AcManualIndividualFragmentBinding.inflate(layoutInflater, container, false)
+        binding = AcManualIndividualMissionFragmentBinding.inflate(layoutInflater, container, false)
         viewModel = ViewModelProvider(this).get(BatteryViewModel::class.java)
         return binding.root
     }
 
-    val adapter = ManualIndividualItemAdapter()
     fun initData() {
-        binding.individualRecyclerView.layoutManager = LinearLayoutManager(activity)
-        binding.individualRecyclerView.adapter = adapter
+        /*  binding.individualRecyclerView.layoutManager = LinearLayoutManager(activity)
+          binding.individualRecyclerView.adapter = adapter*/
     }
 }

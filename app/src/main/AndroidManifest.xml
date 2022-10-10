@@ -30,6 +30,7 @@
             android:exported="false" />
         <activity
             android:name=".mission.DFWayPointActivity"
+            android:screenOrientation="landscape"
             android:exported="false" />
         <activity
             android:name=".remoteController.RemoteControllerActivity"

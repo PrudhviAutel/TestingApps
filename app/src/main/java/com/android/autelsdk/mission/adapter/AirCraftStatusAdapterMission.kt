@@ -8,12 +8,12 @@ import com.android.autelsdk.battery.data.ACDataModel
 import com.android.autelsdk.databinding.SingleTextitemBinding
 import com.android.autelsdk.util.GeneralUtils
 
-class AirCraftStatusAdapter : RecyclerView.Adapter<AirCraftStatusViewHolder>() {
+class AirCraftStatusAdapterMission : RecyclerView.Adapter<AirCraftStatusViewHolder>() {
     val moduleList = ArrayList<ACDataModel>()
     lateinit var context: Context
 
     init {
-        moduleList.addAll(GeneralUtils.getBatteryAirCraftStatusCommandList())
+        moduleList.addAll(GeneralUtils.getMissionAirCraftStatusCommandList())
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AirCraftStatusViewHolder {

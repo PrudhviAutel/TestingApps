@@ -10,13 +10,16 @@ import androidx.fragment.app.activityViewModels
 import com.android.autelsdk.R
 import com.android.autelsdk.battery.BatteryViewModel
 import com.android.autelsdk.databinding.FragmentInterfaceDebuggingGimbalBinding
+import com.android.autelsdk.databinding.FragmentInterfaceTestBatteryBinding
+import com.android.autelsdk.databinding.FragmentInterfaceTestMissionBinding
+import com.android.autelsdk.mission.DFViewModel
 
-class ManualTest_MissionFragment : Fragment() {
-    private lateinit var binding: FragmentInterfaceDebuggingGimbalBinding
-    private val viewModel: BatteryViewModel by activityViewModels()
+class InterfaceTest_MissionFragment : Fragment() {
+    private lateinit var binding: FragmentInterfaceTestMissionBinding
+    private val viewModel: DFViewModel by activityViewModels()
 
     companion object {
-        fun newInstance() = ManualTest_MissionFragment()
+        fun newInstance() = InterfaceTest_MissionFragment()
     }
 
     override fun onCreateView(
@@ -25,7 +28,7 @@ class ManualTest_MissionFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_interface_debugging_gimbal,
+            R.layout.fragment_interface_test_mission,
             container,
             false
         )

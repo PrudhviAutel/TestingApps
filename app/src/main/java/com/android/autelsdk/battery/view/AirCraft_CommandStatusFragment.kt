@@ -9,14 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.autelsdk.BaseActivity
-import com.android.autelsdk.battery.BatteryActivity
 import com.android.autelsdk.battery.BatteryViewModel
 import com.android.autelsdk.battery.adapter.AirCraftStatusAdapter
-import com.android.autelsdk.battery.adapter.ManualIndividualViewHolder
 import com.android.autelsdk.databinding.AcStatusCommandFragmentBinding
-import com.android.autelsdk.util.Utils.observeOnce
-import com.autel.common.CallbackWithOneParam
-import com.autel.common.error.AutelError
 import com.autel.common.product.AutelProductType
 import com.autel.sdk.battery.AutelBattery
 

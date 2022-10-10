@@ -31,8 +31,9 @@ import com.autel.util.log.AutelLog
 import io.reactivex.Observable
 import java.util.*
 
-class DFViewModel(val context: Context) : ViewModel() {
+class DFViewModel : ViewModel() {
 
+    lateinit var context: Context
     var flyState = FlyState.None
     val filePath = FileUtils.getMissionFilePath().toString() + "mission.aut"
     var autelMission: CruiserWaypointMission? = null
@@ -48,8 +49,8 @@ class DFViewModel(val context: Context) : ViewModel() {
         Prepare, Start, Pause, None
     }
 
-    init {
-        val product: BaseProduct = (context as TestApplication).getCurrentProduct()
+     fun initializeData() {
+        val product: BaseProduct = (context as TestApplication).currentProduct
         if (null != product && product.type == AutelProductType.DRAGONFISH) {
             missionManager = product.missionManager
             missionManager?.setRealTimeInfoListener(object : CallbackWithOneParam<RealTimeInfo> {
@@ -113,6 +114,10 @@ class DFViewModel(val context: Context) : ViewModel() {
         })
         AutelLog.d("init missionManager$missionManager")
         initData()
+    }
+
+    fun setContexts(context: Context) {
+        this.context = context
     }
 
     private fun initData() {
@@ -247,5 +252,6 @@ class DFViewModel(val context: Context) : ViewModel() {
                 })
         }
     }
+
 }
 

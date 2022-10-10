@@ -5,20 +5,29 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import com.android.autelsdk.BaseActivity
 import com.android.autelsdk.R
 import com.android.autelsdk.TestApplication
 import com.android.autelsdk.databinding.ActivityDfwayPointBinding
+import com.android.autelsdk.event.ProductConnectEvent
 import com.android.autelsdk.mission.view.AirCraftMission_CommandStatusFragment
 import com.android.autelsdk.mission.view.AutoTest_MissionFragment
 import com.android.autelsdk.mission.view.InterfaceTest_MissionFragment
 import com.android.autelsdk.mission.view.ManualIndividual_MissionFragment
+import com.autel.common.mission.AutelMission
 import com.autel.common.product.AutelProductType
 import com.autel.sdk.Autel
 import com.autel.sdk.ProductConnectListener
+import com.autel.sdk.battery.CruiserBattery
+import com.autel.sdk.flycontroller.CruiserFlyController
+import com.autel.sdk.mission.MissionManager
 import com.autel.sdk.product.BaseProduct
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.concurrent.atomic.AtomicBoolean
 
-class DFWayPointActivity : AppCompatActivity() {
+class DFWayPointActivity : BaseActivity<AutelMission>() {
     lateinit var viewModel: DFViewModel
     lateinit var binding: ActivityDfwayPointBinding
 
@@ -28,12 +37,11 @@ class DFWayPointActivity : AppCompatActivity() {
         binding = ActivityDfwayPointBinding.inflate(layoutInflater)
         viewModel = ViewModelProvider(this)[DFViewModel::class.java]
         viewModel.setContexts(applicationContext)
-        viewModel.initializeData()
         setContentView(binding.root)
-
 
         handleListeners()
         deselectAllTabs()
+        viewModel.initializeData()
     }
 
     private fun handleListeners() {
@@ -141,5 +149,36 @@ class DFWayPointActivity : AppCompatActivity() {
                 //  viewModel.setCurrentProduct(null)
             }
         })
+    }
+
+    override fun initController(product: BaseProduct?): AutelMission? {
+        viewModel.missionManager = product!!.missionManager
+        viewModel.battery = product!!.battery as CruiserBattery
+        viewModel.mEvoFlyController = product!!.flyController as CruiserFlyController?
+        viewModel.setProducts(product)
+        return product!!.missionManager.currentMission
+    }
+
+    override fun getCustomViewResId(): Int {
+        return R.layout.activity_dfway_point
+    }
+
+    override fun initUi() {
+        handleListeners()
+        deselectAllTabs()
+        viewModel.initializeData()
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onProductConnectEvent(event: ProductConnectEvent?) {
+        if (event != null) {
+            connectProduct()
+        }
+    }
+
+    override fun onDestroy() {
+        EventBus.getDefault().unregister(this)
+        super.onDestroy()
     }
 }

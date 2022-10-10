@@ -20,6 +20,8 @@ import com.autel.common.mission.cruiser.CruiserWaypointFinishedAction
 import com.autel.common.mission.cruiser.CruiserWaypointMission
 import com.autel.common.product.AutelProductType
 import com.autel.common.remotecontroller.RemoteControllerInfo
+import com.autel.internal.battery.cruiser.CruiserBatteryImpl
+import com.autel.internal.flycontroller.cruiser.CruiserFlyControllerImpl
 import com.autel.internal.sdk.mission.cruiser.CruiserWaypointRealTimeInfoImpl
 import com.autel.sdk.battery.CruiserBattery
 import com.autel.sdk.flycontroller.CruiserFlyController
@@ -36,84 +38,95 @@ class DFViewModel : ViewModel() {
     lateinit var context: Context
     var flyState = FlyState.None
     val filePath = FileUtils.getMissionFilePath().toString() + "mission.aut"
-    var autelMission: CruiserWaypointMission? = null
-    var mEvoFlyController: CruiserFlyController? = null
-    var battery: CruiserBattery? = null
-    var remoteController: AutelRemoteController? = null
-    var missionManager: MissionManager? = null
     var isDroneCheckFinish = false
     var isDroneOk = false
     var TAG = "DFWayPointActivity"
+
+    private var autelMission: CruiserWaypointMission? = null
+    var mEvoFlyController: CruiserFlyController? = CruiserFlyControllerImpl()
+    var battery: CruiserBattery? = CruiserBatteryImpl()
+    var remoteController: AutelRemoteController? = null
+    var missionManager: MissionManager? = null
+
 
     enum class FlyState {
         Prepare, Start, Pause, None
     }
 
-     fun initializeData() {
-        val product: BaseProduct = (context as TestApplication).currentProduct
-        if (null != product && product.type == AutelProductType.DRAGONFISH) {
-            missionManager = product.missionManager
-            missionManager?.setRealTimeInfoListener(object : CallbackWithOneParam<RealTimeInfo> {
-                override fun onSuccess(realTimeInfo: RealTimeInfo) {
-                    val info = realTimeInfo as CruiserWaypointRealTimeInfoImpl
-                    AutelLog.d(
-                        "MissionRunning",
-                        "timeStamp:" + info.timeStamp + ",speed:" + info.speed + ",isArrived:" + info.isArrived +
-                                ",isDirecting:" + info.isDirecting + ",waypointSequence:" + info.waypointSequence + ",actionSequence:" + info.actionSequence +
-                                ",photoCount:" + info.photoCount + ",MissionExecuteState:" + info.executeState + ",missionID:" + info.missionID
-                    )
+    lateinit var product: BaseProduct
+    fun setProducts(product: BaseProduct) {
+        this.product = product
+    }
+
+    fun initializeData() {
+        // val product: BaseProduct = (context as TestApplication).currentProduct
+        if (this::product.isInitialized) {
+            if (null != product && product.type == AutelProductType.DRAGONFISH) {
+                missionManager = product.missionManager
+                missionManager?.setRealTimeInfoListener(object :
+                    CallbackWithOneParam<RealTimeInfo> {
+                    override fun onSuccess(realTimeInfo: RealTimeInfo) {
+                        val info = realTimeInfo as CruiserWaypointRealTimeInfoImpl
+                        AutelLog.d(
+                            "MissionRunning",
+                            "timeStamp:" + info.timeStamp + ",speed:" + info.speed + ",isArrived:" + info.isArrived +
+                                    ",isDirecting:" + info.isDirecting + ",waypointSequence:" + info.waypointSequence + ",actionSequence:" + info.actionSequence +
+                                    ",photoCount:" + info.photoCount + ",MissionExecuteState:" + info.executeState + ",missionID:" + info.missionID
+                        )
+                    }
+
+                    override fun onFailure(autelError: AutelError) {}
+                })
+            }
+
+            battery = product.battery as CruiserBattery
+            battery?.getLowBatteryNotifyThreshold(object : CallbackWithOneParam<Float?> {
+                override fun onSuccess(aFloat: Float?) {
+                    //  lowBatteryPercent = aFloat;
                 }
 
                 override fun onFailure(autelError: AutelError) {}
             })
-        }
+            battery?.setBatteryStateListener(object : CallbackWithOneParam<CruiserBatteryInfo> {
+                override fun onSuccess(batteryState: CruiserBatteryInfo) {
+                    AutelLog.d(" batteryState " + batteryState.remainingPercent)
+                    //  isBatteryOk = batteryState.getRemainingPercent() > lowBatteryPercent;
+                }
 
-        battery = product.battery as CruiserBattery
-        battery?.getLowBatteryNotifyThreshold(object : CallbackWithOneParam<Float?> {
-            override fun onSuccess(aFloat: Float?) {
-                //  lowBatteryPercent = aFloat;
-            }
+                override fun onFailure(autelError: AutelError) {}
+            })
 
-            override fun onFailure(autelError: AutelError) {}
-        })
-        battery?.setBatteryStateListener(object : CallbackWithOneParam<CruiserBatteryInfo> {
-            override fun onSuccess(batteryState: CruiserBatteryInfo) {
-                AutelLog.d(" batteryState " + batteryState.remainingPercent)
-                //  isBatteryOk = batteryState.getRemainingPercent() > lowBatteryPercent;
-            }
-
-            override fun onFailure(autelError: AutelError) {}
-        })
-
-        mEvoFlyController = product.flyController as CruiserFlyController
-        mEvoFlyController?.setFlyControllerInfoListener(object :
-            CallbackWithOneParam<CruiserFlyControllerInfo?> {
-            override fun onSuccess(evoFlyControllerInfo: CruiserFlyControllerInfo?) {
-                if (null != evoFlyControllerInfo && null != evoFlyControllerInfo.flyControllerStatus) {
-                    val safeCheck = evoFlyControllerInfo.flyControllerStatus.safeCheck
-                    //飞行器自检完成
-                    if (safeCheck == SafeCheck.COMPLETE) {
-                        if (!isDroneCheckFinish) {
-                            isDroneCheckFinish = true
-                            getAutoCheckResult(ModelType.ALL)
+            mEvoFlyController = product.flyController as CruiserFlyController
+            mEvoFlyController?.setFlyControllerInfoListener(object :
+                CallbackWithOneParam<CruiserFlyControllerInfo?> {
+                override fun onSuccess(evoFlyControllerInfo: CruiserFlyControllerInfo?) {
+                    if (null != evoFlyControllerInfo && null != evoFlyControllerInfo.flyControllerStatus) {
+                        val safeCheck = evoFlyControllerInfo.flyControllerStatus.safeCheck
+                        //飞行器自检完成
+                        if (safeCheck == SafeCheck.COMPLETE) {
+                            if (!isDroneCheckFinish) {
+                                isDroneCheckFinish = true
+                                getAutoCheckResult(ModelType.ALL)
+                            }
                         }
                     }
                 }
-            }
 
-            override fun onFailure(autelError: AutelError) {}
-        })
+                override fun onFailure(autelError: AutelError) {}
+            })
 
-        remoteController = product.remoteController
-        remoteController?.setInfoDataListener(object : CallbackWithOneParam<RemoteControllerInfo?> {
-            override fun onSuccess(remoteControllerInfo: RemoteControllerInfo?) {
-                //isImageTransOk = remoteControllerInfo.getDSPPercentage() >= 30;
-            }
+            remoteController = product.remoteController
+            remoteController?.setInfoDataListener(object :
+                CallbackWithOneParam<RemoteControllerInfo?> {
+                override fun onSuccess(remoteControllerInfo: RemoteControllerInfo?) {
+                    //isImageTransOk = remoteControllerInfo.getDSPPercentage() >= 30;
+                }
 
-            override fun onFailure(autelError: AutelError) {}
-        })
-        AutelLog.d("init missionManager$missionManager")
-        initData()
+                override fun onFailure(autelError: AutelError) {}
+            })
+            AutelLog.d("init missionManager$missionManager")
+            initData()
+        }
     }
 
     fun setContexts(context: Context) {

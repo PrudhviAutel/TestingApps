@@ -1,5 +1,6 @@
 package com.android.autelsdk.mission.view
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,7 +32,40 @@ class AirCraftMission_CommandStatusFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(DFViewModel::class.java)
 
         binding.recyclerCommandList.layoutManager = LinearLayoutManager(activity)
+        adapter.setViewModels(viewModel)
         binding.recyclerCommandList.adapter = adapter
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.result.observe(viewLifecycleOwner) {
+            if (it.status) {
+                setSuccessResult(it.value)
+            } else {
+                setFailureResult(it.value)
+            }
+        }
+        viewModel.isLoading.observe(viewLifecycleOwner) {
+            setLoadingResult()
+        }
+    }
+    fun setSuccessResult(value: String) {
+        binding.testResults.text = value
+        binding.testResults.setTextColor(Color.parseColor("#00ff00"))
+        binding.testResults.visibility = View.VISIBLE
+    }
+
+    fun setFailureResult(value: String) {
+        binding.testResults.text = value
+        binding.testResults.setTextColor(Color.parseColor("#ff0000"))
+        binding.testResults.visibility = View.VISIBLE
+    }
+
+    fun setLoadingResult() {
+        var value = "Please wait..."
+        binding.testResults.text = value
+        binding.testResults.setTextColor(Color.parseColor("#000000"))
+        binding.testResults.visibility = View.VISIBLE
     }
 }

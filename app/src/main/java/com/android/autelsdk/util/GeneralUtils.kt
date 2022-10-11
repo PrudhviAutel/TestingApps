@@ -62,12 +62,12 @@ class GeneralUtils {
             var list = ArrayList<ACDataModel>()
             list.add(ACDataModel("Write Mission Test Data", "writeMissionTestData"))
             list.add(ACDataModel("Test Way Point", "testWayPoint"))
-            list.add(ACDataModel("Test Map", "testMap"))
-            list.add(ACDataModel("Auto Check","autoCheck"))
+            list.add(ACDataModel("Test Map", "testMap"))/*
+            list.add(ACDataModel("Auto Check","autoCheck"))*/
             list.add(ACDataModel("Prepare","prepare"))
             list.add(ACDataModel("Start","start"))
-            list.add(ACDataModel("Pause","pause"))
-            list.add(ACDataModel("Continue","continue"))
+            list.add(ACDataModel("Pause","pause"))/*
+            list.add(ACDataModel("Continue","continue"))*/
             list.add(ACDataModel("Cancel","cancel"))
             list.add(ACDataModel("Download","download"))
             return list

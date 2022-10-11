@@ -33,7 +33,7 @@ class ModuleRecyclerViewAdapter : RecyclerView.Adapter<ModuleViewHolder>() {
         moduleList.add(Constants.Album)
         moduleList.add(Constants.Dsp)
         moduleList.add(Constants.Mission)
-        moduleList.add(Constants.Evo2_Mission)
+     //   moduleList.add(Constants.Evo2_Mission)
         moduleList.add(Constants.Battery)
         moduleList.add(Constants.Camera)
         moduleList.add(Constants.RTK)

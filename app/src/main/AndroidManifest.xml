@@ -25,13 +25,16 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".battery.DFBatteryActivity"
-            android:screenOrientation="landscape"
+            android:name=".DFCameraActivity"
             android:exported="false" />
         <activity
+            android:name=".battery.DFBatteryActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+        <activity
             android:name=".mission.DFWayPointActivity"
-            android:screenOrientation="landscape"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".remoteController.RemoteControllerActivity"
             android:exported="false"
@@ -44,9 +47,9 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".dsp.DspActivity"
+            android:exported="false"
             android:label="Dsp Activity"
-            android:screenOrientation="landscape"
-            android:exported="false" />
+            android:screenOrientation="landscape" />
         <activity
             android:name=".HomeActivity"
             android:exported="true">
@@ -61,19 +64,15 @@
             android:exported="false"
             android:label="Fly Controller"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".codec.CodecActivity"
+            android:exported="false"
             android:label="Codec"
-            android:screenOrientation="landscape"
-            android:exported="false" />
-
+            android:screenOrientation="landscape" />
         <activity
             android:name="com.android.autelsdk.MainActivity2"
             android:exported="true"
-            android:label="SDK Tester">
-
-        </activity>
+            android:label="SDK Tester"></activity>
 
         <receiver
             android:name="com.android.autelsdk.UsbBroadCastReceiver"

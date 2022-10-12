@@ -235,14 +235,19 @@ class DFViewModel : ViewModel() {
                     }
 
                     override fun onFailure(autelError: AutelError) {
-                        harnessResult = HarnessResult("setMissionManagerListener() " + autelError.description, false)
+                        harnessResult = HarnessResult(
+                            "setMissionManagerListener() " + autelError.description,
+                            false
+                        )
                     }
                 })
             } else {
-                harnessResult = HarnessResult("setMissionManagerListener() product not connected", false)
+                harnessResult =
+                    HarnessResult("setMissionManagerListener() product not connected", false)
             }
         } else {
-            harnessResult = HarnessResult("setMissionManagerListener() product not connected", false)
+            harnessResult =
+                HarnessResult("setMissionManagerListener() product not connected", false)
         }
 
         return harnessResult
@@ -258,18 +263,26 @@ class DFViewModel : ViewModel() {
                     override fun onSuccess(batteryState: CruiserBatteryInfo) {
                         AutelLog.d(" batteryState " + batteryState.remainingPercent)
                         harnessResult =
-                            HarnessResult("setBatteryManagerListener() batteryState " + batteryState.remainingPercent, true)
+                            HarnessResult(
+                                "setBatteryManagerListener() batteryState " + batteryState.remainingPercent,
+                                true
+                            )
                     }
 
                     override fun onFailure(autelError: AutelError) {
-                        harnessResult = HarnessResult("setBatteryManagerListener()" + autelError.description, false)
+                        harnessResult = HarnessResult(
+                            "setBatteryManagerListener()" + autelError.description,
+                            false
+                        )
                     }
                 })
             } else {
-                harnessResult = HarnessResult("setBatteryManagerListener() product not connected", false)
+                harnessResult =
+                    HarnessResult("setBatteryManagerListener() product not connected", false)
             }
         } else {
-            harnessResult = HarnessResult("setBatteryManagerListener() product not connected", false)
+            harnessResult =
+                HarnessResult("setBatteryManagerListener() product not connected", false)
         }
 
         return harnessResult
@@ -295,10 +308,12 @@ class DFViewModel : ViewModel() {
                     }
                 })
             } else {
-                harnessResult = HarnessResult("getLowBatteryNotifyThreshold() product not connected", false)
+                harnessResult =
+                    HarnessResult("getLowBatteryNotifyThreshold() product not connected", false)
             }
         } else {
-            harnessResult = HarnessResult("getLowBatteryNotifyThreshold() product not connected", false)
+            harnessResult =
+                HarnessResult("getLowBatteryNotifyThreshold() product not connected", false)
         }
 
         return harnessResult
@@ -424,7 +439,8 @@ class DFViewModel : ViewModel() {
                 object : CallbackWithOneParamProgress<Boolean?> {
                     override fun onProgress(v: Float) {
                         AutelLog.d(TAG, " prepareMission onProgress $v")
-                        harnessResult = HarnessResult("doPrepare() prepareMission onProgress $v", true)
+                        harnessResult =
+                            HarnessResult("doPrepare() prepareMission onProgress $v", true)
                     }
 
                     override fun onSuccess(p0: Boolean?) {
@@ -740,7 +756,10 @@ class DFViewModel : ViewModel() {
         val plusList: List<AutelCoordinate3D> = result.plusList //两个航点间加号的纬度、经度
         AutelLog.d("NativeHelper", " result " + result.area + " " + result.errorCode)
 
-        return HarnessResult("testMapping() result " + result.area + " " + result.errorCode, true)
+        return HarnessResult(
+            "testMapping() : Area = " + result.area + " Result Code =" + result.errorCode,
+            true
+        )
     }
 
     fun download(): HarnessResult {

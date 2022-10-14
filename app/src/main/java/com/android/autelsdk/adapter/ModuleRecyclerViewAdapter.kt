@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.android.autelsdk.battery.DFBatteryActivity
+import com.android.autelsdk.camera.DFCameraActivity
 import com.android.autelsdk.codec.CodecActivity
 import com.android.autelsdk.databinding.ModuleItemBinding
 import com.android.autelsdk.dsp.DspActivity
@@ -33,7 +34,7 @@ class ModuleRecyclerViewAdapter : RecyclerView.Adapter<ModuleViewHolder>() {
         moduleList.add(Constants.Album)
         moduleList.add(Constants.Dsp)
         moduleList.add(Constants.Mission)
-     //   moduleList.add(Constants.Evo2_Mission)
+        //   moduleList.add(Constants.Evo2_Mission)
         moduleList.add(Constants.Battery)
         moduleList.add(Constants.Camera)
         moduleList.add(Constants.RTK)
@@ -73,6 +74,9 @@ class ModuleRecyclerViewAdapter : RecyclerView.Adapter<ModuleViewHolder>() {
                 }
                 Constants.Mission -> {
                     context.startActivity(Intent(context, DFWayPointActivity::class.java))
+                }
+                Constants.Camera -> {
+                    context.startActivity(Intent(context, DFCameraActivity::class.java))
                 }
             }
         })
